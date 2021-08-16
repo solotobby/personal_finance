@@ -87,10 +87,13 @@ class BudgetController extends Controller
      * @param  \App\Models\Budget  $budget
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Budget $budget)
+    public function destroy($id)
     {
-        //
+        dd($id);
+        Budget::find($id)->delete();
+        return back()->with('success', 'Budget Deleted Successfully');
     }
+
 
     public function viewBudget()
     {
@@ -110,4 +113,13 @@ class BudgetController extends Controller
             return back()->with('error', 'Budget could not be completed');
         }
     }
+
+    public function remove($id)
+    {
+       $budget = Budget::where('id', $id)->first();//find($id)->delete();
+        $budget->delete();
+        return back()->with('success', 'Budget Deleted Successfully');
+    }
+
+
 }

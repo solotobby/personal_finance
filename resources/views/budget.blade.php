@@ -41,7 +41,7 @@
                             @endif
 
 
-                        <form method="POST" action="{{ route('store.budget') }}">
+                        <form method="POST" action="{{ url('budget') }}">
                             @csrf
 
                             <div class="form-group">
@@ -104,6 +104,7 @@
                             </div>
                         </form>
                         <hr>
+                            <h5>Total - &#8358; {{number_format($budgets->sum('amount'))}}</h5>
                         <table class="table table-hover">
                             <thead>
                             <tr>
@@ -126,20 +127,25 @@
                                     <td>{{$cate->name}}</td>
                                     <td>{{$cate->type}}</td>
                                     <td>{{$cate->month}} {{ \Carbon\Carbon::parse($cate->create_at)->format('Y') }}</td>
-                                    <td>{{number_format($cate->amount)}}</td>
+                                    <td>&#8358; {{number_format($cate->amount)}}</td>
                                     <td>
 
                                         @if($cate->status == '1')
                                             <i class="badge badge-success badge-pill">Completed on {{ \Carbon\Carbon::parse($cate->updated_at)->format('d M Y') }}</i>
                                         @else
-
+                                            <i class="badge badge-info badge-pill">Not Done</i>
                                         @endif
                                     </td>
-                                    <td>@if($cate->status == '1')
+                                    <td>
+                                        @if($cate->status == '1')
                                             <a href="" disabled="" class="btn btn-warning btn-sm">Done</a>
+
                                             @else
-                                        <a href="{{url('mark/'.$cate->id)}}" class="btn btn-primary btn-sm">Mark Done</a>
+                                            <a href="{{url('mark/'.$cate->id)}}" class="btn btn-primary btn-sm">Mark Done</a>
+
+                                            <a href="{{ url('delete/budget/'.$cate->id) }}" class="btn btn-danger btn-sm">Remove</a>
                                             @endif
+
                                     </td>
                                 </tr>
                             @endforeach

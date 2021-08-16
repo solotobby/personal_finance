@@ -37,6 +37,22 @@
                             &#8358;{{number_format($tran->where('category', 'Expenses')->sum('amount'))}}
                         </div>
                     </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h4>Total Budgets</h4>
+                                &#8358; {{number_format($budgets->sum('amount'))}}
+                            </div>
+                            <div class="col-md-4">
+                                <h4>Completed Budgets</h4>
+                                &#8358; {{number_format($budgets->where('status', true)->sum('amount'))}}
+                            </div>
+
+                            <div class="col-md-4">
+                                <h4>Uncompleted Budgets</h4>
+                                &#8358; {{number_format($budgets->sum('amount') - $budgets->where('status', true)->sum('amount'))}}
+                            </div>
+                        </div>
                     <hr>
                     <div class="row">
                         <div class="col-lg-12">

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BudgetController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,9 @@ Route::get('/categories', [App\Http\Controllers\CategoriesController::class, 'in
 Route::post('/category', [App\Http\Controllers\CategoriesController::class, 'store']);//->name('home');
 Route::post('/transaction', [App\Http\Controllers\TransactionController::class, 'store']);//->name('home');
 Route::get('/budget', [App\Http\Controllers\BudgetController::class, 'index']);//->name('home');
-Route::post('create/budget', [App\Http\Controllers\BudgetController::class, 'store'])->name('store.budget');
-Route::get('view/budget', [App\Http\Controllers\BudgetController::class, 'viewBudget']);//->name('store.budget');
+Route::resource('budget', BudgetController::class);
+//Route::post('create/budget', [App\Http\Controllers\BudgetController::class, 'store'])->name('store.budget');
+//Route::get('view/budget', [App\Http\Controllers\BudgetController::class, 'viewBudget']);//->name('store.budget');
 Route::get('mark/{id}', [App\Http\Controllers\BudgetController::class, 'markDone']);//->name('store.budget');
+Route::get('delete/budget/{id}', [App\Http\Controllers\BudgetController::class, 'remove']);//->name('store.budget');
+//Route::get('delete/budget/{id}', [App\Http\Controllers\BudgetController::class, 'destroy']);//->name('store.budget');
