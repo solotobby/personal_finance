@@ -59,6 +59,13 @@
                         </tbody>
                     </table>
 
+                    <div class="d-flex justify-content-center">
+                        {!! $transactions->links() !!}
+                    </div>
+{{--                    <ul class="pagination">--}}
+{{--                        {{$transactions->links()}}--}}
+{{--                    </ul>--}}
+
                 </div>
             </div>
         </div>
