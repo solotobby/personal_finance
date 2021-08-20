@@ -24,7 +24,7 @@ class CreateBudgetsTable extends Migration
             $table->text('description');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('budgets')
+            $table->foreign('user_id')->references('id')->on('users')
                 ->cascadeOnDelete()->cascadeOnUpdate();
         });
 
