@@ -30,4 +30,4 @@ Route::resource('budget', BudgetController::class);
 //Route::get('view/budget', [App\Http\Controllers\BudgetController::class, 'viewBudget']);//->name('store.budget');
 Route::get('mark/{id}', [App\Http\Controllers\BudgetController::class, 'markDone']);//->name('store.budget');
 Route::get('delete/budget/{id}', [App\Http\Controllers\BudgetController::class, 'remove']);//->name('store.budget');
-//Route::get('delete/budget/{id}', [App\Http\Controllers\BudgetController::class, 'destroy']);//->name('store.budget');
+Route::get('all/transactions', [App\Http\Controllers\TransactionController::class, 'index']);//->name('store.budget');

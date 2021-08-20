@@ -60,7 +60,8 @@
                                 Add Transaction
                             </button>
 
-                            <a href="{{ url('budget') }}" class="btn btn-primary">Create Budget</a>
+                            <a href="{{ url('budget') }}" class="btn btn-primary">Create/View Budget</a>
+                            <a href="{{ url('all/transactions') }}" class="btn btn-primary">All Transactions</a>
                         </div>
                         <br><br>
 
