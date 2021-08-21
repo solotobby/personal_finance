@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function index()
     {
         $categories = Categories::all();
-        $transactions = Transaction::orderBy('created_at', 'DESC')->paginate('10');
+        $transactions = Transaction::where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->paginate('30');
         $tran = Transaction::where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->get();//all();
         $budgets = Budget::where('user_id', auth()->user()->id)->get();
         return view('home', ['categories' => $categories, 'transactions' => $transactions, 'tran' =>$tran, 'budgets' => $budgets]);
