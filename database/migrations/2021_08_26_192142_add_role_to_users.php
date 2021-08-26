@@ -14,7 +14,7 @@ class AddRoleToUsers extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('role');
+            $table->string('role')->default('regular')->after('email');
         });
     }
 
@@ -26,7 +26,7 @@ class AddRoleToUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('role');
+            $table->dropColumn('role');
         });
     }
 }

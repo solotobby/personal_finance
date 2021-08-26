@@ -38,7 +38,7 @@
 
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
 
-                <h1 style="color: #95999c">Welcome to {{ config('app.name', 'Personal Finance') }}.</h1>
+                <h1 style="color: #95999c">Admin Created!</h1>
 
             </div>
         </div>
