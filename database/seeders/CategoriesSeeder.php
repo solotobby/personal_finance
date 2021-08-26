@@ -14,8 +14,15 @@ class CategoriesSeeder extends Seeder
      */
     public function run()
     {
-        $cat1 = Categories::create(['name' => 'Income', 'type' => 'Credit']);
-        $cat2 = Categories::create(['name' => 'Expenses', 'type' => 'Debit']);
-        $cat3 = Categories::create(['name' => 'Savings']);
+        $categories = [
+            ['id' => 1, 'name' => 'Income', 'type' => 'Credit'],
+            ['id' => 2, 'name' => 'Expenses', 'type' => 'Debit'],
+            ['id' => 3, 'name' => 'Savings', 'type' => 'Credit']
+        ];
+
+        foreach($categories as $category)
+        {
+            Categories::firstOrCreate($category);
+        }
     }
 }
