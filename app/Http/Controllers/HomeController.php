@@ -26,6 +26,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $user = auth()->user();
+        if($user->hasRole('admin')){
+            return redirect('user');
+        }
         $categories = Categories::all();
         $transactions = Transaction::where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->paginate('30');
         $tran = Transaction::where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->get();//all();
