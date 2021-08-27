@@ -48,13 +48,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 Route::middleware(['admin.created','auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('/categories', [App\Http\Controllers\CategoriesController::class, 'index']);//->name('home');
-    Route::post('/category', [App\Http\Controllers\CategoriesController::class, 'store']);//->name('home');
-    Route::post('/transaction', [App\Http\Controllers\TransactionController::class, 'store']);//->name('home');
+    Route::get('/categories', [App\Http\Controllers\CategoriesController::class, 'index']);
+    Route::post('/category', [App\Http\Controllers\CategoriesController::class, 'store']);
+    Route::post('/transaction', [App\Http\Controllers\TransactionController::class, 'store']);
     Route::resource('budget', App\Http\Controllers\BudgetController::class);
-    //Route::post('create/budget', [App\Http\Controllers\BudgetController::class, 'store'])->name('store.budget');
-    //Route::get('view/budget', [App\Http\Controllers\BudgetController::class, 'viewBudget']);//->name('store.budget');
-    Route::get('mark/{id}', [App\Http\Controllers\BudgetController::class, 'markDone']);//->name('store.budget');
-    Route::get('delete/budget/{id}', [App\Http\Controllers\BudgetController::class, 'remove']);//->name('store.budget');
-    Route::get('all/transactions', [App\Http\Controllers\TransactionController::class, 'index']);//->name('store.budget');
+    Route::get('mark/{id}', [App\Http\Controllers\BudgetController::class, 'markDone']);
+    Route::get('delete/budget/{id}', [App\Http\Controllers\BudgetController::class, 'remove']);
+    Route::get('all/transactions', [App\Http\Controllers\TransactionController::class, 'index']);
+    Route::get('filter/transaction', [App\Http\Controllers\TransactionController::class, 'filter']);
 });
