@@ -14,10 +14,21 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $transactions = Transaction::where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->paginate(50);
-        return view('transactions', ['transactions' => $transactions]);
+        
+        if(isset($request->from) && isset($request->to)) {
+            $to = $request->to;
+            $from = $request->from;
+            $transactions = Transaction::where('user_id', auth()->user()->id)->whereBetween('transaction_date', [$from, $to])
+            ->orderBy('created_at', 'DESC')->paginate(1000);
+        }else{
+            $from = \Carbon\Carbon::now();
+            $to = \Carbon\Carbon::now()->format('d/m/y');
+            $transactions = Transaction::where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->paginate(50);
+        }
+        return view('transactions', ['transactions' => $transactions, 'from' => $from, 'to' => $to]);
+
     }
 
     /**
@@ -93,5 +104,18 @@ class TransactionController extends Controller
     public function destroy(Transaction $transaction)
     {
         //
+    }
+
+    public function filter(Request $request)
+    {
+        if(isset($request->from) && isset($request->to)) {
+            $to = $request->to;
+            $from = $request->from;
+            $transactions = Transaction::where('user_id', auth()->user()->id)->whereBetween('created_at', [$from, $to])
+            ->orderBy('created_at', 'DESC')->get();
+        }else{}
+
+        return view('transactions', ['transactions' => $transactions, 'from' => $from, 'to' => $to]);
+
     }
 }

@@ -9,7 +9,8 @@ class UserController extends Controller
 {
     public function index()
     {
-        return view('users.index', ['users' => User::where('role', config('role.name.regular')->get())]);
+        $users = User::where('role', config('role.name.regular'))->get();
+        return view('users.index', ['users' => $users]);
     }
 
     public function create()

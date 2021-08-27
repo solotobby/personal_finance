@@ -13,10 +13,26 @@
                     </div>
                     <br>
 
+                    <div class="col-lg-12">
+                    <form method="GET" action="{{ url('all/transactions') }}">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">From</label>
+                            <input type="date" name="from" class="form-control" value="{{ $from }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">To</label>
+                            <input type="date" name="to" class="form-control"  value="{{ $to }}">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">
+                                Filter
+                            </button>
+                        </div>
+                    </form>
+                    </div>
                     <table class="table table-hover">
                         <thead>
                         <tr>
-                            {{--                                <th scope="col">#</th>--}}
                             <th scope="col">Date</th>
                             <th scope="col">Name</th>
                             <th scope="col">Amount</th>
