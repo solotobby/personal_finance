@@ -24,17 +24,17 @@ $(document).ready(function () {
             colors: ['transparent']
         },
         series: [{
-            name: 'Net Profit',
+            name: 'Income',
             data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
         }, {
-            name: 'Revenue',
+            name: 'Expenses',
             data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
         }, {
-            name: 'Free Cash Flow',
-            data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+            name: 'Savings',
+            data: [35, 41, 36, 26, 45, 48, 52, 53, 566]
         }],
         xaxis: {
-            categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
             labels: {
                 style: {
                     colors: '#9a9cab'
@@ -43,7 +43,7 @@ $(document).ready(function () {
         },
         yaxis: {
             title: {
-                text: '$ (thousands)',
+                text: 'Amount',
                 style: {
                     color: '#9a9cab'
                 }
@@ -82,7 +82,7 @@ $(document).ready(function () {
     );
 
     chart3.render();
-    var DrawSparkline = function() {
+    var DrawSparkline = function () {
         $('#sparkline1').sparkline([0, 23, 43, 35, 44, 45, 56, 37, 40], {
             type: 'line',
             width: '100%',
@@ -93,7 +93,7 @@ $(document).ready(function () {
             highlightLineColor: 'rgba(0,0,0,.1)',
             highlightSpotColor: 'rgba(0,0,0,.2)',
         });
-    
+
         $('#sparkline1').sparkline([25, 23, 26, 24, 25, 32, 30, 24, 19], {
             type: 'line',
             width: '100%',
@@ -105,7 +105,7 @@ $(document).ready(function () {
             highlightLineColor: 'rgba(0,0,0,.1)',
             highlightSpotColor: 'rgba(0,0,0,.2)',
         });
-    
+
         $('#sparkline2').sparkline([3, 6, 7, 8, 6, 4, 7, 10, 12, 7, 4, 9, 12, 13, 11, 12], {
             type: 'bar',
             height: '165',
@@ -113,13 +113,13 @@ $(document).ready(function () {
             barSpacing: '3',
             barColor: '#ADA6F2'
         });
-        
+
         $('#sparkline3').sparkline([20, 40, 30, 10], {
             type: 'pie',
             width: '165',
             height: '165',
             sliceColors: ['#ADA6F2', '#86C1ED', '#83D8AE', '#FAD292']
-        });    
+        });
     };
 
     DrawSparkline();
@@ -127,9 +127,9 @@ $(document).ready(function () {
 
     var resizeChart;
 
-    $(window).resize(function(e) {
+    $(window).resize(function (e) {
         clearTimeout(resizeChart);
-        resizeChart = setTimeout(function() {
+        resizeChart = setTimeout(function () {
             DrawSparkline();
         }, 300);
     });
