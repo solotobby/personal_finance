@@ -61,7 +61,7 @@
                             </button>
 
                             <a href="{{ url('budget') }}" class="btn btn-primary">Create/View Budget</a>
-                            <a href="{{ url('all/transactions') }}" class="btn btn-primary">All Transactions</a>
+                            <a href="{{ url('transactions') }}" class="btn btn-primary">All Transactions</a>
                         </div>
                         <br><br>
 
@@ -132,7 +132,7 @@
             </div>
             <div class="modal-body">
                 <div class="card-body">
-                    <form method="POST" action="{{ url('transaction') }}">
+                    <form method="POST" action="{{ url('transactions') }}">
                         @csrf
 
                         <div class="form-group">

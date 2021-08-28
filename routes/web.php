@@ -47,15 +47,16 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 */
 
 Route::middleware(['admin.created','auth'])->group(function () {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
     Route::get('/categories', [App\Http\Controllers\CategoriesController::class, 'index']);
-     Route::get('/calender', [App\Http\Controllers\CalenderController::class, 'index'])->name('calender');
+    Route::get('/calender', [App\Http\Controllers\CalenderController::class, 'index'])->name('calender');
     Route::post('/category', [App\Http\Controllers\CategoriesController::class, 'store']);
-    Route::post('/transaction', [App\Http\Controllers\TransactionController::class, 'store']);
+    Route::get('transactions/summary', [App\Http\Controllers\TransactionController::class, 'summary'])->name('transactions.summary');
+    Route::resource('transactions', App\Http\Controllers\TransactionController::class);
+
     Route::resource('budget', App\Http\Controllers\BudgetController::class);
     Route::get('mark/{id}', [App\Http\Controllers\BudgetController::class, 'markDone']);
     Route::get('delete/budget/{id}', [App\Http\Controllers\BudgetController::class, 'remove']);
-    Route::get('all/transactions', [App\Http\Controllers\TransactionController::class, 'index']);
     Route::get('filter/transaction', [App\Http\Controllers\TransactionController::class, 'filter']);
 });

@@ -6,6 +6,7 @@ use App\Models\Budget;
 use App\Models\Categories;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -39,6 +40,12 @@ class HomeController extends Controller
 
     public function dashboard()
     {
+
+        $dates = $this->previousMonths(10);
+        $data['dates'] = $dates->map(function ($date) { return $date['month']. ' ' . $date['year'];});
+        $data['income_stat'] = $this->buildChatData('Income', $dates);
+        $data['savings_stat'] = $this->buildChatData('Savings', $dates);
+        $data['expenses_stat'] = $this->buildChatData('Expenses', $dates);
         $data['income'] = Transaction::filterCategory('Income')->get()->sum('amount');
         $data['savings'] = Transaction::filterCategory('Savings')->get()->sum('amount');
         $data['expenses'] = Transaction::filterCategory('Expenses')->get()->sum('amount');
@@ -46,6 +53,43 @@ class HomeController extends Controller
         $data['categories'] = Categories::all();
         $data['budgets'] = Budget::where('user_id', auth()->user()->id)->get();
         return view('dashboard', $data);
+    }
+
+    private function buildChatData($category, $dates)
+    {
+        $amounts = DB::table('transactions')
+                ->where('user_id', auth()->user()->id)->where('category', $category)
+                ->select(DB::raw('MONTH(transaction_date) as month, YEAR(transaction_date) as year'), DB::raw('SUM(transactions.amount) as data'))
+                ->whereRaw('transaction_date > DATE_SUB(now(), INTERVAL 10 MONTH)')
+                ->groupBy('year', 'month')
+                ->get();
+
+
+        return $dates->map(function ($date) use($amounts) {
+
+            $data = $amounts->filter(function($amount) use($date) {
+                return $amount->month == $date['month_index'] && $amount->year == $date['year'];
+            })->first();
+
+            return $data->data ?? 0;
+        });
+
+    }
+
+    private function previousMonths($range)
+    {
+        $data = collect(range($range - 1 , 0));
+
+        return $data->map(function ($i) {
+            $dt = today()->startOfMonth()->subMonth($i);
+
+            return [
+                'month_index' => $dt->format('m'),
+                'month' => $dt->format('M'),
+                'year' => $dt->format('Y')
+            ];
+        });
+
     }
 
 
