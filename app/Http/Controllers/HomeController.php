@@ -37,5 +37,16 @@ class HomeController extends Controller
         return view('home', ['categories' => $categories, 'transactions' => $transactions, 'tran' =>$tran, 'budgets' => $budgets]);
     }
 
+    public function dashboard()
+    {
+        if(auth()->user()->hasRole('admin')){
+            return redirect('user');
+        }
+        $data['categories'] = Categories::all();
+        $data['transactions'] = Transaction::where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->paginate('30');
+        $data['budgets'] = Budget::where('user_id', auth()->user()->id)->get();
+        return view('dashboard', $data);
+    }
+
 
 }

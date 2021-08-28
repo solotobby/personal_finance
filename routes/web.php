@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 /*
@@ -48,7 +48,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 Route::middleware(['admin.created','auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
     Route::get('/categories', [App\Http\Controllers\CategoriesController::class, 'index']);
+     Route::get('/calender', [App\Http\Controllers\CalenderController::class, 'index'])->name('calender');
     Route::post('/category', [App\Http\Controllers\CategoriesController::class, 'store']);
     Route::post('/transaction', [App\Http\Controllers\TransactionController::class, 'store']);
     Route::resource('budget', App\Http\Controllers\BudgetController::class);
