@@ -7,7 +7,7 @@
 
 @section('content')
         <div class="page-container">
-          @include('layouts.components.sidebar')
+          @include('layouts.components.sidebar', ['page' => 'Dashboard'])
             <div class="page-content">
                 @include('layouts.components.page-header', ['title' => 'Dashboard'])
               <div class="main-wrapper">

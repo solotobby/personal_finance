@@ -1,14 +1,14 @@
 <div class="page-sidebar">
               <a class="logo" href="{{ route('dashboard') }}">{{ __('Personal Finance') }}</a>
               <ul class="list-unstyled accordion-menu">
-                <li class="active-page">
+                <li class="{{ $page == 'Dashboard' ? 'active-page':'' }}">
                   <a href="#" class="active"><i data-feather="activity"></i>{{ __('Dashboard') }}<i class="fas fa-chevron-right dropdown-icon"></i></a>
                   <ul class="">
                     <li><a href="{{ route('dashboard') }}" class="active"><i class="far fa-circle"></i>{{ __('All') }}</a></li>
                     <li><a href="{{ route('dashboard') }}"><i class="far fa-circle"></i>{{ __('Expensis') }}</a></li>
                   </ul>
                 </li>
-                <li>
+                <li class="{{ $page == 'Apps' ? 'active-page':'' }}">
                   <a href="#"><i data-feather="aperture"></i>Apps<i class="fas fa-chevron-right dropdown-icon"></i></a>
                   <ul class="">
                     {{-- <li><a href="email.html"><i class="far fa-circle"></i>Email</a></li>
@@ -69,7 +69,7 @@
                     <li><a href="form-select2.html"><i class="far fa-circle"></i>Select2</a></li>
                   </ul>
                 </li> --}}
-                <li>
+                <li class="{{ $page == 'Tables' ? 'active-page':'' }}">
                   <a href="#"><i data-feather="grid"></i>Tables<i class="fas fa-chevron-right dropdown-icon"></i></a>
                   <ul class="">
                     <li><a href="{{ route('dashboard') }}"><i class="far fa-circle"></i>Basic Tables</a></li>
