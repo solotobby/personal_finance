@@ -14,7 +14,7 @@
                     <br>
 
                     <div class="col-lg-12">
-                    <form method="GET" action="{{ url('all/transactions') }}">
+                    <form method="GET" action="{{ url('transactions') }}">
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">From</label>
                             <input type="date" name="from" class="form-control" value="{{ $from }}">

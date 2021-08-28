@@ -8,6 +8,13 @@
                     <li><a href="{{ route('dashboard') }}"><i class="far fa-circle"></i>{{ __('Expenses') }}</a></li>
                   </ul>
                 </li>
+                <li class="{{ $page == 'Transactions' ? 'active-page':'' }}">
+                  <a href="#"><i data-feather="grid"></i>{{ __('Transactions') }}<i class="fas fa-chevron-right dropdown-icon"></i></a>
+                  <ul class="">
+                    <li><a href="{{ route('transactions.summary') }}"><i class="far fa-circle"></i>{{ __('Summary') }}</a></li>
+                    <li><a href="{{ route('transactions.index') }}"><i class="far fa-circle"></i>{{ __('All') }}</a></li>
+                  </ul>
+                </li>
                 <li class="{{ $page == 'Apps' ? 'active-page':'' }}">
                   <a href="#"><i data-feather="aperture"></i>Apps<i class="fas fa-chevron-right dropdown-icon"></i></a>
                   <ul class="">
@@ -69,13 +76,13 @@
                     <li><a href="form-select2.html"><i class="far fa-circle"></i>Select2</a></li>
                   </ul>
                 </li> --}}
-                <li class="{{ $page == 'Tables' ? 'active-page':'' }}">
+                {{-- <li class="{{ $page == 'Tables' ? 'active-page':'' }}">
                   <a href="#"><i data-feather="grid"></i>Tables<i class="fas fa-chevron-right dropdown-icon"></i></a>
                   <ul class="">
                     <li><a href="{{ route('dashboard') }}"><i class="far fa-circle"></i>Basic Tables</a></li>
                     <li><a href="{{ route('dashboard') }}"><i class="far fa-circle"></i>Data Tables</a></li>
                   </ul>
-                </li>
+                </li> --}}
                 <li>
                   <a href="{{ route('dashboard') }}"><i data-feather="pie-chart"></i>Charts</a>
                 </li>
