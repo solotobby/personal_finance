@@ -57,12 +57,7 @@ class HomeController extends Controller
 
     private function buildChatData($category, $dates)
     {
-        $amounts = DB::table('transactions')
-                ->where('user_id', auth()->user()->id)->where('category', $category)
-                ->select(DB::raw('EXTRACT(MONTH FROM transaction_date) as month, EXTRACT(YEAR FROM transaction_date) as year'), DB::raw('SUM(transactions.amount) as data'))
-                ->whereRaw("transaction_date > DATE_SUB(now(), INTERVAL '10 MONTH')")
-                ->groupBy('year', 'month')
-                ->get();
+        $amounts = collect([]);
 
 
         return $dates->map(function ($date) use($amounts) {
