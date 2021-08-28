@@ -5,7 +5,7 @@
                   <a href="#" class="active"><i data-feather="activity"></i>{{ __('Dashboard') }}<i class="fas fa-chevron-right dropdown-icon"></i></a>
                   <ul class="">
                     <li><a href="{{ route('dashboard') }}" class="active"><i class="far fa-circle"></i>{{ __('All') }}</a></li>
-                    <li><a href="{{ route('dashboard') }}"><i class="far fa-circle"></i>{{ __('Expensis') }}</a></li>
+                    <li><a href="{{ route('dashboard') }}"><i class="far fa-circle"></i>{{ __('Expenses') }}</a></li>
                   </ul>
                 </li>
                 <li class="{{ $page == 'Apps' ? 'active-page':'' }}">

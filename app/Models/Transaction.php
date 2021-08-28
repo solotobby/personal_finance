@@ -17,4 +17,14 @@ class Transaction extends Model
     {
         return $this->belongsTo(Categories::class, 'category_id');
     }
+
+    public function scopeFilterCategory($query, $category)
+    {
+        return $query->where('user_id', auth()->user()->id)->where('category', $category)->select('amount');
+    }
+
+    public function scopeMyLatest($query, $number)
+    {
+        return $query->where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->take($number);
+    }
 }

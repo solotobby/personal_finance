@@ -56,6 +56,8 @@ return [
 
     'asset_url' => env('ASSET_URL', null),
 
+    'currency' => ['name' => env('CURRENCY_NAME', 'NGN'), 'symbol' => env('CURRENCY', '&#8358;')],
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

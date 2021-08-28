@@ -39,11 +39,11 @@ class HomeController extends Controller
 
     public function dashboard()
     {
-        if(auth()->user()->hasRole('admin')){
-            return redirect('user');
-        }
+        $data['income'] = Transaction::filterCategory('Income')->get()->sum('amount');
+        $data['savings'] = Transaction::filterCategory('Savings')->get()->sum('amount');
+        $data['expenses'] = Transaction::filterCategory('Expenses')->get()->sum('amount');
+        $data['transactions'] = Transaction::myLatest(5)->get();
         $data['categories'] = Categories::all();
-        $data['transactions'] = Transaction::where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->paginate('30');
         $data['budgets'] = Budget::where('user_id', auth()->user()->id)->get();
         return view('dashboard', $data);
     }
