@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Budget;
 use App\Models\Categories;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -9,10 +10,21 @@ use function Couchbase\basicDecoderV1;
 
 class TransactionController extends Controller
 {
+    public function summary()
+    {
+        $data['income'] = Transaction::filterCategory('Income')->get()->sum('amount');
+        $data['savings'] = Transaction::filterCategory('Savings')->get()->sum('amount');
+        $data['expenses'] = Transaction::filterCategory('Expenses')->get()->sum('amount');
+        $data['transactions'] = Transaction::myLatest(5)->get();
+        $data['categories'] = Categories::all();
+        $data['budgets'] = Budget::where('user_id', auth()->user()->id)->get();
+        return view('transactions.summary', $data);
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Support\Facades\View
      */
     public function index(Request $request)
     {
@@ -49,7 +61,6 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request);
         $this->validate($request, [
             'amount' => 'required|numeric',
             'name' => 'required|string',

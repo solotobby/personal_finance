@@ -25,16 +25,16 @@ $(document).ready(function () {
         },
         series: [{
             name: 'Income',
-            data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+            data: income_stat
         }, {
             name: 'Expenses',
-            data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+            data: expenses_stat
         }, {
             name: 'Savings',
-            data: [35, 41, 36, 26, 45, 48, 52, 53, 566]
+            data: savings_stat
         }],
         xaxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+            categories: month_categories,
             labels: {
                 style: {
                     colors: '#9a9cab'
@@ -61,7 +61,7 @@ $(document).ready(function () {
         tooltip: {
             y: {
                 formatter: function (val) {
-                    return "$ " + val + " thousands"
+                    return val
                 }
             }
         },

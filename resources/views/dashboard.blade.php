@@ -124,17 +124,19 @@
                                     <tbody>
                                       <tr>
                                         <td>{{ __('Total') }}</td>
-                                        <td><span class="badge bg-info">Recieve</span></td>
+                                        <td><span class="badge bg-info"></span></td>
                                         <td>{{ html_entity_decode(config('app.currency.symbol')) }} {{ number_format($budgets->sum('amount')) }}</td>
                                       </tr>
                                       <tr>
                                         <td>{{ __('Completed') }}</td>
-                                        <td><span class="badge bg-success">Buy</span></td>
+                                        <td>
+                                          <span class="badge bg-success"></span>
+                                        </td>
                                         <td>{{ html_entity_decode(config('app.currency.symbol')) }} {{ number_format($budgets->where('status', true)->sum('amount')) }}</td>
                                       </tr>
                                       <tr>
                                         <td>{{ __('Pending') }}</td>
-                                        <td><span class="badge bg-success">Buy</span></td>
+                                        <td><span class="badge bg-success"></span></td>
                                         <td>{{ html_entity_decode(config('app.currency.symbol')) }} {{ number_format($budgets->sum('amount') - $budgets->where('status', true)->sum('amount')) }}</td>
                                       </tr>
                                     </tbody>
@@ -143,7 +145,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                {{-- <div class="row">
                   <div class="col-lg-4">
                     <div class="card card-bg">
                       <div class="card-body">
@@ -169,7 +171,7 @@
                     </div>
                   </div>
                   </div>
-                </div>
+                </div> --}}
               
               </div>
               @include('layouts.components.footer')
@@ -179,6 +181,12 @@
       @endsection
 
     @section('scripts')
+        <script>
+            var income_stat = @json($income_stat);
+            var expenses_stat = @json($expenses_stat);
+            var savings_stat = @json($savings_stat);
+            var month_categories = @json($dates);
+        </script>
         <script src="{{ asset('assets/plugins/apexcharts/apexcharts.min.js') }}"></script>
         <script src="{{ asset('assets/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
         <script src="{{ asset('assets/js/pages/dashboard.js') }}"></script>
