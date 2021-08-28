@@ -59,7 +59,7 @@ class HomeController extends Controller
     {
         $amounts = DB::table('transactions')
                 ->where('user_id', auth()->user()->id)->where('category', $category)
-                ->select(DB::raw('MONTH(transaction_date) as month, YEAR(transaction_date) as year'), DB::raw('SUM(transactions.amount) as data'))
+                ->select(DB::raw('EXTRACT(MONTH FROM transaction_date) as month, EXTRACT(YEAR FROM transaction_date) as year'), DB::raw('SUM(transactions.amount) as data'))
                 ->whereRaw("transaction_date > DATE_SUB(now(), INTERVAL '10 MONTH')")
                 ->groupBy('year', 'month')
                 ->get();
