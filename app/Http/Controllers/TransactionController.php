@@ -65,9 +65,10 @@ class TransactionController extends Controller
             'amount' => 'required|numeric',
             'name' => 'required|string',
         ]);
+        $transactionDate = \Carbon\Carbon::parse($request->transaction_date)->format('y-m-d h:i:s');
+        
         $cate = Categories::find($request->category_id);
-        Transaction::create(['user_id' => auth()->user()->id, 'transaction_date' => $request->transaction_date, 'name' => $request->name, 'amount' => $request->amount,
-            'category_id' => $request->category_id, 'category' => $cate->name, 'type' => $cate->type, 'description' => $request->description ]);
+        Transaction::create(['user_id' => auth()->user()->id, 'transaction_date' => $transactionDate, 'name' => $request->name, 'amount' => $request->amount, 'category_id' => $request->category_id, 'category' => $cate->name, 'type' => $cate->type, 'description' => $request->description ]);
         return back()->with('success', 'Transaction successful');
 
     }
