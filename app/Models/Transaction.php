@@ -27,4 +27,12 @@ class Transaction extends Model
     {
         return $query->where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->take($number);
     }
+
+    public function scopeBetweenDates($query, $data)
+    {
+        if(isset($data['from']) && isset($data['to'])) {
+            return $query->where('user_id', auth()->user()->id)->whereBetween('transaction_date', [$data['from'], $data['to']]);
+        }
+        return $query->where('user_id', auth()->user()->id);
+    }
 }

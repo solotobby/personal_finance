@@ -6,6 +6,8 @@ use App\Models\Budget;
 use App\Models\Categories;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use function Couchbase\basicDecoderV1;
 
 class TransactionController extends Controller
@@ -28,19 +30,12 @@ class TransactionController extends Controller
      */
     public function index(Request $request)
     {
-        
-        if(isset($request->from) && isset($request->to)) {
-            $to = $request->to;
-            $from = $request->from;
-            $transactions = Transaction::where('user_id', auth()->user()->id)->whereBetween('transaction_date', [$from, $to])
-            ->orderBy('created_at', 'DESC')->paginate(1000);
-        }else{
-            $from = \Carbon\Carbon::now();
-            $to = \Carbon\Carbon::now()->format('d/m/y');
-            $transactions = Transaction::where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->paginate(50);
-        }
-        return view('transactions', ['transactions' => $transactions, 'from' => $from, 'to' => $to]);
-
+        $data = $request->validate([
+            'to' => 'nullable|date',
+            'from' => 'nullable|date',
+        ]);
+        $data['transactions'] = Transaction::betweenDates($data)->orderBy('created_at', 'DESC')->paginate(100);
+        return view('transactions', $data);
     }
 
     /**
@@ -61,16 +56,23 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $data = $request->validate([
             'amount' => 'required|numeric',
             'name' => 'required|string',
+            'transaction_date' => 'required',
+            'category_id' => 'required|exists:categories,id',
+            'description' => 'nullable|string'
         ]);
-        $transactionDate = \Carbon\Carbon::parse($request->transaction_date)->format('y-m-d h:i:s');
-        
-        $cate = Categories::find($request->category_id);
-        Transaction::create(['user_id' => auth()->user()->id, 'transaction_date' => $transactionDate, 'name' => $request->name, 'amount' => $request->amount, 'category_id' => $request->category_id, 'category' => $cate->name, 'type' => $cate->type, 'description' => $request->description ]);
-        return back()->with('success', 'Transaction successful');
 
+        $category = Categories::findOrFail($request->category_id);
+
+        $data['user_id'] = Auth::id();
+        $data['transaction_date'] = \Carbon\Carbon::parse($request->transaction_date)->format('y-m-d h:i:s');
+        $data['category'] = $category->name;
+        $data['type'] = $category->type;
+
+        Transaction::create($data);
+        return back()->with('success', 'Transaction was registered successfully');
     }
 
     /**

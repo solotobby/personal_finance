@@ -17,11 +17,11 @@
                     <form method="GET" action="{{ url('transactions') }}">
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">From</label>
-                            <input type="date" name="from" class="form-control" value="{{ $from }}">
+                            <input type="date" name="from" class="form-control" value="{{ $from ?? '' }}">
                         </div>
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">To</label>
-                            <input type="date" name="to" class="form-control"  value="{{ $to }}">
+                            <input type="date" name="to" class="form-control"  value="{{ $to ?? '' }}">
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">
