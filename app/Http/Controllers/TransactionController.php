@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Budget;
 use App\Models\Categories;
 use App\Models\Transaction;
+use App\Models\TransactionCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,6 +21,7 @@ class TransactionController extends Controller
         $data['transactions'] = Transaction::myLatest(5)->get();
         $data['categories'] = Categories::all();
         $data['budgets'] = Budget::where('user_id', auth()->user()->id)->get();
+        $data['transaction_categories'] = TransactionCategory::all();
         return view('transactions.summary', $data);
     }
 
@@ -71,7 +73,9 @@ class TransactionController extends Controller
         $data['category'] = $category->name;
         $data['type'] = $category->type;
 
-        Transaction::create($data);
+        $tran = Transaction::create($data);
+        $tran->transaction_category_id = $request->transaction_category_id;
+        $tran->save();
         return back()->with('success', 'Transaction was registered successfully');
     }
 

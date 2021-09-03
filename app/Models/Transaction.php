@@ -11,7 +11,7 @@ class Transaction extends Model
 
     protected $table = "transactions";
 
-    protected $fillable = ['user_id', 'transaction_date', 'name', 'amount', 'category', 'type', 'category_id', 'description', 'from_budget'];
+    protected $fillable = ['user_id', 'transaction_date', 'name', 'amount', 'category', 'type', 'category_id', 'description', 'from_budget', 'transaction_category_id'];
 
     public function category()
     {

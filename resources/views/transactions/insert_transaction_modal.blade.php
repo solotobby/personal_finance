@@ -33,6 +33,19 @@
                                 <label for="recipient-name">{{ __('Type') }}</label>
                             </div>
                         </div>
+                        
+                        <div class="mb-3">
+                            <div class="form-floating">
+                                <select name="transaction_category_id" class="form-control" required>
+                                    <option value="">Select One</option>
+                                    @foreach($transaction_categories as $cate)
+                                    <option value="{{$cate->id}}">{{$cate->name}}</option>
+                                        @endforeach
+                                </select>
+                                <label for="recipient-name">{{ __('Transaction Category') }}</label>
+                            </div>
+                        </div>
+
                         <div class="mb-3">
                             <div class="form-floating">
                                 <input type="datetime-local" name="transaction_date" class="form-control" id="recipient-name" required>
