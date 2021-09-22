@@ -2,26 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Type;
 use App\Models\Budget;
 use App\Models\Categories;
 use App\Models\Transaction;
-use App\Models\TransactionCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
-use function Couchbase\basicDecoderV1;
 
 class TransactionController extends Controller
 {
     public function summary()
     {
-        $data['income'] = Transaction::filterCategory('Income')->get()->sum('amount');
-        $data['savings'] = Transaction::filterCategory('Savings')->get()->sum('amount');
-        $data['expenses'] = Transaction::filterCategory('Expenses')->get()->sum('amount');
+        $data['income'] = Transaction::filterCategory(config('app.categories.income.id'))->get()->sum('amount');
+        $data['savings'] = Transaction::filterCategory(config('app.categories.savings.id'))->get()->sum('amount');
+        $data['expenses'] = Transaction::filterCategory(config('app.categories.expenses.id'))->get()->sum('amount');
         $data['transactions'] = Transaction::myLatest(5)->get();
-        $data['categories'] = Categories::all();
+        $data['categories'] = Categories::pluck('name', 'id')->toArray();
         $data['budgets'] = Budget::where('user_id', auth()->user()->id)->get();
-        $data['transaction_categories'] = TransactionCategory::all();
+        $data['types'] = Type::pluck('name', 'id')->toArray();
         return view('transactions.summary', $data);
     }
 
@@ -61,21 +59,14 @@ class TransactionController extends Controller
         $data = $request->validate([
             'amount' => 'required|numeric',
             'name' => 'required|string',
-            'transaction_date' => 'required',
+            'date' => 'required',
             'category_id' => 'required|exists:categories,id',
+            'type_id' => 'required|exists:types,id',
+            'budget_id' => 'nullable|exists:budgets,id',
             'description' => 'nullable|string'
         ]);
-
-        $category = Categories::findOrFail($request->category_id);
-
-        $data['user_id'] = Auth::id();
-        $data['transaction_date'] = \Carbon\Carbon::parse($request->transaction_date)->format('y-m-d h:i:s');
-        $data['category'] = $category->name;
-        $data['type'] = $category->type;
-
-        $tran = Transaction::create($data);
-        $tran->transaction_category_id = $request->transaction_category_id;
-        $tran->save();
+        $data['date'] = \Carbon\Carbon::parse($request->date)->toDateTimeString();
+        Transaction::create($data + ['user_id' => Auth::id()]);
         return back()->with('success', 'Transaction was registered successfully');
     }
 

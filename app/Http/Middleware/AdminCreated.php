@@ -5,23 +5,24 @@ namespace App\Http\Middleware;
 use Closure;
 use App\Models\User;
 
-use Illuminate\Auth\Middleware\Authenticate as Middleware;
-
-class AdminCreated extends Middleware
+class AdminCreated
 {
     /**
-     * user is redirected when admin is not setup.
+     * Handle the incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return string|null
+     * @param  \Closure  $next
+     * @param  string  $role
+     * @return mixed
      */
-
-    protected function redirectTo($request)
+    public function handle($request, Closure $next)
     {
-       $admin = User::where('role', config('role.name.admin'))->first();
-        if(!$admin){
-            return route('setup.create');
+        $admin = User::where('role', config('role.name.admin'))->first();
+        if($admin){
+            return $next($request);
         }
+        return redirect(route('setup.create'));
         
     }
+
 }

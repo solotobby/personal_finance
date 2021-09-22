@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+   return auth()->user() ? redirect('dashboard') : view('welcome');
 });
 
 /*
@@ -27,8 +27,9 @@ Route::get('/', function () {
 Route::get('/admin/setup', [App\Http\Controllers\AdminSetupController::class, 'create'])->name('setup.create');
 Route::post('/admin/setup', [App\Http\Controllers\AdminSetupController::class, 'store'])->name('setup');
 
-
-Auth::routes();
+Route::middleware('admin.created')->group(function () {
+    Auth::routes();
+});
 
 /*
 |--------------------------------------------------------------------------

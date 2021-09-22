@@ -90,7 +90,7 @@
                                         <th scope="col">{{ __('Date') }}</th>
                                         <th scope="col">{{ __('Name') }}</th>
                                         <th scope="col">{{ __('Amount') }}</th>
-                                        <th scope="col">{{ __('Type') }}</th>
+                                        <th scope="col">{{ __('Category') }}</th>
                                       </tr>
                                     </thead>
                                     <tbody>
@@ -98,10 +98,10 @@
                                       @foreach($transactions as $t)
                                       <tr class="{{ $t->category == "Income" ? "text-success" : ($t->category == "Expenses" ? "text-danger" : ($t->category == "Savings" ? "text-info" : ""))  }}">
                                         <th scope="row">{{ $i++ }}</th>
-                                        <td>{{\Carbon\Carbon::parse($t->transaction_date)->format('d, M Y @ h:i  a')}}</td>
+                                        <td>{{\Carbon\Carbon::parse($t->date)->format('d, M Y @ h:i  a')}}</td>
                                         <td>{{$t->name}}<span>{{ $t->from_budget ? "*" : ""}}</span></td>
                                         <td>{{ html_entity_decode(config('app.currency.symbol')) }} {{ number_format($t->amount) }}</td>
-                                        <td>{{$t->category}}</td>
+                                        <td>{{$t->category->name}}</td>
                                       </tr>
                                       @endforeach
                                     </tbody>

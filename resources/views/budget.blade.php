@@ -1,15 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <?php
-    $months = array();
-    $currentMonth = (int)date('m');
-    for ($x = $currentMonth; $x < $currentMonth + 12; $x++) {
-        $months[] = date('F', mktime(0, 0, 0, $x, 1));
-    }
-
-    ?>
-
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -29,74 +20,66 @@
                             </div>
                         @endif
 
-                            @if(session('error'))
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="alert alert-danger">
-                                            <p>{{ session('error') }}</p>
-                                            <a class="close" href="#"></a>
-                                        </div>
+                        @if(session('error'))
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="alert alert-danger">
+                                        <p>{{ session('error') }}</p>
+                                        <a class="close" href="#"></a>
                                     </div>
                                 </div>
-                            @endif
+                            </div>
+                        @endif
 
 
                         <form method="POST" action="{{ url('budget') }}">
                             @csrf
-
                             <div class="form-group">
-                                    <label for="email" class="col-form-label">Month</label>
-                                <select class="form-control" name="month" required autofocus>
-                                    @foreach($months as $k => $month)
-                                    <option value="{{$month}}">{{$month}}</option>
-                                    @endforeach
-                                </select>
-
-                                    @error('name')
+                                <label for="email" class="col-form-label">Date</label>
+                                <input class="form-control @error('date') is-invalid @enderror" type="month" id="start" name="date" min="2021-01" value="{{ old('date') ?? date('Y-m') }}">
+                               @error('date')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                    @enderror
+                                @enderror
                             </div>
                             <div class="form-group">
-
-                                    <label for="email" class="col-form-label">Budget Name</label>
-                                    <input id="email" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required >
-
-                                    @error('name')
+                                <label for="email" class="col-form-label">Budget Name</label>
+                                <input id="email" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required >
+                                @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                    @enderror
+                                @enderror
                             </div>
 
                             <div class="form-group ">
-
-                                    <label for="email" class="col-form-label">Budget Amount</label>
-
-                                    <input id="email" type="text" class="form-control @error('amount') is-invalid @enderror" name="amount" value="{{ old('amount') }}" required>
-
-                                    @error('amount')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-
+                                <label for="email" class="col-form-label">Budget Amount</label>
+                                <input id="email" type="text" class="form-control @error('amount') is-invalid @enderror" name="amount" value="{{ old('amount') }}" required>
+                                @error('amount')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
 
                             <div class="form-group">
                                     <label for="password" class="col-form-label">Budget Type</label>
-                                    <select class="form-control" name="type" required>
-                                        @foreach($categories as $cate)
-                                            <option value="{{$cate->name}}">{{$cate->name}}</option>
+                                    <select class="form-control" name="category_id" required>
+                                        @foreach($categories as $key => $value)
+                                            <option value="{{ $key }}">{{ $value }}</option>
                                         @endforeach
                                     </select>
+                                @error('category_id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="message-text" class="col-form-label">Message:</label>
-                                <textarea class="form-control" name="description" id="message-text" required></textarea>
+                                <textarea name="description" id="message-text" class="form-control @error('description') is-invalid @enderror" name="description" required>{{ old('description') }}</textarea>
                             </div>
-                            <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Save') }}

@@ -14,11 +14,7 @@ class CategoriesSeeder extends Seeder
      */
     public function run()
     {
-        $categories = [
-            ['id' => 1, 'name' => 'Income', 'type' => 'Credit'],
-            ['id' => 2, 'name' => 'Expenses', 'type' => 'Debit'],
-            ['id' => 3, 'name' => 'Savings', 'type' => 'Credit']
-        ];
+        $categories = config('app.categories');
 
         foreach($categories as $category)
         {

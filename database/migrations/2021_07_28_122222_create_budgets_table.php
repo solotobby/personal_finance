@@ -15,17 +15,14 @@ class CreateBudgetsTable extends Migration
     {
         Schema::create('budgets', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->string('month');
+            $table->foreignId('user_id')->constraint('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('category_id')->constraint('categories')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->dateTime('date');
             $table->string('name');
-            $table->string('type');
-            $table->string('amount');
-            $table->boolean('status')->default(false);
+            $table->decimal('amount');
             $table->text('description');
+            $table->boolean('status')->default(false);
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')
-                ->cascadeOnDelete()->cascadeOnUpdate();
         });
 
 

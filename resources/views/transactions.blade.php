@@ -51,16 +51,16 @@
                                     @endif
                                     {{--                                    <th scope="row">{{$i++}}</th>--}}
                                     <td>
-                                        @if($cate->transaction_date == "")
+                                        @if($cate->date == "")
                                             {{\Carbon\Carbon::parse($cate->created_at)->format('d, M Y @ h:i  a')}}
                                         @else
-                                            {{\Carbon\Carbon::parse($cate->transaction_date)->format('d, M Y @ h:i  a')}}
+                                            {{\Carbon\Carbon::parse($cate->date)->format('d, M Y @ h:i  a')}}
                                         @endif
                                     </td>
                                     <td>
                                         {{$cate->name}}
                                         <span>
-                                            @if($cate->from_budget)
+                                            @if($cate->budget_id)
                                                 *
                                             @else
 
@@ -69,7 +69,7 @@
 
                                     </td>
                                     <td>&#8358; {{number_format($cate->amount)}}</td>
-                                    <td>{{$cate->category}}</td>
+                                    <td>{{$cate->category->name}}</td>
                                 </tr>
                                 @endforeach
                         </tbody>

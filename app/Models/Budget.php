@@ -11,5 +11,5 @@ class Budget extends Model
 
     protected $table = "budgets";
 
-    protected $fillable = ['user_id', 'month', 'type', 'name', 'amount', 'description', 'status'];
+    protected $fillable = ['user_id', 'date', 'category_id', 'name', 'amount', 'description', 'status'];
 }

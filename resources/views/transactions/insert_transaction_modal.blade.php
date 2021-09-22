@@ -26,36 +26,36 @@
                             <div class="form-floating">
                                 <select name="category_id" class="form-control" required>
                                     <option value="">Select One</option>
-                                    @foreach($categories as $cate)
-                                    <option value="{{$cate->id}}">{{$cate->name}}</option>
-                                        @endforeach
+                                    @foreach($categories as $key => $data)
+                                    <option value="{{ $key }}">{{ $data }}</option>
+                                    @endforeach
                                 </select>
-                                <label for="recipient-name">{{ __('Type') }}</label>
+                                <label for="recipient-name">{{ __('Transaction Category') }}</label>
                             </div>
                         </div>
                         
                         <div class="mb-3">
                             <div class="form-floating">
-                                <select name="transaction_category_id" class="form-control" required>
+                                <select name="type_id" class="form-control" required>
                                     <option value="">Select One</option>
-                                    @foreach($transaction_categories as $cate)
-                                    <option value="{{$cate->id}}">{{$cate->name}}</option>
-                                        @endforeach
+                                    @foreach($types as $key => $data)
+                                    <option value="{{$key}}">{{$data}}</option>
+                                    @endforeach
                                 </select>
-                                <label for="recipient-name">{{ __('Transaction Category') }}</label>
+                                <label for="recipient-name">{{ __('Transaction Type') }}</label>
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <div class="form-floating">
-                                <input type="datetime-local" name="transaction_date" class="form-control" id="recipient-name" required>
+                                <input type="datetime-local" name="date" class="form-control" id="recipient-name" required>
                                 <label for="recipient-name" class="col-form-label">{{ __('Pick Date') }}</label>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <div class="form-floating">
+                            <div class="form">
+                                <label for="message-text">{{ __('Description') }}</label>
                                 <textarea class="form-control" name="description" id="message-text" required></textarea>
-                                <label for="message-text">{{ __('Message:') }}</label>
                             </div>
                         </div>
                             
