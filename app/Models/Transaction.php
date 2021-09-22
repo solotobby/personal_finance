@@ -11,16 +11,16 @@ class Transaction extends Model
 
     protected $table = "transactions";
 
-    protected $fillable = ['user_id', 'transaction_date', 'name', 'amount', 'category', 'type', 'category_id', 'description', 'from_budget', 'transaction_category_id'];
+    protected $fillable = ['user_id', 'date', 'name', 'amount', 'category', 'type_id', 'category_id', 'description', 'budget_id', 'type_id'];
 
     public function category()
     {
         return $this->belongsTo(Categories::class, 'category_id');
     }
 
-    public function scopeFilterCategory($query, $category)
+    public function scopeFilterCategory($query, $category_id)
     {
-        return $query->where('user_id', auth()->user()->id)->where('category', $category)->select('amount');
+        return $query->where('user_id', auth()->user()->id)->where('category_id', $category_id)->select('amount');
     }
 
     public function scopeMyLatest($query, $number)
@@ -31,7 +31,7 @@ class Transaction extends Model
     public function scopeBetweenDates($query, $data)
     {
         if(isset($data['from']) && isset($data['to'])) {
-            return $query->where('user_id', auth()->user()->id)->whereBetween('transaction_date', [$data['from'], $data['to']]);
+            return $query->where('user_id', auth()->user()->id)->whereBetween('date', [$data['from'], $data['to']]);
         }
         return $query->where('user_id', auth()->user()->id);
     }

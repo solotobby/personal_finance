@@ -88,10 +88,10 @@
                                     @endif
 {{--                                    <th scope="row">{{$i++}}</th>--}}
                                     <td>
-                                        @if($cate->transaction_date == "")
+                                        @if($cate->date == "")
                                             {{\Carbon\Carbon::parse($cate->created_at)->format('d, M Y @ h:i  a')}}
                                             @else
-                                        {{\Carbon\Carbon::parse($cate->transaction_date)->format('d, M Y @ h:i  a')}}
+                                        {{\Carbon\Carbon::parse($cate->date)->format('d, M Y @ h:i  a')}}
                                             @endif
                                     </td>
                                     <td>
@@ -146,18 +146,18 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Type</label>
+                            <label for="recipient-name" class="col-form-label">Category</label>
                             <select name="category_id" class="form-control" required>
                                 <option value="">Select One</option>
-                                @foreach($categories as $cate)
-                                <option value="{{$cate->id}}">{{$cate->name}}</option>
-                                    @endforeach
+                                @foreach($categories as $key => $data)
+                                <option value="{{ $key }}">{{ $data }}</option>
+                                @endforeach
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Pick Date</label>
-                            <input type="datetime-local" name="transaction_date" class="form-control" id="recipient-name" required>
+                            <input type="datetime-local" name="date" class="form-control" id="recipient-name" required>
                         </div>
 
                         <div class="form-group">

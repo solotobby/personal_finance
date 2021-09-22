@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Budget;
 use App\Models\Categories;
 use App\Models\Transaction;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -40,15 +39,14 @@ class HomeController extends Controller
 
     public function dashboard()
     {
-
         $dates = $this->previousMonths(10);
         $data['dates'] = $dates->map(function ($date) { return $date['month']. ' ' . $date['year'];});
-        $data['income_stat'] = $this->buildChatData('Income', $dates);
-        $data['savings_stat'] = $this->buildChatData('Savings', $dates);
-        $data['expenses_stat'] = $this->buildChatData('Expenses', $dates);
-        $data['income'] = Transaction::filterCategory('Income')->get()->sum('amount');
-        $data['savings'] = Transaction::filterCategory('Savings')->get()->sum('amount');
-        $data['expenses'] = Transaction::filterCategory('Expenses')->get()->sum('amount');
+        $data['income_stat'] = $this->buildChatData(config('app.categories.income.id'), $dates);
+        $data['savings_stat'] = $this->buildChatData(config('app.categories.savings.id'), $dates);
+        $data['expenses_stat'] = $this->buildChatData(config('app.categories.expenses.id'), $dates);
+        $data['income'] = Transaction::filterCategory(config('app.categories.income.id'))->get()->sum('amount');
+        $data['savings'] = Transaction::filterCategory(config('app.categories.savings.id'))->get()->sum('amount');
+        $data['expenses'] = Transaction::filterCategory(config('app.categories.expenses.id'))->get()->sum('amount');
         $data['transactions'] = Transaction::myLatest(5)->get();
         $data['categories'] = Categories::all();
         $data['budgets'] = Budget::where('user_id', auth()->user()->id)->get();
@@ -59,13 +57,13 @@ class HomeController extends Controller
     {
         if(config('database.default') == 'pgsql')
         {
-            $amounts = DB::table('transactions')->where('user_id', auth()->user()->id)->where('category', $category)
-                ->select(DB::raw('EXTRACT(MONTH FROM transaction_date) as month, EXTRACT(YEAR FROM transaction_date) as year'), DB::raw('SUM(transactions.amount) as data'))
-                ->whereRaw("transaction_date > DATE_SUB(now(), INTERVAL '10 MONTH')")->groupBy('year', 'month')->get();
+            $amounts = DB::table('transactions')->where('user_id', auth()->user()->id)->where('category_id', $category)
+                ->select(DB::raw('EXTRACT(MONTH FROM date) as month, EXTRACT(YEAR FROM date) as year'), DB::raw('SUM(transactions.amount) as data'))
+                ->whereRaw("date > (now() - INTERVAL '10 MONTH')")->groupBy('year', 'month')->get();
         }else{
-            $amounts = DB::table('transactions')->where('user_id', auth()->user()->id)->where('category', $category)
-                ->select(DB::raw('MONTH(transaction_date) as month, YEAR(transaction_date) as year'), DB::raw('SUM(transactions.amount) as data'))
-                ->whereRaw('transaction_date > DATE_SUB(now(), INTERVAL 10 MONTH)')->groupBy('year', 'month')->get();
+            $amounts = DB::table('transactions')->where('user_id', auth()->user()->id)->where('category_id', $category)
+                ->select(DB::raw('MONTH(date) as month, YEAR(date) as year'), DB::raw('SUM(transactions.amount) as data'))
+                ->whereRaw('date > DATE_SUB(now(), INTERVAL 10 MONTH)')->groupBy('year', 'month')->get();
         }
 
         return $dates->map(function ($date) use($amounts) {

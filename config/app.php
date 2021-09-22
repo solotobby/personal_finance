@@ -41,6 +41,12 @@ return [
 
     'debug' => (bool) env('APP_DEBUG', false),
 
+    'categories' => [
+        'income' => ['id' => 1, 'name' => 'Income', 'description'=> '', 'is_credit' => true],
+        'expenses' => ['id' => 2, 'name' => 'Expenses', 'description'=> '', 'is_credit' => false],
+        'savings' => ['id' => 3, 'name' => 'Savings', 'description'=> '', 'is_credit' => true]
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Application URL
