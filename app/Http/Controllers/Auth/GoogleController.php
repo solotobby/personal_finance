@@ -26,6 +26,17 @@ class GoogleController extends Controller
     {
         try {
             $user = Socialite::driver('google')->user();
+            
+            //incase the email already exist...we just update the google_id and avarta
+            $googleUser = User::where('email', $user->email)->first();
+            if($googleUser){
+                $googleUser->google_id = $user->id;
+                $googleUser->avarta_url = $user->avatar;
+                $googleUser->save();
+                Auth::login($googleUser);
+                return redirect('/dashboard');
+            }
+
             $finduser = User::where('google_id', $user->id)->first();
 
             if($finduser){
@@ -37,6 +48,7 @@ class GoogleController extends Controller
                     'name' => $user->name,
                     'email' => $user->email,
                     'google_id'=> $user->id,
+                    'avarta_url'=> $user->avatar,
                     'password' => Hash::make($password),//encrypt('123456dummy')
                 ]);
                 Auth::login($newUser);
