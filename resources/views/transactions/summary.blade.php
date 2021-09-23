@@ -65,8 +65,8 @@
                     </div>
                     
                 </div>
-                <div class="row">
-                    <div class="col-lg-12">
+                {{--  <div class="row">  --}}
+                    {{--  <div class="col-lg-12">
                         <div class="card card-bg actions-widget text-center">
                             <div class="card-body">
                                 <div class="actions-widget-item">
@@ -83,7 +83,7 @@
                                 </div>                                  
                             </div>
                         </div>
-                    </div>
+                    </div>  --}}
                     {{-- <div class="col-lg-4">
                         <div class="card card-bg text-center">
                         <div class="card-body">
@@ -95,9 +95,9 @@
                         </div>
                         </div>
                     </div> --}}
-                </div>
+                {{--  </div>  --}}
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <div class="card card-bg">
                             <div class="card-body">
                                 <h5 class="card-title">{{ __('Recent Transactions') }}</h5>
@@ -127,7 +127,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    {{--  <div class="col-md-4">
                         <div class="card card-bg">
                             <div class="card-body">
                                 <h5 class="card-title">{{ __('Budgets') }}</h5>
@@ -159,7 +159,7 @@
                                     </table>
                             </div>
                         </div>
-                    </div>
+                    </div>  --}}
                 </div>
             </div>
             @include('layouts.components.footer')

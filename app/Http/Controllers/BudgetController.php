@@ -19,7 +19,7 @@ class BudgetController extends Controller
     {
         $budgets = Budget::where('user_id', auth()->user()->id)->get();
         $categories = Categories::pluck('name', 'id')->toArray();
-        return view('budget', ['budgets' => $budgets, 'categories' => $categories]);
+        return view('budget/create', ['budgets' => $budgets, 'categories' => $categories]);
     }
 
     /**

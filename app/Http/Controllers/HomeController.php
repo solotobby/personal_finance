@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Budget;
+use App\Models\Type;
 use App\Models\Categories;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
@@ -39,7 +40,7 @@ class HomeController extends Controller
 
     public function dashboard()
     {
-        $dates = $this->previousMonths(10);
+        $dates = $this->previousMonths(5);
         $data['dates'] = $dates->map(function ($date) { return $date['month']. ' ' . $date['year'];});
         $data['income_stat'] = $this->buildChatData(config('app.categories.income.id'), $dates);
         $data['savings_stat'] = $this->buildChatData(config('app.categories.savings.id'), $dates);
@@ -48,8 +49,10 @@ class HomeController extends Controller
         $data['savings'] = Transaction::filterCategory(config('app.categories.savings.id'))->get()->sum('amount');
         $data['expenses'] = Transaction::filterCategory(config('app.categories.expenses.id'))->get()->sum('amount');
         $data['transactions'] = Transaction::myLatest(5)->get();
-        $data['categories'] = Categories::all();
+        $data['categories'] = Categories::pluck('name', 'id')->toArray();
         $data['budgets'] = Budget::where('user_id', auth()->user()->id)->get();
+        $data['types'] = Type::pluck('name', 'id')->toArray();
+        
         return view('dashboard', $data);
     }
 

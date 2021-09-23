@@ -2,28 +2,28 @@
               <a class="logo" href="{{ route('dashboard') }}">{{ __('Personal Finance') }}</a>
               <ul class="list-unstyled accordion-menu">
                 <li class="{{ $page == 'Dashboard' ? 'active-page':'' }}">
-                  <a href="#" class="active"><i data-feather="activity"></i>{{ __('Dashboard') }}<i class="fas fa-chevron-right dropdown-icon"></i></a>
-                  <ul class="">
+                  <a href="{{ route('dashboard') }}" class="active"><i data-feather="activity"></i>{{ __('Dashboard') }}</a>
+                  {{--  <ul class="">
                     <li><a href="{{ route('dashboard') }}" class="active"><i class="far fa-circle"></i>{{ __('All') }}</a></li>
                     <li><a href="{{ route('dashboard') }}"><i class="far fa-circle"></i>{{ __('Expenses') }}</a></li>
-                  </ul>
+                  </ul>  --}}
                 </li>
                 <li class="{{ $page == 'Transactions' ? 'active-page':'' }}">
                   <a href="#"><i data-feather="grid"></i>{{ __('Transactions') }}<i class="fas fa-chevron-right dropdown-icon"></i></a>
                   <ul class="">
                     <li><a href="{{ route('transactions.summary') }}"><i class="far fa-circle"></i>{{ __('Summary') }}</a></li>
-                    <li><a href="{{ route('transactions.index') }}"><i class="far fa-circle"></i>{{ __('All') }}</a></li>
+                    {{--  <li><a href="{{ route('transactions.index') }}"><i class="far fa-circle"></i>{{ __('All') }}</a></li>  --}}
                   </ul>
                 </li>
                 <li class="{{ $page == 'Apps' ? 'active-page':'' }}">
-                  <a href="#"><i data-feather="aperture"></i>Apps<i class="fas fa-chevron-right dropdown-icon"></i></a>
-                  <ul class="">
-                    {{-- <li><a href="email.html"><i class="far fa-circle"></i>Email</a></li>
-                    <li><a href="contact.html"><i class="far fa-circle"></i>Contact</a></li> --}}
-                    <li><a href="{{ route('calender') }}"><i class="far fa-circle"></i>{{ __('Calender') }}</a></li>
+                  {{--  <a href="{{ route('calender') }}""><i data-feather="aperture"></i>Calender</a>  --}}
+                  {{--  <ul class="">
+                    {{-- <li><a href="email.html"><i class="far fa-circle"></i>Email</a></li>  --}}
+                    {{--  <li><a href="contact.html"><i class="far fa-circle"></i>Contact</a></li> --}}
+                    {{--  <li><a href="{{ route('calender') }}"><i class="far fa-circle"></i>{{ __('Calender') }}</a></li>  --}} 
                     {{-- <li><a href="social.html"><i class="far fa-circle"></i>Social</a></li>
                     <li><a href="file-manager.html"><i class="far fa-circle"></i>File Manager</a></li> --}}
-                  </ul>
+                  {{--  </ul>  --}}
                 </li>
                 {{-- <li>
                   <a href="#"><i data-feather="code"></i>UI Kits<i class="fas fa-chevron-right dropdown-icon"></i></a>
@@ -83,9 +83,9 @@
                     <li><a href="{{ route('dashboard') }}"><i class="far fa-circle"></i>Data Tables</a></li>
                   </ul>
                 </li> --}}
-                <li>
+                {{--  <li>
                   <a href="{{ route('dashboard') }}"><i data-feather="pie-chart"></i>Charts</a>
-                </li>
+                </li>  --}}
                 
               </ul>
               <a href="#" id="sidebar-collapsed-toggle"><i data-feather="arrow-right"></i></a>
