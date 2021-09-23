@@ -46,12 +46,13 @@
                             </div>
                             <div class="d-grid">
                             <button type="submit" class="btn btn-info m-b-xs">Sign In</button>
-                            {{-- <button class="btn btn-primary">Facebook</button> --}}
+                            <a class="btn btn-success" href="{{ url('auth/google') }}">SignIn With Google</a>
                         </div>
                             </form>
-                            <div class="authent-reg">
+                                <div class="authent-reg">
                                 <p>Not registered? <a href="{{ route('register') }}">Create an account</a></p>
                             </div>
+
                     </div>
                 </div>
             </div>

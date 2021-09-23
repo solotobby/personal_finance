@@ -63,7 +63,9 @@
                                 <label class="form-check-label" for="exampleCheck1">I agree the <a href="#">Terms and Conditions</a></label>
                             </div> --}}
                             <div class="d-grid">
+
                             <button type="submit" class="btn btn-primary m-b-xs">{{ __('Register') }}</button>
+                            <a class="btn btn-success" href="{{ url('auth/google') }}">Register With Google</a>
                         </div>
                             </form>
                             <div class="authent-login">

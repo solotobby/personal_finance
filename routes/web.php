@@ -18,6 +18,10 @@ Route::get('/', function () {
    return auth()->user() ? redirect('dashboard') : view('welcome');
 });
 
+Route::get('auth/google', [App\Http\Controllers\Auth\GoogleController::class, 'redirectToGoogle']);
+Route::get('auth/google/callback', [App\Http\Controllers\Auth\GoogleController::class, 'handleGoogleCallback']);
+
+
 /*
 |--------------------------------------------------------------------------
 | Admin setup routes
