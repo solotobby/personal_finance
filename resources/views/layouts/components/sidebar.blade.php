@@ -16,7 +16,7 @@
                   </ul>
                 </li>
                 <li class="{{ $page == 'Apps' ? 'active-page':'' }}">
-                  <a href="{{ route('calender') }}""><i data-feather="aperture"></i>Calender</a>
+                  {{--  <a href="{{ route('calender') }}""><i data-feather="aperture"></i>Calender</a>  --}}
                   {{--  <ul class="">
                     {{-- <li><a href="email.html"><i class="far fa-circle"></i>Email</a></li>  --}}
                     {{--  <li><a href="contact.html"><i class="far fa-circle"></i>Contact</a></li> --}}

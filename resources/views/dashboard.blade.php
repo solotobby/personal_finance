@@ -18,7 +18,7 @@
                         <div class="card stats-card">
                           <div class="card-body">
                             <div class="stats-info">
-                              <h5 class="card-title">{{ html_entity_decode(config('app.currency.symbol')) }} {{ $income - $expenses - $savings }}</h5>
+                              <h5 class="card-title">{{ html_entity_decode(config('app.currency.symbol')) }} {{ number_format($income - $expenses - $savings) }}</h5>
                               <p class="stats-text">{{ __('Balance') }}</p>
                             </div>
                             <div class="stats-icon change-success">
@@ -31,7 +31,7 @@
                         <div class="card stats-card">
                           <div class="card-body">
                             <div class="stats-info">
-                              <h5 class="card-title">{{ html_entity_decode(config('app.currency.symbol')) }} {{ $income }}</h5>
+                              <h5 class="card-title">{{ html_entity_decode(config('app.currency.symbol')) }} {{ number_format($income) }}</h5>
                               <p class="stats-text">{{ __('Income') }}</p>
                             </div>
                             <div class="stats-icon change-success">
@@ -46,7 +46,7 @@
                         <div class="card stats-card">
                           <div class="card-body">
                             <div class="stats-info">
-                                <h5 class="card-title">{{ html_entity_decode(config('app.currency.symbol')) }} {{ $expenses }}</h5>
+                                <h5 class="card-title">{{ html_entity_decode(config('app.currency.symbol')) }} {{ number_format($expenses) }}</h5>
                                 <p class="stats-text">{{ __('Expenses') }}</p>
                             </div>
                             <div class="stats-icon change-danger">
@@ -59,7 +59,7 @@
                         <div class="card stats-card">
                           <div class="card-body">
                             <div class="stats-info">
-                                <h5 class="card-title">{{ html_entity_decode(config('app.currency.symbol')) }} {{ $savings }}</h5>
+                                <h5 class="card-title">{{ html_entity_decode(config('app.currency.symbol')) }} {{ number_format($savings) }}</h5>
                                 <p class="stats-text">{{ __('Savings') }}</p>
                             </div>
                             <div class="stats-icon change-success">
