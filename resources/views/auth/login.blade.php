@@ -7,7 +7,7 @@
                 <div class="card login-box-container">
                     <div class="card-body">
                         <div class="authent-logo">
-                            <a href="#">{{ config('app.name', 'Personal Finance') }}</a>
+                            <a href="{{ url('/') }}">{{ config('app.name', 'Personal Finance') }}</a>
                         </div>
                         <div class="authent-text">
                             {{-- <p>Welcome </p> --}}

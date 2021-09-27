@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-   return auth()->user() ? redirect('dashboard') : view('welcome');
+   return auth()->user() ? redirect('dashboard') : view('landing_page');
 });
 
 Route::get('auth/google', [App\Http\Controllers\Auth\GoogleController::class, 'redirectToGoogle']);
