@@ -11,8 +11,9 @@
                 <li class="{{ $page == 'Transactions' ? 'active-page':'' }}">
                   <a href="#"><i data-feather="grid"></i>{{ __('Transactions') }}<i class="fas fa-chevron-right dropdown-icon"></i></a>
                   <ul class="">
+                    <li><a href="{{ route('transactions.index') }}"><i class="far fa-circle"></i>{{ __('All') }}</a></li> 
                     <li><a href="{{ route('transactions.summary') }}"><i class="far fa-circle"></i>{{ __('Summary') }}</a></li>
-                    {{--  <li><a href="{{ route('transactions.index') }}"><i class="far fa-circle"></i>{{ __('All') }}</a></li>  --}}
+                
                   </ul>
                 </li>
                 <li class="{{ $page == 'Apps' ? 'active-page':'' }}">
