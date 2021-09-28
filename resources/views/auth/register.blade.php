@@ -11,12 +11,12 @@
                         </div>
                         <div class="authent-text">
                             {{-- <p>Welcome to Neo</p> --}}
-                            <p>Enter your details to create your account</p>
+                            <p>Please Create your Account</p>
                         </div>
 
                          <form method="POST" action="{{ route('register') }}">
                             @csrf
-                            <div class="mb-3">
+                            {{-- <div class="mb-3">
                                 <div class="form-floating">
                                     <input id="floatingInput" type="text" placeholder="Fullname" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
                                     <label for="floatingInput">{{ __('Fullname') }}</label>
@@ -57,16 +57,16 @@
                                     <input id="floatingPassword1" type="password" class="form-control" placeholder="Confirm Password" name="password_confirmation" required autocomplete="new-password">
                                     <label for="floatingPassword1">{{ __('Confirm Password') }}</label>
                                 </div>
-                            </div>
+                            </div> --}}
                             {{-- <div class="mb-3 form-check">
                                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                 <label class="form-check-label" for="exampleCheck1">I agree the <a href="#">Terms and Conditions</a></label>
                             </div> --}}
                             <div class="d-grid">
 
-                            <button type="submit" class="btn btn-primary m-b-xs">{{ __('Register') }}</button>
+                            {{-- <button type="submit" class="btn btn-primary m-b-xs">{{ __('Register') }}</button> --}}
                             <a class="btn btn-success" href="{{ url('auth/google') }}">Register With 
-                            <img src="https://img.icons8.com/color/20/000000/google-logo.png"/>
+                            <img src="https://img.icons8.com/color/30/000000/google-logo.png"/>
                             </a>
                         </div>
                             </form>

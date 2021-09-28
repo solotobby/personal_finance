@@ -16,7 +16,7 @@
 
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
-                            <div class="mb-3">
+                            {{-- <div class="mb-3">
                                 <div class="form-floating">
                                     <input id="floatingInput" type="email" placeholder="name@example.com" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                     <label for="floatingInput">{{ __('E-Mail Address') }}</label>
@@ -43,11 +43,11 @@
                             <div class="mb-3 form-check">
                                 <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                 <label class="form-check-label" for="remember">{{ __('Remember Me') }}</label>
-                            </div>
+                            </div> --}}
                             <div class="d-grid">
-                            <button type="submit" class="btn btn-info m-b-xs">Sign In</button>
+                            {{-- <button type="submit" class="btn btn-info m-b-xs">Sign In</button> --}}
                             <a class="btn btn-success" href="{{ url('auth/google') }}">SignIn With 
-                            <img src="https://img.icons8.com/color/20/000000/google-logo.png"/>
+                            <img src="https://img.icons8.com/color/30/000000/google-logo.png"/>
                             </a>
                         </div>
                             </form>
