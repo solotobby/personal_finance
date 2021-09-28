@@ -101,7 +101,7 @@
                     @endif
                 </a>
                 <div class="dropdown-menu dropdown-menu-end profile-drop-menu" aria-labelledby="profileDropDown">
-                    <a class="dropdown-item" href="#"><i data-feather="user"></i>Profile</a>
+                    {{-- <a class="dropdown-item" href="#"><i data-feather="user"></i>Profile</a> --}}
                     {{--  <a class="dropdown-item" href="#"><i data-feather="inbox"></i>Messages</a>  --}}
                     {{-- <a class="dropdown-item" href="#"><i data-feather="edit"></i>Activities<span class="badge rounded-pill bg-success">12</span></a> --}}
                     {{-- <a class="dropdown-item" href="#"><i data-feather="check-circle"></i>Tasks</a> --}}
