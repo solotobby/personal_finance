@@ -12,4 +12,9 @@ class Budget extends Model
     protected $table = "budgets";
 
     protected $fillable = ['user_id', 'date', 'category_id', 'name', 'amount', 'description', 'status'];
+
+    public function category()
+    {
+        return $this->belongsTo(Categories::class, 'category_id');
+    }
 }

@@ -77,13 +77,13 @@
                     <li><a href="form-select2.html"><i class="far fa-circle"></i>Select2</a></li>
                   </ul>
                 </li> --}}
-                {{-- <li class="{{ $page == 'Tables' ? 'active-page':'' }}">
-                  <a href="#"><i data-feather="grid"></i>Tables<i class="fas fa-chevron-right dropdown-icon"></i></a>
+                <li class="{{ $page == 'Budget' ? 'active-page':'' }}">
+                  <a href="#"><i data-feather="aperture"></i>Budgets<i class="fas fa-chevron-right dropdown-icon"></i></a>
                   <ul class="">
-                    <li><a href="{{ route('dashboard') }}"><i class="far fa-circle"></i>Basic Tables</a></li>
-                    <li><a href="{{ route('dashboard') }}"><i class="far fa-circle"></i>Data Tables</a></li>
+                    <li><a href="{{ url('budget') }}"><i class="far fa-circle"></i>Create</a></li>
+                    <li><a href="{{ url('budgets/summary') }}"><i class="far fa-circle"></i>Summary</a></li>
                   </ul>
-                </li> --}}
+                </li>
                 {{--  <li>
                   <a href="{{ route('dashboard') }}"><i data-feather="pie-chart"></i>Charts</a>
                 </li>  --}}
