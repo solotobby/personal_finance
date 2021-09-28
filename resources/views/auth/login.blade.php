@@ -46,7 +46,9 @@
                             </div>
                             <div class="d-grid">
                             <button type="submit" class="btn btn-info m-b-xs">Sign In</button>
-                            <a class="btn btn-success" href="{{ url('auth/google') }}">SignIn With Google</a>
+                            <a class="btn btn-success" href="{{ url('auth/google') }}">SignIn With 
+                            <img src="https://img.icons8.com/color/20/000000/google-logo.png"/>
+                            </a>
                         </div>
                             </form>
                                 <div class="authent-reg">
