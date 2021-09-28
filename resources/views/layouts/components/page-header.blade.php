@@ -93,7 +93,13 @@
             </li> --}}
             <li class="nav-item dropdown">
                 <a class="nav-link profile-dropdown" href="#" id="profileDropDown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="../../assets/images/avatars/profile-image.png" alt=""></a>
+                    {{ auth()->user()->name }} &nbsp;
+                    @if(auth()->user()->avarta_url)
+                    <img src="{{ auth()->user()->avarta_url }}" alt="">
+                    @else
+                    <img src="../../assets/images/avatars/profile-image.png" alt="">
+                    @endif
+                </a>
                 <div class="dropdown-menu dropdown-menu-end profile-drop-menu" aria-labelledby="profileDropDown">
                     <a class="dropdown-item" href="#"><i data-feather="user"></i>Profile</a>
                     {{--  <a class="dropdown-item" href="#"><i data-feather="inbox"></i>Messages</a>  --}}
