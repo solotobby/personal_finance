@@ -60,8 +60,10 @@ Route::middleware(['admin.created','auth'])->group(function () {
     Route::get('transactions/summary', [App\Http\Controllers\TransactionController::class, 'summary'])->name('transactions.summary');
     Route::resource('transactions', App\Http\Controllers\TransactionController::class);
 
+    //Budget Mechanism
     Route::resource('budget', App\Http\Controllers\BudgetController::class);
+    Route::get('budgets/summary', [\App\Http\Controllers\BudgetController::class, 'viewBudget']);
     Route::get('mark/{id}', [App\Http\Controllers\BudgetController::class, 'markDone']);
     Route::get('delete/budget/{id}', [App\Http\Controllers\BudgetController::class, 'remove']);
-    Route::get('filter/transaction', [App\Http\Controllers\TransactionController::class, 'filter']);
+
 });

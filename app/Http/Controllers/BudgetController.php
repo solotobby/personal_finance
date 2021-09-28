@@ -101,7 +101,8 @@ class BudgetController extends Controller
 
     public function viewBudget()
     {
-        return view('view_budget');
+        $budgets = Budget::where('user_id', auth()->user()->id)->get();
+        return view('budget.view_budget', ['budgets' => $budgets]);
     }
 
     public function markDone($id)
