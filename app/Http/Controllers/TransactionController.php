@@ -35,7 +35,12 @@ class TransactionController extends Controller
             'from' => 'nullable|date',
         ]);
         $data['transactions'] = Transaction::betweenDates($data)->orderBy('created_at', 'DESC')->paginate(100);
-        return view('transactions', $data);
+        $data['income'] = Transaction::filterCategory(config('app.categories.income.id'))->betweenDates($data)->orderBy('created_at', 'DESC')->get()->sum('amount');
+        $data['savings'] = Transaction::filterCategory(config('app.categories.savings.id'))->betweenDates($data)->orderBy('created_at', 'DESC')->get()->sum('amount');
+        $data['expenses'] = Transaction::filterCategory(config('app.categories.expenses.id'))->betweenDates($data)->orderBy('created_at', 'DESC')->get()->sum('amount');
+        //return $data;
+        return view('transactions.transaction_list', $data);
+        //return view('transactions', $data);
     }
 
     /**
