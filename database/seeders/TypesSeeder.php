@@ -18,19 +18,16 @@ class TypesSeeder extends Seeder
             ['id' => 1, 'name' => 'Freebyz', 'description' => ''],
             ['id' => 2, 'name' => 'Payhankey', 'description' => ''],
             ['id' => 3, 'name' => 'Salaries', 'description' => ''],
-            ['id' => 4, 'name' => 'Groceries', 'description' => ''],
-            ['id' => 5, 'name' => 'Shopping', 'description' => ''],
-            ['id' => 6, 'name' => 'Transport', 'description' => ''],
-            ['id' => 7, 'name' => 'Travel', 'description' => ''],
-            ['id' => 8, 'name' => 'Wellness', 'description' => ''],
-            ['id' => 9, 'name' => 'Housing', 'description' => ''],
-            ['id' => 10, 'name' => 'Entertainment', 'description' => ''],
-            ['id' => 11, 'name' => 'Family & Friends', 'description' => ''],
-            ['id' => 12, 'name' => 'Dinning', 'description' => ''],
-            ['id' => 13, 'name' => 'Bills & Utilities', 'description' => ''],
-            ['id' => 14, 'name' => 'Savings', 'description' => ''],
-            ['id' => 15, 'name' => 'Investment', 'description' => ''],
-            ['id' => 16, 'name' => 'Miscellaneous', 'description'=> '']
+            ['id' => 4, 'name' => 'Travel', 'description' => ''],
+            ['id' => 5, 'name' => 'Wellness', 'description' => ''],
+            ['id' => 6, 'name' => 'Housing', 'description' => ''],
+            ['id' => 7, 'name' => 'Entertainment', 'description' => ''],
+            ['id' => 8, 'name' => 'Family & Friends', 'description' => ''],
+            ['id' => 9, 'name' => 'Dinning', 'description' => ''],
+            ['id' => 10, 'name' => 'Bills & Utilities', 'description' => ''],
+            ['id' => 11, 'name' => 'Savings', 'description' => ''],
+            ['id' => 12, 'name' => 'Investment', 'description' => ''],
+            ['id' => 13, 'name' => 'Miscellaneous', 'description'=> '']
         ];
 
         foreach($transactionCategories as $transactions)
