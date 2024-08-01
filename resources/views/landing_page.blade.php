@@ -33,8 +33,9 @@
 						<div class="hero-copy">
 	                        <h1 class="hero-title mt-0">Welcome to {{ config('app.name', 'Personal Finance') }}</h1>
 	                        <p class="hero-paragraph"> Track your Expenses and Income, Create budget and Make Excellent Financial Decisions!</p>
-	                        <div class="hero-cta"><a class="button button-primary" href="{{ url('register') }}">Create Account</a>
-                                <a class="button" href="{{ url('login') }}">Login</a></div>
+	                        <div class="hero-cta">
+                                {{-- <a class="button" href="{{ url('register') }}">Create Account</a> --}}
+                                <a class="button button-primary" href="{{ url('login') }}">Login</a></div>
 						</div>
 						<div class="hero-figure anime-element">
 							<svg class="placeholder" width="528" height="396" viewBox="0 0 528 396">
