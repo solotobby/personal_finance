@@ -40,7 +40,7 @@ class HomeController extends Controller
 
     public function dashboard()
     {
-        $dates = $this->previousMonths(5);
+        $dates = $this->previousMonths(1);
         $data['dates'] = $dates->map(function ($date) { return $date['month']. ' ' . $date['year'];});
         $data['income_stat'] = $this->buildChatData(config('app.categories.income.id'), $dates);
         $data['savings_stat'] = $this->buildChatData(config('app.categories.savings.id'), $dates);

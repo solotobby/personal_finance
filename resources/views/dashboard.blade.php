@@ -4,7 +4,6 @@
         <link href="{{ asset('assets/plugins/apexcharts/apexcharts.css') }}" rel="stylesheet">
 @endsection
 
-
 @section('content')
         <div class="page-container">
           @include('layouts.components.sidebar', ['page' => 'Dashboard'])
