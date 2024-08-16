@@ -66,4 +66,10 @@ Route::middleware(['admin.created','auth'])->group(function () {
     Route::get('mark/{id}', [App\Http\Controllers\BudgetController::class, 'markDone']);
     Route::get('delete/budget/{id}', [App\Http\Controllers\BudgetController::class, 'remove']);
 
+    //Staff
+    Route::get('staffs', [\App\Http\Controllers\StaffController::class, 'index'])->name('staff.index');
+    Route::get('fetch/staffs', [\App\Http\Controllers\StaffController::class, 'fetchStaffs']);
+   
+    Route::get('salary/advance', [\App\Http\Controllers\SalaryAdvanceController::class, 'salaryAdvance'])->name('salary.advance');
+    Route::get('staff/loans', [\App\Http\Controllers\LoanController::class, 'loans'])->name('staff.loan');
 });

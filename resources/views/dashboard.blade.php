@@ -99,11 +99,11 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <div class="card card-bg">
                             <div class="card-body">
                                 <h5 class="card-title">{{ __('Recent Transactions') }}</h5>
-                                <table class="table crypto-table">
+                                <table class="table crypto-table table-responsive">
                                     <thead>
                                       <tr>
                                         <th scope="col">#</th>
@@ -129,7 +129,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    {{-- <div class="col-md-4">
                         <div class="card card-bg">
                             <div class="card-body">
                                 <h5 class="card-title">{{ __('Budgets') }}</h5>
@@ -163,7 +163,7 @@
                                   </table>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 {{-- <div class="row">
                   <div class="col-lg-4">
