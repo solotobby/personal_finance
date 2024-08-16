@@ -19,7 +19,7 @@ class StaffController extends Controller
             'Accept' => 'application/json',
             'Content-Type' => 'application/json',
             // 'Authorization' => 'Bearer '.env('PAYSTACK_SECRET_KEY')
-        ])->get('http://localhost:8000/solution');
+        ])->get('https://freebyz.com/solution');
         // return json_decode($res->getBody()->getContents(), true);
 
             
