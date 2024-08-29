@@ -6,8 +6,10 @@ use App\Models\Type;
 use App\Models\Budget;
 use App\Models\Categories;
 use App\Models\Transaction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class TransactionController extends Controller
 {
@@ -21,6 +23,29 @@ class TransactionController extends Controller
         $data['budgets'] = Budget::where('user_id', auth()->user()->id)->get();
         $data['types'] = Type::pluck('name', 'id')->toArray();
         return view('transactions.summary', $data);
+    }
+
+    public function report(Request $request)  {
+         $request->validate([
+            'month' => 'nullable|string',
+            // 'to' => 'nullable|date',
+            // 'from' => 'nullable|date',
+        ]);
+       
+            $currentMonthYear = Carbon::now()->format('m-Y');
+            $months = '';
+            $months = $request->month == '' ? $currentMonthYear : $request->month;
+            $monthList = explode('-', $months);
+    
+            $month = $monthList[0];  // July
+            $year = $monthList[1];
+      
+         $data['date'] = $months;
+         $data['transactions']= Transaction::whereMonth('created_at', $month)
+             ->whereYear('created_at', $year)
+             ->get();
+
+        return view('transactions.report', $data);
     }
 
     /**

@@ -58,6 +58,7 @@ Route::middleware(['admin.created','auth'])->group(function () {
     Route::get('/calender', [App\Http\Controllers\CalenderController::class, 'index'])->name('calender');
     Route::post('/category', [App\Http\Controllers\CategoriesController::class, 'store']);
     Route::get('transactions/summary', [App\Http\Controllers\TransactionController::class, 'summary'])->name('transactions.summary');
+    Route::get('transactions/report', [App\Http\Controllers\TransactionController::class, 'report'])->name('transactions.report');
     Route::resource('transactions', App\Http\Controllers\TransactionController::class);
 
     //Budget Mechanism
