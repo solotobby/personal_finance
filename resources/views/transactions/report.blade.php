@@ -42,7 +42,7 @@
                                     <br>
                                     <center><strong>Report for {{ $date }}</strong></center>
                         
-                                    <table class="table table-bordered">
+                                    <table class="table table-bordered" style="color: aliceblue">
                                         <thead>
                                             <tr>
                                                 <th scope="col" class="text-center">Credit(Income)</th>
@@ -60,8 +60,12 @@
                                                 @if($transactions)
                                                     @foreach($transactions as $transaction)
                                                         @if($transaction['category_id'] == 1) <!-- Debit -->
-                                                            {{ $transaction['name'] }} - {{ html_entity_decode(config('app.currency.symbol')) }} {{ $transaction['amount'] }}<br>
-                                                            @php $totalCr += (float) $transaction['amount']; @endphp
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            {{\Carbon\Carbon::parse( $transaction['date'])->format('d, M Y @ h:i  a')}} - {{ $transaction['name'] }} 
+                                                            <span> {{ html_entity_decode(config('app.currency.symbol')) }} {{ number_format($transaction['amount'],2) }}</span>
+                                                          
+                                                        </li>
+                                                        @php $totalCr += (float) $transaction['amount']; @endphp
                                                       
                                                         @endif
                                                     @endforeach
@@ -75,7 +79,10 @@
                                                 @if($transactions)
                                                     @foreach($transactions as $transaction)
                                                         @if($transaction['category_id'] == 2) <!-- Credit -->
-                                                            {{ $transaction['name'] }} - {{ html_entity_decode(config('app.currency.symbol')) }} {{ $transaction['amount'] }}<br>
+                                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                            {{\Carbon\Carbon::parse( $transaction['date'])->format('d, M Y @ h:i  a')}} - {{ $transaction['name'] }} 
+                                                            <span>{{ html_entity_decode(config('app.currency.symbol')) }} {{ number_format($transaction['amount'],2) }}</span>
+                                                        </li>
                                                             @php $totalDr += (float) $transaction['amount']; @endphp
                                                     
                                                         @endif
@@ -89,11 +96,20 @@
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <td><strong>Total CR:</strong> {{ html_entity_decode(config('app.currency.symbol')) }} {{ $totalCr }}</td>
-                                                <td><strong>Total DR:</strong> {{ html_entity_decode(config('app.currency.symbol')) }} {{ $totalDr }}</td>
+                                                <td> 
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <span><strong>Total CR:</strong></span> {{ html_entity_decode(config('app.currency.symbol')) }} {{ number_format($totalCr,2) }}
+                                                    </li>
+                                                
+                                                </td>
+                                                <td> 
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <span><strong>Total DR:</strong></span> {{ html_entity_decode(config('app.currency.symbol')) }} {{ number_format($totalDr,2) }}
+                                                    </li>
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td colspan="2"><strong>Profit:</strong> {{ html_entity_decode(config('app.currency.symbol')) }} {{ $totalCr - $totalDr }}</td>
+                                                <td colspan="2"><strong>Profit:</strong> {{ html_entity_decode(config('app.currency.symbol')) }} {{ number_format($totalCr - $totalDr,2) }}</td>
                                             </tr>
                                         </tfoot>
                                     </table>
