@@ -41,8 +41,8 @@ class TransactionController extends Controller
             $year = $monthList[1];
       
          $data['date'] = $months;
-         $data['transactions']= Transaction::whereMonth('created_at', $month)
-             ->whereYear('created_at', $year)
+         $data['transactions']= Transaction::whereMonth('date', $month)
+             ->whereYear('date', $year)
              ->get();
 
         return view('transactions.report', $data);
