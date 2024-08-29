@@ -61,7 +61,7 @@
                                                     @foreach($transactions as $transaction)
                                                         @if($transaction['category_id'] == 1) <!-- Debit -->
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            {{\Carbon\Carbon::parse( $transaction['date'])->format('d, M Y @ h:i  a')}} - {{ $transaction['name'] }} 
+                                                            {{\Carbon\Carbon::parse( $transaction['date'])->format('d, M Y')}} - {{ $transaction['name'] }} 
                                                             <span> {{ html_entity_decode(config('app.currency.symbol')) }} {{ number_format($transaction['amount'],2) }}</span>
                                                           
                                                         </li>
@@ -80,7 +80,7 @@
                                                     @foreach($transactions as $transaction)
                                                         @if($transaction['category_id'] == 2) <!-- Credit -->
                                                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                            {{\Carbon\Carbon::parse( $transaction['date'])->format('d, M Y @ h:i  a')}} - {{ $transaction['name'] }} 
+                                                            {{\Carbon\Carbon::parse( $transaction['date'])->format('d, M Y')}} - {{ $transaction['name'] }} 
                                                             <span>{{ html_entity_decode(config('app.currency.symbol')) }} {{ number_format($transaction['amount'],2) }}</span>
                                                         </li>
                                                             @php $totalDr += (float) $transaction['amount']; @endphp
