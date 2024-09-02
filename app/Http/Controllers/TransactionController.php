@@ -40,10 +40,10 @@ class TransactionController extends Controller
             $month = $monthList[0];  // July
             $year = $monthList[1];
       
-         $data['date'] = $months;
-         $data['transactions']= Transaction::whereMonth('date', $month)
-             ->whereYear('date', $year)
-             ->get();
+            $data['date'] = $months;
+            $data['transactions']= Transaction::whereMonth('date', $month)
+            ->whereYear('date', $year)
+            ->get();
 
         return view('transactions.report', $data);
     }

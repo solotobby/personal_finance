@@ -6,6 +6,7 @@ use App\Models\Budget;
 use App\Models\Type;
 use App\Models\Categories;
 use App\Models\Transaction;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -40,19 +41,26 @@ class HomeController extends Controller
 
     public function dashboard()
     {
-        $dates = $this->previousMonths(1);
+
+        $dates = $this->previousMonths(2);
+        $firstDateIndex = $dates[0]['month_index'];
+        $firstDateYear = $dates[0]['year'];
+
+        $from = $firstDateYear.'-'.$firstDateIndex.'-01';
+        $to = Carbon::now()->format('Y-m-01');
+     
         $data['dates'] = $dates->map(function ($date) { return $date['month']. ' ' . $date['year'];});
         $data['income_stat'] = $this->buildChatData(config('app.categories.income.id'), $dates);
         $data['savings_stat'] = $this->buildChatData(config('app.categories.savings.id'), $dates);
         $data['expenses_stat'] = $this->buildChatData(config('app.categories.expenses.id'), $dates);
-        $data['income'] = Transaction::filterCategory(config('app.categories.income.id'))->get()->sum('amount');
-        $data['savings'] = Transaction::filterCategory(config('app.categories.savings.id'))->get()->sum('amount');
-        $data['expenses'] = Transaction::filterCategory(config('app.categories.expenses.id'))->get()->sum('amount');
+        $data['income'] = Transaction::filterCategory(config('app.categories.income.id'), $from, $to)->sum('amount');
+        $data['savings'] = Transaction::filterCategory(config('app.categories.savings.id'), $from, $to)->sum('amount');
+        $data['expenses'] = Transaction::filterCategory(config('app.categories.expenses.id'), $from, $to)->sum('amount');
         $data['transactions'] = Transaction::myLatest(5)->get();
         $data['categories'] = Categories::pluck('name', 'id')->toArray();
         $data['budgets'] = Budget::where('user_id', auth()->user()->id)->get();
         $data['types'] = Type::pluck('name', 'id')->toArray();
-        
+
         return view('dashboard', $data);
     }
 

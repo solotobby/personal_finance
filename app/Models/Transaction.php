@@ -18,9 +18,13 @@ class Transaction extends Model
         return $this->belongsTo(Categories::class, 'category_id');
     }
 
-    public function scopeFilterCategory($query, $category_id)
+    public function scopeFilterCategory($query, $category_id, $from, $to)
     {
-        return $query->where('user_id', auth()->user()->id)->where('category_id', $category_id)->select('amount');
+        return $query->where('user_id', auth()->user()->id)->where('category_id', $category_id)
+                ->whereBetween('date', [$from, $to])
+                // ->whereMonth('date', $month)
+                // ->whereYear('date', $year)
+                ->select('amount');
     }
 
     public function scopeMyLatest($query, $number)
