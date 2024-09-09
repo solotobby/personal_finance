@@ -18,18 +18,19 @@ class Transaction extends Model
         return $this->belongsTo(Categories::class, 'category_id');
     }
 
-    public function scopeFilterCategory($query, $category_id, $from, $to)
+    public function scopeFilterCategory($query, $category_id, $month, $year)
     {
         return $query->where('user_id', auth()->user()->id)->where('category_id', $category_id)
-                ->whereBetween('date', [$from, $to])
-                // ->whereMonth('date', $month)
-                // ->whereYear('date', $year)
+                // ->whereBetween('date', [$from, $to])
+                ->whereMonth('date', $month)
+                ->whereYear('date', $year)
                 ->select('amount');
     }
 
     public function scopeMyLatest($query, $number)
     {
-        return $query->where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->take($number);
+        return $query->where('user_id', auth()->user()->id)
+        ->orderBy('created_at', 'DESC')->take($number);
     }
 
     public function scopeBetweenDates($query, $data)

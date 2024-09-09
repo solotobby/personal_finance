@@ -47,20 +47,24 @@ class HomeController extends Controller
         $firstDateYear = $dates[0]['year'];
 
         $from = $firstDateYear.'-'.$firstDateIndex.'-01';
-        $to = Carbon::now()->format('Y-m-01');
+         $to = Carbon::now()->format('Y-m-01');
      
+        $month = Carbon::now()->format('m');
+        $year = Carbon::now()->format('Y');
+
         $data['dates'] = $dates->map(function ($date) { return $date['month']. ' ' . $date['year'];});
         $data['income_stat'] = $this->buildChatData(config('app.categories.income.id'), $dates);
         $data['savings_stat'] = $this->buildChatData(config('app.categories.savings.id'), $dates);
         $data['expenses_stat'] = $this->buildChatData(config('app.categories.expenses.id'), $dates);
-        $data['income'] = Transaction::filterCategory(config('app.categories.income.id'), $from, $to)->sum('amount');
-        $data['savings'] = Transaction::filterCategory(config('app.categories.savings.id'), $from, $to)->sum('amount');
-        $data['expenses'] = Transaction::filterCategory(config('app.categories.expenses.id'), $from, $to)->sum('amount');
+        $data['income'] = Transaction::filterCategory(config('app.categories.income.id'), $month, $year)->sum('amount');
+        $data['savings'] = Transaction::filterCategory(config('app.categories.savings.id'), $month, $year)->sum('amount');
+        $data['expenses'] = Transaction::filterCategory(config('app.categories.expenses.id'), $month, $year)->sum('amount');
         $data['transactions'] = Transaction::myLatest(5)->get();
         $data['categories'] = Categories::pluck('name', 'id')->toArray();
         $data['budgets'] = Budget::where('user_id', auth()->user()->id)->get();
         $data['types'] = Type::pluck('name', 'id')->toArray();
 
+        
         return view('dashboard', $data);
     }
 
@@ -84,6 +88,7 @@ class HomeController extends Controller
             })->first();
 
             return $data->data ?? 0;
+            
         });
 
     }
