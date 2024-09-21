@@ -16,7 +16,7 @@
                             <div class="card-body">
                                 <div class="stats-info">
                                 <h5 class="card-title">{{ __('Balance') }}</h5>
-                                <p class="stats-text">{{ html_entity_decode(config('app.currency.symbol')) }} {{ $income - $expenses - $savings }}</p>
+                                <p class="stats-text">{{ html_entity_decode(config('app.currency.symbol')) }} {{ number_format($income - $expenses - $savings) }}</p>
                                 </div>
                                 <div class="stats-icon change-success">
                                 <i class="material-icons">account_balance</i>
@@ -29,7 +29,7 @@
                             <div class="card-body">
                                 <div class="stats-info">
                                 <h5 class="card-title">{{ __('Income') }}</h5>
-                                <p class="stats-text">{{ html_entity_decode(config('app.currency.symbol')) }} {{ $income }}</p>
+                                <p class="stats-text">{{ html_entity_decode(config('app.currency.symbol')) }} {{ number_format($income) }}</p>
                                 </div>
                                 <div class="stats-icon change-success">
                                 <i class="material-icons">trending_up</i>
@@ -42,7 +42,7 @@
                             <div class="card-body">
                                 <div class="stats-info">
                                 <h5 class="card-title">{{ __('Expenses') }}</h5>
-                                <p class="stats-text">{{ html_entity_decode(config('app.currency.symbol')) }} {{ $expenses }}</p>
+                                <p class="stats-text">{{ html_entity_decode(config('app.currency.symbol')) }} {{ number_format($expenses) }}</p>
                                 </div>
                                 <div class="stats-icon change-danger">
                                 <i class="material-icons">trending_down</i>
@@ -55,7 +55,7 @@
                             <div class="card-body">
                                 <div class="stats-info">
                                 <h5 class="card-title">{{ __('Savings') }}</h5>
-                                <p class="stats-text">{{ html_entity_decode(config('app.currency.symbol')) }} {{ $savings }}</p>
+                                <p class="stats-text">{{ html_entity_decode(config('app.currency.symbol')) }} {{ number_format($savings) }}</p>
                                 </div>
                                 <div class="stats-icon change-success">
                                 <i class="material-icons">backup</i>
