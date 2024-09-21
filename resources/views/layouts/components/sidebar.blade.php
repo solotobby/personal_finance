@@ -12,7 +12,7 @@
                   <a href="#"><i data-feather="grid"></i>{{ __('Transactions') }}<i class="fas fa-chevron-right dropdown-icon"></i></a>
                   <ul class="">
                     <li><a href="{{ route('transactions.index') }}"><i class="far fa-circle"></i>{{ __('All') }}</a></li> 
-                    <li><a href="{{ route('transactions.summary') }}"><i class="far fa-circle"></i>{{ __('Summary') }}</a></li>
+                    {{-- <li><a href="{{ route('transactions.summary') }}"><i class="far fa-circle"></i>{{ __('Summary') }}</a></li> --}}
                     <li><a href="{{ route('transactions.report') }}"><i class="far fa-circle"></i>{{ __('Report') }}</a></li>
                 
                   </ul>
