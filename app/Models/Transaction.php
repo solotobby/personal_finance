@@ -27,6 +27,16 @@ class Transaction extends Model
                 ->select('amount');
     }
 
+    public function scopeAllTransaction($query, $category_id)
+    {
+        // return $query->where('user_id', auth()->user()->id)->where('category_id', $category_id)
+        return $query->where('user_id', auth()->user()->id)->where('category_id', $category_id)
+                //  ->whereBetween('date', [$from, $to])
+                // ->whereMonth('date', $month)
+                // ->whereYear('date', $year)
+                ->select('amount');
+    }
+
     public function scopeMyLatest($query, $number)
     {
         return $query->where('user_id', auth()->user()->id)

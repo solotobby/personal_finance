@@ -15,9 +15,9 @@ class TransactionController extends Controller
 {
     public function summary()
     {
-        $data['income'] = Transaction::filterCategory(config('app.categories.income.id'))->get()->sum('amount');
-        $data['savings'] = Transaction::filterCategory(config('app.categories.savings.id'))->get()->sum('amount');
-        $data['expenses'] = Transaction::filterCategory(config('app.categories.expenses.id'))->get()->sum('amount');
+        $data['income'] = Transaction::AllTransaction(config('app.categories.income.id'))->sum('amount');
+        $data['savings'] = Transaction::AllTransaction(config('app.categories.savings.id'))->sum('amount');
+        $data['expenses'] = Transaction::AllTransaction(config('app.categories.expenses.id'))->sum('amount');
         $data['transactions'] = Transaction::myLatest(5)->get();
         $data['categories'] = Categories::pluck('name', 'id')->toArray();
         $data['budgets'] = Budget::where('user_id', auth()->user()->id)->get();
@@ -43,6 +43,7 @@ class TransactionController extends Controller
             $data['date'] = $months;
             $data['transactions']= Transaction::whereMonth('date', $month)
             ->whereYear('date', $year)
+            ->orderBy('date', 'DESC')
             ->get();
 
         return view('transactions.report', $data);
@@ -60,9 +61,9 @@ class TransactionController extends Controller
             'from' => 'nullable|date',
         ]);
         $data['transactions'] = Transaction::betweenDates($data)->orderBy('created_at', 'DESC')->paginate(100);
-        $data['income'] = Transaction::filterCategory(config('app.categories.income.id'))->betweenDates($data)->orderBy('created_at', 'DESC')->get()->sum('amount');
-        $data['savings'] = Transaction::filterCategory(config('app.categories.savings.id'))->betweenDates($data)->orderBy('created_at', 'DESC')->get()->sum('amount');
-        $data['expenses'] = Transaction::filterCategory(config('app.categories.expenses.id'))->betweenDates($data)->orderBy('created_at', 'DESC')->get()->sum('amount');
+        $data['income'] = Transaction::AllTransaction(config('app.categories.income.id'))->betweenDates($data)->orderBy('created_at', 'DESC')->get()->sum('amount');
+        $data['savings'] = Transaction::AllTransaction(config('app.categories.savings.id'))->betweenDates($data)->orderBy('created_at', 'DESC')->get()->sum('amount');
+        $data['expenses'] = Transaction::AllTransaction(config('app.categories.expenses.id'))->betweenDates($data)->orderBy('created_at', 'DESC')->get()->sum('amount');
         //return $data;
         return view('transactions.transaction_list', $data);
         //return view('transactions', $data);
