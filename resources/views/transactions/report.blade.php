@@ -98,18 +98,18 @@
                                             <tr>
                                                 <td> 
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <span><strong>Total CR:</strong></span> {{ html_entity_decode(config('app.currency.symbol')) }} {{ number_format($totalCr,2) }}
+                                                        <span><strong>Total CR(Income):</strong></span> {{ html_entity_decode(config('app.currency.symbol')) }} {{ number_format($totalCr,2) }}
                                                     </li>
                                                 
                                                 </td>
                                                 <td> 
                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <span><strong>Total DR:</strong></span> {{ html_entity_decode(config('app.currency.symbol')) }} {{ number_format($totalDr,2) }}
+                                                        <span><strong>Total DR(Expenses):</strong></span> {{ html_entity_decode(config('app.currency.symbol')) }} {{ number_format($totalDr,2) }}
                                                     </li>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td colspan="2"><strong>Profit:</strong> {{ html_entity_decode(config('app.currency.symbol')) }} {{ number_format($totalCr - $totalDr,2) }}</td>
+                                                <td colspan="2"><strong>Profit(Balance):</strong> {{ html_entity_decode(config('app.currency.symbol')) }} {{ number_format($totalCr - $totalDr,2) }}</td>
                                             </tr>
                                         </tfoot>
                                     </table>
