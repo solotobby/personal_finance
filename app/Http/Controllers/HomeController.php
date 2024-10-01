@@ -42,7 +42,7 @@ class HomeController extends Controller
     public function dashboard()
     {
 
-        $dates = $this->previousMonths(2);
+        $dates = $this->previousMonths(6);
         $firstDateIndex = $dates[0]['month_index'];
         $firstDateYear = $dates[0]['year'];
 
