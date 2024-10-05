@@ -14,4 +14,8 @@ class Loan extends Model
     public function staff(){
         return $this->belongsTo(Staffs::class, 'staff_id');
     }
+
+    public function loanSchedule(){
+        return $this->hasMany(LoanSchedule::class, 'loan_id');
+    }
 }

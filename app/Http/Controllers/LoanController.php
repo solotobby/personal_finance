@@ -7,6 +7,7 @@ use App\Models\LoanSchedule;
 use App\Models\Staffs;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class LoanController extends Controller
 {
@@ -64,5 +65,12 @@ class LoanController extends Controller
 
     return back()->with('success', 'Loan Processed Successfully');
     
+    }
+
+    public function loanSchedule($id){
+        $loan = Loan::with('loanSchedule')->find($id);
+        // $loanSchedule = LoanSchedule::with('loan')->where('loan_id', $id)->get();
+        return view('staffs.loan_schedule', ['loanSchedule' => $loan]);
+        
     }
 }

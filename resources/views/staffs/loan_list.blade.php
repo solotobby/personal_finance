@@ -11,7 +11,7 @@
     @include('layouts.components.sidebar', ['page' => 'Staff'])
 
     <div class="page-content">
-        @include('layouts.components.page-header', ['title' => 'Staff List'])
+        @include('layouts.components.page-header', ['title' => 'Loan List'])
         <div class="main-wrapper">
 
             <div class="row">
@@ -39,7 +39,7 @@
                                      @foreach($loans as $loan)
                                      <tr>
                                         <td>
-                                            {{$loan->staff->account_name}}
+                                            <a href="{{ url('staff/loan/schedule/'.$loan->id) }}"> {{$loan->staff->account_name}} </a>
                                         </td>
                                         <td>
                                             {{$loan->duration}} months

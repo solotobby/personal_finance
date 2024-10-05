@@ -10,4 +10,8 @@ class LoanSchedule extends Model
     use HasFactory;
 
     protected $fillable = ['loan_id', 'amount_due', 'month', 'currency', 'payment_due_date', 'is_paid'];
+
+    public function loan(){
+        return $this->belongsTo(Loan::class, 'loan_id');
+    }
 }
