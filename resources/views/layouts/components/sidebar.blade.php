@@ -23,8 +23,9 @@
                   <ul class="">
                     <li><a href="{{ route('staff.index') }}"><i class="far fa-circle"></i>{{ __('All') }}</a></li> 
                     {{-- <li><a href="{{ route('salary.advance') }}"><i class="far fa-circle"></i>{{ __('Salary Advance') }}</a></li> --}}
-                    <li><a href="{{ route('staff.loan') }}"><i class="far fa-circle"></i>{{ __('Loans') }}</a></li>
+                    <li><a href="{{ route('staff.loan') }}"><i class="far fa-circle"></i>{{ __('Setup Loans') }}</a></li>
                 
+                    <li><a href="{{ route('staff.loan.list') }}"><i class="far fa-circle"></i>{{ __('Loans') }}</a></li>
                   </ul>
                 </li>
                 <li class="{{ $page == 'Apps' ? 'active-page':'' }}">

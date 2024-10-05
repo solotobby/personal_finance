@@ -75,4 +75,5 @@ Route::middleware(['admin.created','auth'])->group(function () {
     Route::post('process/salary/advance', [\App\Http\Controllers\SalaryAdvanceController::class, 'processSalaryAdvance'])->name('process.salary.advance');
     Route::get('staff/loans', [\App\Http\Controllers\LoanController::class, 'index'])->name('staff.loan');
     Route::post('process/staff/loans', [\App\Http\Controllers\LoanController::class, 'processLoan'])->name('process.staff.loan');
+    Route::get('staff/loan/list', [\App\Http\Controllers\LoanController::class, 'loanList'])->name('staff.loan.list');
 });
