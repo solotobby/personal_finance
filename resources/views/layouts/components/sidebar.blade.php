@@ -22,7 +22,7 @@
                   <a href="#"><i data-feather="box"></i>{{ __('Staff') }}<i class="fas fa-chevron-right dropdown-icon"></i></a>
                   <ul class="">
                     <li><a href="{{ route('staff.index') }}"><i class="far fa-circle"></i>{{ __('All') }}</a></li> 
-                    <li><a href="{{ route('salary.advance') }}"><i class="far fa-circle"></i>{{ __('Salary Advance') }}</a></li>
+                    {{-- <li><a href="{{ route('salary.advance') }}"><i class="far fa-circle"></i>{{ __('Salary Advance') }}</a></li> --}}
                     <li><a href="{{ route('staff.loan') }}"><i class="far fa-circle"></i>{{ __('Loans') }}</a></li>
                 
                   </ul>
