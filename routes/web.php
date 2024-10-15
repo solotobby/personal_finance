@@ -77,4 +77,5 @@ Route::middleware(['admin.created','auth'])->group(function () {
     Route::post('process/staff/loans', [\App\Http\Controllers\LoanController::class, 'processLoan'])->name('process.staff.loan');
     Route::get('staff/loan/list', [\App\Http\Controllers\LoanController::class, 'loanList'])->name('staff.loan.list');
     Route::get('staff/loan/schedule/{id}', [\App\Http\Controllers\LoanController::class, 'loanSchedule']);
+    Route::get('change/status/{id}', [\App\Http\Controllers\LoanController::class, 'changeStatus']);
 });

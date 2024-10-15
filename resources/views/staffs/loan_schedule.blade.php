@@ -20,9 +20,30 @@
                         <div class="card-body">
 
                             <div class="col-12">
-                                Staff Name: {{ $loanSchedule->staff->account_name }} <br>
-                                Amount: NGN {{ number_format($loanSchedule->amount,2) }} <br>
-                                Duration: {{ $loanSchedule->duration }} months
+                                @if(session('success'))
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="alert alert-success">
+                                                <p>{{ session('success') }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+
+                                <div class="row mb-4">
+                                    <div class="col-md-4">Staff Name:</div>
+                                    <div class="col-md-8"> {{ $loanSchedule->staff->account_name }}</div>
+                                    <div class="col-md-4"> Amount: NGN</div>
+                                    <div class="col-md-8"> {{ number_format($loanSchedule->amount,2) }}</div>
+                                    <div class="col-md-4"> Duration:</div>
+                                    <div class="col-md-8">  {{ $loanSchedule->duration }} months</div>
+                                    <div class="col-md-4"> Progress:</div>
+                                    <div class="col-md-8">  
+                                        <div class="progress">
+                                            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {{$percentage}}%" aria-valuenow="{{$percentage}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="table-responsive">
@@ -33,6 +54,7 @@
                                         <th scope="col">Payment Date</th>
                                         <th scope="col">Amount</th>
                                         <th scope="col">Payment Status</th>
+                                        {{-- <th scope="col"></th> --}}
                                        
                                     {{-- <th scope="col">Action</th> --}}
                                     </tr>
@@ -55,9 +77,16 @@
                                             NGN {{number_format($schedule->amount_due,2)}}
                                         </td>
                                        
-                                        <td>
+                                        {{-- <td>
                                            {{$schedule->is_paid == false ? 'Not Paid' : "Paid"}}
-                                        </td>
+                                        </td> --}}
+                                        <td>
+                                            @if($schedule->is_paid == false)
+                                                <a href="{{ url('change/status/'.$schedule->id) }}" class="btn btn-primary btn-sm"> {{$schedule->is_paid == false ? 'Not Paid' : "Paid"}} </a>
+                                            @else
+                                                {{$schedule->is_paid == false ? 'Not Paid' : "Paid"}}
+                                            @endif
+                                         </td>
                                         
                                      </tr>
 

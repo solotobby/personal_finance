@@ -69,8 +69,27 @@ class LoanController extends Controller
 
     public function loanSchedule($id){
         $loan = Loan::with('loanSchedule')->find($id);
+        // Get the total number of loan schedules
+        $totalSchedules = $loan->loanSchedule->count();
+
+        // Get the number of paid loan schedules
+        $paidSchedules = $loan->loanSchedule->where('is_paid', 1)->count();
+
+        // Calculate the percentage of paid schedules
+        $paidPercentage = ($totalSchedules > 0) ? ($paidSchedules / $totalSchedules) * 100 : 0;
+
         // $loanSchedule = LoanSchedule::with('loan')->where('loan_id', $id)->get();
-        return view('staffs.loan_schedule', ['loanSchedule' => $loan]);
+        return view('staffs.loan_schedule', ['loanSchedule' => $loan, 'percentage' => $paidPercentage]);
+        
+    }
+
+    public function changeStatus($id){
+        $loan = LoanSchedule::find($id);
+        if($loan->is_paid == false){
+            $loan->is_paid = true;
+            $loan->save();
+        }
+        return back()->with('success', 'Loan Paid Successfully');
         
     }
 }
