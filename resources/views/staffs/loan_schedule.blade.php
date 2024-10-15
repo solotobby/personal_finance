@@ -40,7 +40,7 @@
                                     <div class="col-md-4"> Progress:</div>
                                     <div class="col-md-8">  
                                         <div class="progress">
-                                            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {{$percentage}}%" aria-valuenow="{{$percentage}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: {{$percentage}}%" aria-valuenow="{{$percentage}}" aria-valuemin="0" aria-valuemax="100">{{$percentage}}%</div>
                                         </div>
                                     </div>
                                 </div>
