@@ -77,9 +77,9 @@ class LoanController extends Controller
 
         // Calculate the percentage of paid schedules
         $paidPercentage = ($totalSchedules > 0) ? ($paidSchedules / $totalSchedules) * 100 : 0;
-
+        $finalPercentage = number_format($paidPercentage,0);
         // $loanSchedule = LoanSchedule::with('loan')->where('loan_id', $id)->get();
-        return view('staffs.loan_schedule', ['loanSchedule' => $loan, 'percentage' => $paidPercentage]);
+        return view('staffs.loan_schedule', ['loanSchedule' => $loan, 'percentage' => $finalPercentage]);
         
     }
 
