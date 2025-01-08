@@ -23,15 +23,16 @@
                             {{-- <form method="GET" action="{{ url('transactions') }}"> --}}
                                 <div class="form-group">
                                     <a href="{{ url('fetch/staffs') }}" class="btn btn-primary">Fetch Staffs</a>
+                                    <a href="{{ url('create/staff') }}" class="btn btn-primary">Add Staff</a>
                                 </div>
-                            {{-- </form> --}}
+
+                                {{-- </form> --}}
                             </div>
                             <hr>
                             <div class="table-responsive">
                                 <table class="table">
                                 <thead>
                                     <tr>
-                                   
                                     <th scope="col">Staff ID</th>
                                     <th scope="col">Role</th>
                                     <th scope="col">Name</th>

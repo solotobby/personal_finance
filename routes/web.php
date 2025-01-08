@@ -74,6 +74,8 @@ Route::middleware(['admin.created','auth'])->group(function () {
     //Staff
     Route::get('staffs', [\App\Http\Controllers\StaffController::class, 'index'])->name('staff.index');
     Route::get('fetch/staffs', [\App\Http\Controllers\StaffController::class, 'fetchStaffs']);
+    Route::get('create/staff', [\App\Http\Controllers\StaffController::class, 'createStaff']);
+    Route::post('add/staff', [\App\Http\Controllers\StaffController::class, 'AddStaff']);
 
     Route::get('salary/advance', [\App\Http\Controllers\SalaryAdvanceController::class, 'salaryAdvance'])->name('salary.advance');
     Route::post('process/salary/advance', [\App\Http\Controllers\SalaryAdvanceController::class, 'processSalaryAdvance'])->name('process.salary.advance');

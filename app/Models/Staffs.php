@@ -9,6 +9,11 @@ class Staffs extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'business_id',
         'staff_id',
@@ -20,6 +25,34 @@ class Staffs extends Model
         'bonus',
         'gross',
         'status',
-        'recipient_code'
+        'name',
+        'employment_date',
+        'email',
+        'phone',
+        'address',
+        'sex',
+        'date_of_birth',
+        'qualification',
+        'salary',
+        'department',
     ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'employment_date' => 'date',
+        'date_of_birth' => 'date',
+        'salary' => 'decimal:2',
+    ];
+
+    /**
+     * Get the business that owns the staff.
+     */
+    public function business()
+    {
+        return $this->belongsTo(Business::class);
+    }
 }

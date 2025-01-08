@@ -13,6 +13,16 @@ class StaffController extends Controller
         return view('staffs.index', ['staffs' => $staffs]);
     }
 
+    public function createStaff(){
+        return view('staffs.create_staff');
+    }
+
+    public function addStaff(Request $request){
+
+        // $validated
+
+        // return $request;
+    }
     public function fetchStaffs(){
 
        $res = Http::withHeaders([
@@ -22,7 +32,7 @@ class StaffController extends Controller
         ])->get('https://freebyz.com/solution');
         // return json_decode($res->getBody()->getContents(), true);
 
-            
+
             // Decode the JSON response into an associative array
             $employees = $res->json();
 

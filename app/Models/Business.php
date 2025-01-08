@@ -23,6 +23,10 @@ class Business extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function staffs(){
+        return $this->hasMany(Staffs::class);
+    }
+
     protected static function booted()
     {
         static::creating(function ($business) {
