@@ -18,6 +18,9 @@ Route::get('/', function () {
    return auth()->user() ? redirect('dashboard') : view('landing_page');
 });
 
+Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'redirectToGoogle']);
+Route::get('register', [App\Http\Controllers\Auth\RegisterController::class, 'createUser']);
+
 Route::get('auth/google', [App\Http\Controllers\Auth\GoogleController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [App\Http\Controllers\Auth\GoogleController::class, 'handleGoogleCallback']);
 
@@ -32,7 +35,7 @@ Route::get('/admin/setup', [App\Http\Controllers\AdminSetupController::class, 'c
 Route::post('/admin/setup', [App\Http\Controllers\AdminSetupController::class, 'store'])->name('setup');
 
 Route::middleware('admin.created')->group(function () {
-    Auth::routes();
+   // Auth::routes();
 });
 
 /*
@@ -70,7 +73,7 @@ Route::middleware(['admin.created','auth'])->group(function () {
     //Staff
     Route::get('staffs', [\App\Http\Controllers\StaffController::class, 'index'])->name('staff.index');
     Route::get('fetch/staffs', [\App\Http\Controllers\StaffController::class, 'fetchStaffs']);
-   
+
     Route::get('salary/advance', [\App\Http\Controllers\SalaryAdvanceController::class, 'salaryAdvance'])->name('salary.advance');
     Route::post('process/salary/advance', [\App\Http\Controllers\SalaryAdvanceController::class, 'processSalaryAdvance'])->name('process.salary.advance');
     Route::get('staff/loans', [\App\Http\Controllers\LoanController::class, 'index'])->name('staff.loan');
