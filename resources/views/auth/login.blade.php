@@ -14,13 +14,13 @@
                             <p>Please Sign-in to your account.</p>
                         </div>
 
-                        <form method="POST" action="{{ route('login') }}">
+                        <form method="POST" action="{{ url('login') }}">
                             @csrf
                            <div class="mb-3">
                                 <div class="form-floating">
                                     <input id="floatingInput" type="email" placeholder="name@example.com" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                     <label for="floatingInput">{{ __('E-Mail Address') }}</label>
-                                    
+
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -32,7 +32,7 @@
                                 <div class="form-floating">
                                     <input id="floatingPassword" type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                                     <label for="floatingPassword">{{ __('Password') }}</label>
-                                    
+
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -43,10 +43,10 @@
                             <div class="mb-3 form-check">
                                 <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                 <label class="form-check-label" for="remember">{{ __('Remember Me') }}</label>
-                            </div> 
+                            </div>
                             <div class="d-grid">
                             <button type="submit" class="btn btn-info m-b-xs">Sign In</button>
-                            {{-- <a class="btn btn-success" href="{{ url('auth/google') }}">SignIn With 
+                            {{-- <a class="btn btn-success" href="{{ url('auth/google') }}">SignIn With
                             <img src="https://img.icons8.com/color/20/000000/google-logo.png"/>
                             </a> --}}
                         </div>

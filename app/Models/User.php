@@ -51,4 +51,8 @@ class User extends Authenticatable
         }
         return $this->role == $role;
     }
+    public function businesses()
+    {
+        return $this->hasMany(Business::class);
+    }
 }

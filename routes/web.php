@@ -18,8 +18,9 @@ Route::get('/', function () {
    return auth()->user() ? redirect('dashboard') : view('landing_page');
 });
 
-Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'redirectToGoogle']);
-Route::get('register', [App\Http\Controllers\Auth\RegisterController::class, 'createUser']);
+//Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'redirectToGoogle']);
+Route::post('/register/user', [App\Http\Controllers\Auth\RegisterController::class, 'createUser'])->name('register.user');
+Route::post('show-register', [App\Http\Controllers\Auth\RegisterController::class, 'createUser'])->name('register');
 
 Route::get('auth/google', [App\Http\Controllers\Auth\GoogleController::class, 'redirectToGoogle']);
 Route::get('auth/google/callback', [App\Http\Controllers\Auth\GoogleController::class, 'handleGoogleCallback']);
@@ -35,7 +36,7 @@ Route::get('/admin/setup', [App\Http\Controllers\AdminSetupController::class, 'c
 Route::post('/admin/setup', [App\Http\Controllers\AdminSetupController::class, 'store'])->name('setup');
 
 Route::middleware('admin.created')->group(function () {
-   // Auth::routes();
+   Auth::routes();
 });
 
 /*
@@ -82,3 +83,4 @@ Route::middleware(['admin.created','auth'])->group(function () {
     Route::get('staff/loan/schedule/{id}', [\App\Http\Controllers\LoanController::class, 'loanSchedule']);
     Route::get('change/status/{id}', [\App\Http\Controllers\LoanController::class, 'changeStatus']);
 });
+

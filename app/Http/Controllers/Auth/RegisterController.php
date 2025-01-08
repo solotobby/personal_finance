@@ -5,23 +5,17 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Models\Business;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
     use RegistersUsers;
 
     /**
@@ -29,7 +23,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    //rotected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -41,33 +35,67 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
+
+    public function validators($request)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        return Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email',
+            'password' => 'required|string|min:8|confirmed',
+            'business_email' => 'required|string|email|max:255|unique:business,business_email',
+            'business_name' => 'required|string|max:255',
+            'business_description' => 'required|string|max:255',
+            'business_phone' => 'required|string|max:255',
         ]);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
-    public function createUser(array $data)
+    public function createUser(Request $validated)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+
+        // $validated = $request->validate([
+        //     'name' => 'required|string|max:255',
+        //     'email' => 'required|string|email|max:255|unique:users,email',
+        //     'password' => 'required|string|min:8|confirmed',
+        //     'business_email' => 'required|string|email|max:255|unique:businesses,business_email',
+        //     'business_name' => 'required|string|max:255',
+        //     'business_description' => 'required|string|max:255',
+        //     'business_phone' => 'required|string|max:255',
+        // ]);
+        // Start a database transaction to ensure both user and business are created
+        DB::beginTransaction();
+
+        try {
+            // Create the user
+            $user = User::create([
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'password' => Hash::make($validated['password']),
+            ]);
+
+            // Create the business and associate it with the user
+            $business = Business::create([
+                'user_id' => $user->id,  // Foreign key to associate the business with the user
+                'business_name' => $validated['business_name'],
+                'business_description' => $validated['business_description'],
+                'business_number' => $validated['business_phone'],
+                'business_email' => $validated['business_email'],
+            ]);
+
+            // Commit the transaction
+            DB::commit();
+
+          //  return $validated;
+
+            if ($user && $business) {
+                Auth::login($user);
+                return redirect('/dashboard');
+            }
+         } catch (\Exception $e) {
+                DB::rollBack();
+                return redirect('/register')
+                    ->withInput()
+                    ->withErrors(['error' => 'Failed to create user and business account.']);
+            }
+
     }
 }

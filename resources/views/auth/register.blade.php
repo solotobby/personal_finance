@@ -7,50 +7,71 @@
                 <div class="card login-box-container">
                     <div class="card-body">
                         <div class="authent-logo">
-                            <a href="{{  url('/') }}">{{ config('app.name', 'Personal Finance') }}</a>
+                            <a href="{{ url('/') }}">{{ config('app.name', 'Personal Finance') }}</a>
                         </div>
                         <div class="authent-text">
                             <p>Please Create your Account</p>
                         </div>
 
-                        <form id="registrationForm" method="POST" action="{{ route('register') }}">
+                        @if($errors->has('error'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ $errors->first('error') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+
+
+                        <form id="registrationForm" method="POST" action="{{ url('register/user') }}">
                             @csrf
 
                             <!-- User Account Section -->
                             <div id="userAccountSection">
                                 <div class="mb-3">
-                                    <input id="name" type="text" class="form-control" placeholder="Fullname" name="name" required>
+                                    <input id="name" type="text" class="form-control" placeholder="Fullname"
+                                        name="name" required>
                                 </div>
                                 <div class="mb-3">
-                                    <input id="email" type="email" class="form-control" placeholder="Email" name="email" required>
+                                    <input id="email" type="email" class="form-control" placeholder="Email"
+                                        name="email" required>
                                 </div>
                                 <div class="mb-3">
                                     <div class="input-group">
-                                        <input id="password" type="password" class="form-control" placeholder="Password" name="password" required>
-                                        <button type="button" id="togglePassword" class="btn btn-outline-secondary"><i class="fas fa-eye"></i></button>
+                                        <input id="password" type="password" class="form-control" placeholder="Password"
+                                            name="password" required>
+                                        <button type="button" id="togglePassword" class="btn btn-outline-secondary"><i
+                                                class="fas fa-eye"></i></button>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <div class="input-group">
-                                        <input id="password_confirmation" type="password" class="form-control" placeholder="Confirm Password" name="password_confirmation" required>
-                                        <button type="button" id="toggleConfirmPassword" class="btn btn-outline-secondary"><i class="fas fa-eye"></i></button>
+                                        <input id="password_confirmation" type="password" class="form-control"
+                                            placeholder="Confirm Password" name="password_confirmation" required>
+                                        <button type="button" id="toggleConfirmPassword"
+                                            class="btn btn-outline-secondary"><i class="fas fa-eye"></i></button>
                                     </div>
                                 </div>
-                                <button type="button" id="continueBtn" class="btn btn-primary w-100">Continue to Business Account</button>
+                                <button type="button" id="continueBtn" class="btn btn-primary w-100">Continue</button>
                             </div>
 
                             <!-- Business Account Section (Hidden initially) -->
                             <div id="businessAccountSection" style="display: none;">
                                 <div class="mb-3">
-                                    <input id="business_name" type="text" class="form-control" placeholder="Business Name" name="business_name" required>
+                                    <input id="business_name" type="text" class="form-control"
+                                        placeholder="Business Name" name="business_name" required>
                                 </div>
                                 <div class="mb-3">
-                                    <input id="business_email" type="email" class="form-control" placeholder="Business Email" name="business_email" required>
+                                    <input id="business_email" type="email" class="form-control"
+                                        placeholder="Business Email" name="business_email" required>
                                 </div>
                                 <div class="mb-3">
-                                    <input id="business_phone" type="text" class="form-control" placeholder="Business Phone" name="business_phone" required>
+                                    <input id="business_phone" type="text" class="form-control"
+                                        placeholder="Business Phone" name="business_phone" required>
                                 </div>
-                                <button type="submit" class="btn btn-success w-100">Register</button>
+                                <div class="mb-3">
+                                    <input id="business_description" type="text" class="form-control"
+                                        placeholder="Business Description" name="business_description" required>
+                                </div>
+                                <button type="submit" id="submitBtn" class="btn btn-success w-100">Register</button>
                             </div>
 
                             <div class="authent-login mt-3">
@@ -61,7 +82,7 @@
                         <!-- Google Registration -->
                         <div class="mt-3">
                             <a class="btn btn-success w-100" href="{{ url('auth/google') }}">Register With
-                            <img src="https://img.icons8.com/color/20/000000/google-logo.png"/>
+                                <img src="https://img.icons8.com/color/20/000000/google-logo.png" />
                             </a>
                         </div>
 

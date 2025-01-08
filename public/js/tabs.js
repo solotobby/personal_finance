@@ -22,6 +22,28 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    document.getElementById('submitBtn').addEventListener('click', function() {
+        var name = document.getElementById('business_name').value;
+        var email = document.getElementById('business_email').value;
+        var password = document.getElementById('business_phone').value;
+        var password_confirmation = document.getElementById('business_description').value;
+
+        // Validate user account fields
+        if (name && email && password && password_confirmation) {
+            // Validate password match
+            // if (password !== password_confirmation) {
+            //     showTemporaryAlert('Passwords do not match.', 'danger');
+            //     return;
+            // }
+
+            // Hide user account section and show business account section
+            document.getElementById('userAccountSection').style.display = 'none';
+            document.getElementById('businessAccountSection').style.display = 'none';
+        } else {
+            showTemporaryAlert('Please fill out all required fields for your account.', 'warning');
+        }
+    });
+
     // Toggle password visibility
     document.getElementById('togglePassword').addEventListener('click', function() {
         var passwordField = document.getElementById('password');
@@ -45,8 +67,14 @@ document.addEventListener('DOMContentLoaded', function() {
         alert.role = 'alert';
         alert.innerHTML = `${message}`;
 
-        // Append the alert to the body or a specific container
-        document.querySelector('.container').prepend(alert);  // Prepend to show at the top
+        // Style the alert to appear at the top-right corner without shifting the page
+        alert.style.position = 'fixed';
+        alert.style.top = '10px';
+        alert.style.right = '10px';
+        alert.style.zIndex = '9999';  // Ensure the alert is on top of other content
+
+        // Append the alert to the body
+        document.body.appendChild(alert);
 
         // Remove the alert after 3 seconds
         setTimeout(function() {
@@ -54,7 +82,8 @@ document.addEventListener('DOMContentLoaded', function() {
             alert.classList.add('fade');
             setTimeout(function() {
                 alert.remove(); // Remove the alert completely after fading out
-            }, 500); // Wait for fade out animation
+            }, 500); // Wait for fade-out animation
         }, 3000);
     }
+
 });

@@ -38,8 +38,7 @@
                             <p class="hero-paragraph"> Track your Expenses and Income, Create budget and Make Excellent
                                 Financial Decisions!</p>
                             <div class="hero-cta">
-                                <a class="button button-primary"
-                                    href="{{ url('register') }}">Create Account</a>
+                                <a class="button button-primary" href="{{ url('register') }}">Create Account</a>
                                 <a class="button button-primary" href="{{ url('login') }}">Login</a>
                             </div>
 
@@ -178,7 +177,7 @@
                                 </svg>
                             </a>
                         </li>
-                    </ul> 
+                    </ul>
                     <div class="footer-copyright">&copy; <?php echo date('Y'); ?>
                         {{ config('app.name', 'Personal Finance') }}, all rights reserved</div>
                 </div>
