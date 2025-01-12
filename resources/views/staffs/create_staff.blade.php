@@ -135,10 +135,6 @@
                                     <label for="bonus">Bonus</label>
                                     <input id="bonus" type="number" class="form-control" name="bonus" value="{{ old('bonus') }}">
                                 </div>
-                                <div class="form-group">
-                                    <label for="gross">Gross</label>
-                                    <input id="gross" type="number" class="form-control" name="gross" value="{{ old('gross') }}">
-                                </div>
                                 <div class="form-divider"></div>
 
                                 <!-- Organization Information -->
@@ -150,10 +146,6 @@
                                 <div class="form-group">
                                     <label for="employment_date">Employment Date</label>
                                     <input id="employment_date" type="date" class="form-control" name="employment_date" value="{{ old('employment_date') }}" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="salary">Salary</label>
-                                    <input id="salary" type="number" class="form-control" name="salary" value="{{ old('salary') }}" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="department">Department</label>

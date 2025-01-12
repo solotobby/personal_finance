@@ -8,6 +8,7 @@ use App\Models\Categories;
 use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -42,13 +43,16 @@ class HomeController extends Controller
     public function dashboard()
     {
 
+        // if (!Auth::user()->has_business_account) {
+        //     return view('auth.create_business_account');
+        // }
         $dates = $this->previousMonths(6);
         $firstDateIndex = $dates[0]['month_index'];
         $firstDateYear = $dates[0]['year'];
 
         $from = $firstDateYear.'-'.$firstDateIndex.'-01';
          $to = Carbon::now()->format('Y-m-01');
-     
+
         $month = Carbon::now()->format('m');
         $year = Carbon::now()->format('Y');
 
@@ -64,7 +68,7 @@ class HomeController extends Controller
         $data['budgets'] = Budget::where('user_id', auth()->user()->id)->get();
         $data['types'] = Type::pluck('name', 'id')->toArray();
 
-        
+
         return view('dashboard', $data);
     }
 
@@ -88,7 +92,7 @@ class HomeController extends Controller
             })->first();
 
             return $data->data ?? 0;
-            
+
         });
 
     }

@@ -14,7 +14,7 @@
                             <p>Please Sign-in to your account.</p>
                         </div>
 
-                        <form method="POST" action="{{ url('login') }}">
+                        <form method="POST" action="{{ url('login/user') }}">
                             @csrf
                            <div class="mb-3">
                                 <div class="form-floating">

@@ -70,6 +70,7 @@ class RegisterController extends Controller
                 'name' => $validated['name'],
                 'email' => $validated['email'],
                 'password' => Hash::make($validated['password']),
+                'has_business_account' => true,
             ]);
 
             // Create the business and associate it with the user
@@ -88,11 +89,11 @@ class RegisterController extends Controller
 
             if ($user && $business) {
                 Auth::login($user);
-                return redirect('/dashboard');
+                return view('/dashboard');
             }
          } catch (\Exception $e) {
                 DB::rollBack();
-                return redirect('/register')
+                return view('/register')
                     ->withInput()
                     ->withErrors(['error' => 'Failed to create user and business account.']);
             }

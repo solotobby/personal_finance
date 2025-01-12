@@ -22,7 +22,8 @@ class User extends Authenticatable
         'password',
         'role',
         'google_id',
-        'avarta_url'
+        'avarta_url',
+        'has_business_account',
     ];
 
     /**
@@ -54,5 +55,10 @@ class User extends Authenticatable
     public function businesses()
     {
         return $this->hasMany(Business::class);
+    }
+
+    public function hasBusinessAccount()
+    {
+        return $this->has_business_account;
     }
 }

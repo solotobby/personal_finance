@@ -55,4 +55,12 @@ class Staffs extends Model
     {
         return $this->belongsTo(Business::class);
     }
+
+    protected static function booted()
+    {
+        static::creating(function ($staff) {
+
+            $staff->staff_id = 'STF' . str_pad(rand(10000, 99999), 5, '0', STR_PAD_LEFT);
+        });
+    }
 }

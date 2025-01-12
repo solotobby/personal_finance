@@ -100,6 +100,5 @@
 @endsection
 
 @section('scripts')
-    <!-- Link to your external JavaScript file -->
     <script src="{{ asset('js/tabs.js') }}"></script>
 @endsection

@@ -15,10 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-   return auth()->user() ? redirect('dashboard') : view('landing_page');
+    return auth()->user() ? redirect('dashboard') : view('landing_page');
 });
 
-//Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'redirectToGoogle']);
+Route::post('/login/user', [App\Http\Controllers\Auth\LoginController::class, 'loginUser'])->name('login.user');
 Route::post('/register/user', [App\Http\Controllers\Auth\RegisterController::class, 'createUser'])->name('register.user');
 Route::post('show-register', [App\Http\Controllers\Auth\RegisterController::class, 'createUser'])->name('register');
 
@@ -36,7 +36,7 @@ Route::get('/admin/setup', [App\Http\Controllers\AdminSetupController::class, 'c
 Route::post('/admin/setup', [App\Http\Controllers\AdminSetupController::class, 'store'])->name('setup');
 
 Route::middleware('admin.created')->group(function () {
-   Auth::routes();
+    Auth::routes();
 });
 
 /*
@@ -44,7 +44,7 @@ Route::middleware('admin.created')->group(function () {
 | Admin only Routes
 |--------------------------------------------------------------------------
 */
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::resource('/user', App\Http\Controllers\UserController::class);
 });
 
@@ -55,7 +55,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['admin.created','auth'])->group(function () {
+Route::middleware(['admin.created', 'auth'])->group(function () {
+    Route::post('/create-business-account', [App\Http\Controllers\Auth\LoginController::class, 'createBusinessAccount'])->name('create-business-account');
+    Route::get('/create-business-account', [App\Http\Controllers\Auth\LoginController::class, 'showCreateBusinessAccountPage'])->name('create-business-account-page');
     // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
     Route::get('/categories', [App\Http\Controllers\CategoriesController::class, 'index']);
@@ -76,6 +78,7 @@ Route::middleware(['admin.created','auth'])->group(function () {
     Route::get('fetch/staffs', [\App\Http\Controllers\StaffController::class, 'fetchStaffs']);
     Route::get('create/staff', [\App\Http\Controllers\StaffController::class, 'createStaff']);
     Route::post('add/staff', [\App\Http\Controllers\StaffController::class, 'AddStaff']);
+    Route::get('staff/{staff_id}', [\App\Http\Controllers\StaffController::class, 'showSingleStaff'])->name('staff.show');
 
     Route::get('salary/advance', [\App\Http\Controllers\SalaryAdvanceController::class, 'salaryAdvance'])->name('salary.advance');
     Route::post('process/salary/advance', [\App\Http\Controllers\SalaryAdvanceController::class, 'processSalaryAdvance'])->name('process.salary.advance');
@@ -85,4 +88,3 @@ Route::middleware(['admin.created','auth'])->group(function () {
     Route::get('staff/loan/schedule/{id}', [\App\Http\Controllers\LoanController::class, 'loanSchedule']);
     Route::get('change/status/{id}', [\App\Http\Controllers\LoanController::class, 'changeStatus']);
 });
-
