@@ -12,9 +12,19 @@ class StaffController extends Controller
 {
     public function index()
     {
-        $staffs = Staffs::all();
+        $user = Auth::user();
+        $business = $user->businesses->first();
+
+        if (!$business) {
+            return redirect()->back()->with('error', 'No business found for this user');
+        }
+
+        // Fetch staffs based on the business_id
+        $staffs = Staffs::where('business_id', $business->id)->get();
+
         return view('staffs.index', ['staffs' => $staffs]);
     }
+
 
     public function createStaff()
     {

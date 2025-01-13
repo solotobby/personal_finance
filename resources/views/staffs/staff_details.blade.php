@@ -22,7 +22,7 @@
                             <!-- Staff Details -->
                             <div class="row">
                                 <div class="col-lg-12">
-                                    
+
                                     <div class="row">
                                         <div class="col-md-6">
                                             <h5>Name:</h5>
@@ -101,6 +101,9 @@
                                     </div>
 
                                     <hr>
+                                    <!-- Generate Payslip Button -->
+                                    <a href="{{ url('generate/payslip/'.$staff->staff_id) }}" class="btn btn-success">Generate Payslip</a>
+
                                     <a href="{{ url('staffs') }}" class="btn btn-primary">Back to Staff List</a>
                                 </div>
                             </div>

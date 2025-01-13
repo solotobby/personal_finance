@@ -80,6 +80,10 @@ Route::middleware(['admin.created', 'auth'])->group(function () {
     Route::post('add/staff', [\App\Http\Controllers\StaffController::class, 'AddStaff']);
     Route::get('staff/{staff_id}', [\App\Http\Controllers\StaffController::class, 'showSingleStaff'])->name('staff.show');
 
+   // PaySlip
+    Route::get('generate/payslip/{staff_id}', [\App\Http\Controllers\PaySlipController::class, 'generatePayslip'])->name('generate.payslip');
+
+
     Route::get('salary/advance', [\App\Http\Controllers\SalaryAdvanceController::class, 'salaryAdvance'])->name('salary.advance');
     Route::post('process/salary/advance', [\App\Http\Controllers\SalaryAdvanceController::class, 'processSalaryAdvance'])->name('process.salary.advance');
     Route::get('staff/loans', [\App\Http\Controllers\LoanController::class, 'index'])->name('staff.loan');
