@@ -11,5 +11,15 @@ class Categories extends Model
 
     protected $table = "categories";
 
-    protected $fillable = ['name', 'description', 'is_credit'];
+    protected $fillable = [
+        'name',
+        'description',
+        'is_credit',
+        'business_id'
+    ];
+
+    public function business(){
+        return $this->belongsTo(Business::class, 'business_id');
+
+    }
 }
