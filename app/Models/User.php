@@ -61,4 +61,6 @@ class User extends Authenticatable
     {
         return $this->has_business_account;
     }
+
+    
 }
