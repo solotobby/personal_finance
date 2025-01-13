@@ -104,4 +104,5 @@ Route::middleware(['admin.created', 'auth'])->group(function () {
     Route::post('/settings/storeType', [\App\Http\Controllers\SettingsController::class, 'storeType'])->name('settings.storeType');
     Route::post('settings/role', [\App\Http\Controllers\SettingsController::class, 'storeRole'])->name('settings.storeRole');
     Route::post('settings/department', [\App\Http\Controllers\SettingsController::class, 'storeDepartment'])->name('settings.storeDepartment');
+    Route::post('settings/qualification', [\App\Http\Controllers\SettingsController::class, 'storeQualification'])->name('settings.storeQualification');
 });

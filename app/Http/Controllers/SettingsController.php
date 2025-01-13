@@ -7,6 +7,7 @@ use App\Models\Categories;
 use App\Models\Category;
 use App\Models\Role;
 use App\Models\Department;
+use App\Models\Qualification;
 use App\Models\Type;
 use Illuminate\Http\Request;
 
@@ -27,6 +28,10 @@ class SettingsController extends Controller
             $business->id
         )->get();
         $data['departments'] = Department::where(
+            'business_id',
+            $business->id
+        )->get();
+        $data['qualifications'] = Qualification::where(
             'business_id',
             $business->id
         )->get();
@@ -102,5 +107,19 @@ class SettingsController extends Controller
         $dept->business_id = $business->id;
         $dept->save();
         return back()->with('success', 'Department added successfully');
+    }
+
+    public function storeQualification(Request $request)
+    {
+        $request->validate(['name' => 'required|string|max:255']);
+        $user = auth()->user();
+        $business = $user->businesses->first();
+
+        $qual = new Qualification();
+        $qual->name = $request->name;
+        $qual->business_id = $business->id;
+        $qual->save();
+
+        return back()->with('success', 'Qualification added successfully');
     }
 }

@@ -42,8 +42,8 @@
         }
 
         .form-group {
-        margin-bottom: 10px;
-    }
+            margin-bottom: 10px;
+        }
     </style>
 @endsection
 
@@ -82,34 +82,46 @@
                                 <div class="category-title">Personal Information</div>
                                 <div class="form-group">
                                     <label for="name">Name</label>
-                                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required>
+                                    <input id="name" type="text" class="form-control" name="name"
+                                        value="{{ old('name') }}" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="sex">Sex</label>
                                     <select id="sex" class="form-control" name="sex" required>
                                         <option value="male" {{ old('sex') == 'male' ? 'selected' : '' }}>Male</option>
-                                        <option value="female" {{ old('sex') == 'female' ? 'selected' : '' }}>Female</option>
+                                        <option value="female" {{ old('sex') == 'female' ? 'selected' : '' }}>Female
+                                        </option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="date_of_birth">Date of Birth</label>
-                                    <input id="date_of_birth" type="date" class="form-control" name="date_of_birth" value="{{ old('date_of_birth') }}" required>
+                                    <input id="date_of_birth" type="date" class="form-control" name="date_of_birth"
+                                        value="{{ old('date_of_birth') }}" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="email">Email</label>
-                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                    <input id="email" type="email" class="form-control" name="email"
+                                        value="{{ old('email') }}" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="phone">Phone Number</label>
-                                    <input id="phone" type="text" class="form-control" name="phone" value="{{ old('phone') }}" required>
+                                    <input id="phone" type="text" class="form-control" name="phone"
+                                        value="{{ old('phone') }}" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="address">Address</label>
-                                    <input id="address" type="text" class="form-control" name="address" value="{{ old('address') }}" required>
+                                    <input id="address" type="text" class="form-control" name="address"
+                                        value="{{ old('address') }}" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="qualification">Qualification</label>
-                                    <input id="qualification" type="text" class="form-control" name="qualification" value="{{ old('qualification') }}" required>
+                                    <select name="qualification" class="form-control" required>
+                                        <option value="">Select Qualification</option>
+                                        @foreach ($qualifications as $qualification)
+                                            <option value="{{ $qualification->name }}">{{ $qualification->name }}</option>
+                                            value="{{ old('qualification') }}" required>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="form-divider"></div>
 
@@ -117,23 +129,28 @@
                                 <div class="category-title">Finance Information</div>
                                 <div class="form-group">
                                     <label for="account_number">Account Number</label>
-                                    <input id="account_number" type="text" class="form-control" name="account_number" value="{{ old('account_number') }}">
+                                    <input id="account_number" type="text" class="form-control" name="account_number"
+                                        value="{{ old('account_number') }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="account_name">Account Name</label>
-                                    <input id="account_name" type="text" class="form-control" name="account_name" value="{{ old('account_name') }}">
+                                    <input id="account_name" type="text" class="form-control" name="account_name"
+                                        value="{{ old('account_name') }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="bank_name">Bank Name</label>
-                                    <input id="bank_name" type="text" class="form-control" name="bank_name" value="{{ old('bank_name') }}">
+                                    <input id="bank_name" type="text" class="form-control" name="bank_name"
+                                        value="{{ old('bank_name') }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="basic_salary">Basic Salary</label>
-                                    <input id="basic_salary" type="number" class="form-control" name="basic_salary" value="{{ old('basic_salary') }}">
+                                    <input id="basic_salary" type="number" class="form-control" name="basic_salary"
+                                        value="{{ old('basic_salary') }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="bonus">Bonus</label>
-                                    <input id="bonus" type="number" class="form-control" name="bonus" value="{{ old('bonus') }}">
+                                    <input id="bonus" type="number" class="form-control" name="bonus"
+                                        value="{{ old('bonus') }}">
                                 </div>
                                 <div class="form-divider"></div>
 
@@ -141,15 +158,29 @@
                                 <div class="category-title">Organization Information</div>
                                 <div class="form-group">
                                     <label for="role">Role</label>
-                                    <input id="role" type="text" class="form-control" name="role" value="{{ old('role') }}" required>
+                                    <select name="role" class="form-control" required>
+                                        <option value="">Select Role</option>
+                                        @foreach ($roles as $role)
+                                            <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                            value="{{ old('role') }}" required>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="employment_date">Employment Date</label>
-                                    <input id="employment_date" type="date" class="form-control" name="employment_date" value="{{ old('employment_date') }}" required>
+                                    <input id="employment_date" type="date" class="form-control"
+                                        name="employment_date" value="{{ old('employment_date') }}" required>
                                 </div>
+
                                 <div class="form-group">
-                                    <label for="department">Department</label>
-                                    <input id="department" type="text" class="form-control" name="department" value="{{ old('department') }}" required>
+                                     <label for="department">Department</label>
+                                    <select name="department" class="form-control" required>
+                                        <option value="">Select Department</option>
+                                        @foreach ($departments as $department)
+                                            <option value="{{ $department->name }}">{{ $department->name }}</option>
+                                            value="{{ old('department') }}" required>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="form-group text-center mt-4">
                                     <button type="submit" class="btn btn-primary">

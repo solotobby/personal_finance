@@ -145,6 +145,30 @@
                             @endif
                         </div>
                     </div>
+
+                    {{-- qualifications Section --}}
+                    <div class="card settings-card">
+                        <div class="card-header">
+                            <h5>Qualifications</h5>
+                            <button class="btn btn-primary" onclick="$('#qualificationModal').modal('show');">Add
+                                Qualification</button>
+                            {{-- <button class="btn btn-primary" data-toggle="modal" data-target="#departmentModal">Add Department</button> --}}
+                        </div>
+                        <div class="card-body">
+                            @if ($departments->isEmpty())
+                                <p class="empty-state">No Qualifications found.</p>
+                            @else
+                                <ul class="list-group">
+                                    @foreach ($qualifications as $qualification)
+                                        <li class="list-group-item">
+                                            {{ $qualification->name }}
+                                            <button class="btn btn-sm btn-danger">Delete</button>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -281,5 +305,33 @@
             </div>
         </div>
     </div>
+
+     <!-- Qualification Modal -->
+     <div class="modal fade" id="qualificationModal" tabindex="-1" role="dialog" aria-labelledby="qualificationModalLabel"
+     aria-hidden="true">
+     <div class="modal-dialog" role="document">
+         <div class="modal-content">
+             <form action="{{ route('settings.storeQualification') }}" method="POST">
+                 @csrf
+                 <div class="modal-header">
+                     <h5 class="modal-title" id="qualificationModalLabel">Add Qualification</h5>
+                     {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                 </button> --}}
+                 </div>
+                 <div class="modal-body">
+                     <input type="text" name="name" class="form-control" placeholder="Qualification Name"
+                         required>
+                 </div>
+                 <div class="modal-footer">
+                     <button type="button" class="btn btn-secondary"
+                         onclick="$('#qualificationModal').modal('hide');">Close</button>
+                     {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
+                     <button type="submit" class="btn btn-primary">Add Qualification</button>
+                 </div>
+             </form>
+         </div>
+     </div>
+ </div>
 
 @endsection

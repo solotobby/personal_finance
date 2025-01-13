@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Categories;
+use App\Models\Department;
+use App\Models\Qualification;
+use App\Models\Role;
 use App\Models\Staffs;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
@@ -28,7 +32,22 @@ class StaffController extends Controller
 
     public function createStaff()
     {
-        return view('staffs.create_staff');
+        $user = auth()->user();
+        $business = $user->businesses->first();
+        $data['qualifications'] = Qualification::where(
+            'business_id',
+            $business->id
+        )->get();
+        $data['roles'] = Role::where(
+            'business_id',
+            $business->id
+        )->get();
+        $data['departments'] = Department::where(
+            'business_id',
+            $business->id
+        )->get();
+
+        return view('staffs.create_staff', $data);
     }
 
     public function addStaff(Request $request)
