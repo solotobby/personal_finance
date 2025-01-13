@@ -95,5 +95,12 @@ Route::middleware(['admin.created', 'auth'])->group(function () {
     Route::get('change/status/{id}', [\App\Http\Controllers\LoanController::class, 'changeStatus']);
 
     //Profile
-    Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
+    Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
+
+    //settings
+    Route::get('settings', [\App\Http\Controllers\SettingsController::class, 'index'])->name('settings');
+  //  Route::get('settings/view', [\App\Http\Controllers\SettingsController::class, 'viewPage'])->name('settings.index');
+    Route::post('settings/category', [\App\Http\Controllers\SettingsController::class, 'storeCategory'])->name('settings.storeCategory');
+    Route::post('settings/role', [\App\Http\Controllers\SettingsController::class, 'storeRole'])->name('settings.storeRole');
+    Route::post('settings/department', [\App\Http\Controllers\SettingsController::class, 'storeDepartment'])->name('settings.storeDepartment');
 });
