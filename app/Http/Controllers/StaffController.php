@@ -55,10 +55,9 @@ class StaffController extends Controller
 
         $user = Auth::user();
         $business = $user->businesses->first();
-        // return $user->businesses->pluck('business_id');
+
         // Save the staff data to the database
         $staff = new Staffs();
-
         $staff->business_id = $business->id;
         $staff->name = $validated['name'];
         $staff->sex = $validated['sex'];
@@ -81,7 +80,7 @@ class StaffController extends Controller
         if ($staff->save()) {
             return redirect()->route('staff.index');
         } else {
-            return redirect()->route('staff.index');
+            return redirect()->back()->with('error', 'Unable to create new staff');
         }
     }
 

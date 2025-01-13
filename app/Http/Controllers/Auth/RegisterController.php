@@ -75,7 +75,7 @@ class RegisterController extends Controller
 
             // Create the business and associate it with the user
             $business = Business::create([
-                'user_id' => $user->id,  // Foreign key to associate the business with the user
+                'user_id' => $user->id, 
                 'business_name' => $validated['business_name'],
                 'business_description' => $validated['business_description'],
                 'business_number' => $validated['business_phone'],
@@ -93,9 +93,7 @@ class RegisterController extends Controller
             }
          } catch (\Exception $e) {
                 DB::rollBack();
-                return view('/register')
-                    ->withInput()
-                    ->withErrors(['error' => 'Failed to create user and business account.']);
+                return redirect()->back()->with('error', 'Failed to create user and business account.');
             }
 
     }

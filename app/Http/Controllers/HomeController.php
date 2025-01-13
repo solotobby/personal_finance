@@ -43,9 +43,6 @@ class HomeController extends Controller
     public function dashboard()
     {
 
-        // if (!Auth::user()->has_business_account) {
-        //     return view('auth.create_business_account');
-        // }
         $dates = $this->previousMonths(6);
         $firstDateIndex = $dates[0]['month_index'];
         $firstDateYear = $dates[0]['year'];
