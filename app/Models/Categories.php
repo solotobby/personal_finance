@@ -22,4 +22,8 @@ class Categories extends Model
         return $this->belongsTo(Business::class);
 
     }
+    public function types()
+    {
+        return $this->hasMany(Type::class);
+    }
 }

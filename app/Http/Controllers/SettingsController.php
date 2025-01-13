@@ -7,6 +7,7 @@ use App\Models\Categories;
 use App\Models\Category;
 use App\Models\Role;
 use App\Models\Department;
+use App\Models\Type;
 use Illuminate\Http\Request;
 
 class SettingsController extends Controller
@@ -28,6 +29,10 @@ class SettingsController extends Controller
         $data['departments'] = Department::where(
             'business_id',
             $business->id
+        )->get();
+        $data['types'] = Type::whereIn(
+            'category_id',
+            $data['categories']->pluck('id')
         )->get();
 
 
@@ -62,6 +67,29 @@ class SettingsController extends Controller
         $role->save();
         return back()->with('success', 'Role added successfully');
     }
+
+    public function storeType(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'category_id' => 'required|exists:categories,id', // Validate that category exists
+        ]);
+
+        // Create the Type
+        $user = auth()->user();
+        $business = $user->businesses->first();
+
+        $type = new Type([
+            'name' => $request->name,
+            'description' => $request->description ? $request->description : 'null',
+            'category_id' => $request->category_id, // Assign the selected category
+        ]);
+        $type->save();
+
+        return back()->with('success', 'Type added successfully');
+    }
+
 
     public function storeDepartment(Request $request)
     {
