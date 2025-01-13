@@ -58,8 +58,6 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['admin.created', 'auth'])->group(function () {
 
     Route::post('/create-business-account', [App\Http\Controllers\BusinessController::class, 'create'])->name('create.business.account');
-
-
    // Route::post('/create-business-account', [App\Http\Controllers\Auth\RegisterController::class, 'createBusinessAccount'])->name('create.business.account');
     Route::get('/create-business-account', [App\Http\Controllers\Auth\LoginController::class, 'showCreateBusinessAccountPage'])->name('create-business-account-page');
     // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -95,4 +93,7 @@ Route::middleware(['admin.created', 'auth'])->group(function () {
     Route::get('staff/loan/list', [\App\Http\Controllers\LoanController::class, 'loanList'])->name('staff.loan.list');
     Route::get('staff/loan/schedule/{id}', [\App\Http\Controllers\LoanController::class, 'loanSchedule']);
     Route::get('change/status/{id}', [\App\Http\Controllers\LoanController::class, 'changeStatus']);
+
+    //Profile
+    Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
 });
