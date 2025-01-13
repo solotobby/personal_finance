@@ -62,16 +62,15 @@ class LoginController extends Controller
         if (Auth::attempt([
             'email' => $request->email,
             'password' => $request->password,
-        ], $request->remember));
-
-        if (Auth::user()) {
-
-            return route('/dashboard'); // Redirect to dashboard
+        ], $request->remember)) {
+            // Redirect to the dashboard after successful login
+            return redirect()->route('dashboard');
         }
 
         // If authentication fails, return with an error
         return redirect()->back()->with('error', 'The provided credentials are incorrect.');
     }
+
 
 
     // Handle logout

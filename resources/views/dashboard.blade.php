@@ -259,6 +259,15 @@
                         </div>
                     </form>
 
+                     <!-- Logout Button -->
+                     <div class="text-center mt-3">
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <div class="d-grid gap-2 mt-4">
+                            <button type="submit" class="btn btn-danger">Logout</button>
+                        </div>
+                        </form>
+                    </div>
                 </div>
                 <div class="mb-3"></div>
             </div>
