@@ -46,8 +46,8 @@
 
 <div class="payslip-container">
     <div class="header">
-        <h2>Payslip from </strong> {{ $business_name }}</h2>
-        <p>Generated on: {{ $date }}</p>
+        <h2>Payslip from </strong> {{ $staff->business->business_name }}</h2>
+        <p>Generated on: {{ now()->format('d M Y') }}</p>
     </div>
 
     <div class="staff-details">
@@ -70,7 +70,7 @@
             </tr>
             <tr>
                 <th>Total Salary</th>
-                <td>NGN {{ number_format($total_salary, 2) }}</td>
+                <td>NGN {{ number_format($staff->salary, 2) }}</td>
             </tr>
         </table>
     </div>

@@ -62,20 +62,17 @@ class LoginController extends Controller
         if (Auth::attempt([
             'email' => $request->email,
             'password' => $request->password,
-        ], $request->remember))
+        ], $request->remember));
 
-            Auth::user(); // Get the authenticated user
+        if (Auth::user()) { 
 
-        //  return $user->has_business_account;
-        // Redirect based on has_business_account column
-        //$this->showDashboard();
-        return route('/dashboard'); // Redirect to dashboard
-
+            return route('/dashboard'); // Redirect to dashboard
+        }
 
         // If authentication fails, return with an error
-        // return redirect('/register')
-        //     ->withInput()
-        //     ->withErrors(['error' => 'The provided credentials are incorrect.']);
+        return redirect('/register')
+            ->withInput()
+            ->withErrors(['error' => 'The provided credentials are incorrect.']);
     }
 
 
@@ -87,7 +84,7 @@ class LoginController extends Controller
     }
     public function createBusinessAccount(Request $request)
     {
-        return true;
+        // return true;
         $validatedData = $request->validate([
             'business_name' => 'required|string|max:255',
             'business_email' => 'required|email|max:255',
