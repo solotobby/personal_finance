@@ -47,8 +47,14 @@ class BudgetController extends Controller
             'category_id' => 'required|exists:categories,id',
             'description' => 'nullable|string',
         ]);
+
+        $user = auth()->user();
+        $business = $user->businesses->first();
         $data['date'] = \Carbon\Carbon::parse($request->date)->toDateTimeString();
-        Budget::create($data + ['user_id' => auth()->user()->id]);
+        Budget::create($data + [
+            'user_id' => $user->id,
+            'business_id' => $business->id
+        ]);
         return back()->with('success', 'Budget Created Successfully');
     }
 
@@ -108,17 +114,15 @@ class BudgetController extends Controller
     public function markDone($id)
     {
         $budget = Budget::findOrFail($id);
-        Transaction::create(['user_id' => auth()->user()->id, 'date' => Carbon::now(), 'type_id' => "13", 'name' => $budget->name, 'amount' => $budget->amount, 'category_id' => $budget->category_id, 'description' => $budget->description, 'budget_id' => $id ]);
+        Transaction::create(['user_id' => auth()->user()->id, 'date' => Carbon::now(), 'type_id' => "13", 'name' => $budget->name, 'amount' => $budget->amount, 'category_id' => $budget->category_id, 'description' => $budget->description, 'budget_id' => $id]);
         $budget->update(['status' => true]);
         return back()->with('success', 'Budget Completed Successfully');
     }
 
     public function remove($id)
     {
-       $budget = Budget::where('id', $id)->first();//find($id)->delete();
+        $budget = Budget::where('id', $id)->first(); //find($id)->delete();
         $budget->delete();
         return back()->with('success', 'Budget Deleted Successfully');
     }
-
-
 }

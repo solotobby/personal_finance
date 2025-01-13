@@ -260,9 +260,6 @@
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title" id="roleModalLabel">Add Role</h5>
-                        {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button> --}}
                     </div>
                     <div class="modal-body">
                         <input type="text" name="name" class="form-control" placeholder="Role Name" required>
@@ -270,7 +267,6 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary"
                             onclick="$('#roleModal').modal('hide');">Close</button>
-                        {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
                         <button type="submit" class="btn btn-primary">Add Role</button>
                     </div>
                 </form>
@@ -287,9 +283,6 @@
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title" id="departmentModalLabel">Add Department</h5>
-                        {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button> --}}
                     </div>
                     <div class="modal-body">
                         <input type="text" name="name" class="form-control" placeholder="Department Name"
@@ -298,7 +291,6 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary"
                             onclick="$('#departmentModal').modal('hide');">Close</button>
-                        {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
                         <button type="submit" class="btn btn-primary">Add Department</button>
                     </div>
                 </form>
@@ -315,9 +307,6 @@
                  @csrf
                  <div class="modal-header">
                      <h5 class="modal-title" id="qualificationModalLabel">Add Qualification</h5>
-                     {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                     <span aria-hidden="true">&times;</span>
-                 </button> --}}
                  </div>
                  <div class="modal-body">
                      <input type="text" name="name" class="form-control" placeholder="Qualification Name"
@@ -326,7 +315,6 @@
                  <div class="modal-footer">
                      <button type="button" class="btn btn-secondary"
                          onclick="$('#qualificationModal').modal('hide');">Close</button>
-                     {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
                      <button type="submit" class="btn btn-primary">Add Qualification</button>
                  </div>
              </form>

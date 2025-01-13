@@ -58,7 +58,6 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['admin.created', 'auth'])->group(function () {
 
     Route::post('/create-business-account', [App\Http\Controllers\BusinessController::class, 'create'])->name('create.business.account');
-   // Route::post('/create-business-account', [App\Http\Controllers\Auth\RegisterController::class, 'createBusinessAccount'])->name('create.business.account');
     Route::get('/create-business-account', [App\Http\Controllers\Auth\LoginController::class, 'showCreateBusinessAccountPage'])->name('create-business-account-page');
     // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
@@ -68,6 +67,7 @@ Route::middleware(['admin.created', 'auth'])->group(function () {
     Route::get('transactions/summary', [App\Http\Controllers\TransactionController::class, 'summary'])->name('transactions.summary');
     Route::get('transactions/report', [App\Http\Controllers\TransactionController::class, 'report'])->name('transactions.report');
     Route::resource('transactions', App\Http\Controllers\TransactionController::class);
+    Route::get('/get-types/{category_id}', [App\Http\Controllers\TransactionController::class, 'getTypesByCategory']);
 
     //Budget Mechanism
     Route::resource('budget', App\Http\Controllers\BudgetController::class);
