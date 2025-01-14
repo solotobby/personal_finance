@@ -19,10 +19,10 @@ class SettingsController extends Controller
         $user = auth()->user();
         $business = $user->businesses->first();
 
-        $data['categories'] = Categories::where(
-            'business_id',
-            $business->id
-        )->get();
+        $data['categories'] = Categories::where(function ($query) use ($business) {
+            $query->where('business_id', $business->id)
+                  ->orWhereNull('business_id');
+        })->get();
         $data['roles'] = Role::where(
             'business_id',
             $business->id

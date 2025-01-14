@@ -68,7 +68,7 @@
                                     @foreach ($categories as $category)
                                         <li class="list-group-item">
                                             {{ $category->name }}
-                                            <button class="btn btn-sm btn-danger">Delete</button>
+                                            {{-- <button class="btn btn-sm btn-danger">Delete</button> --}}
                                         </li>
                                     @endforeach
                                 </ul>
@@ -90,7 +90,7 @@
                                     @foreach ($types as $type)
                                         <li class="list-group-item">
                                             {{ $type->name }} (Category: {{ $type->category->name }})
-                                            <button class="btn btn-sm btn-danger">Delete</button>
+                                            {{-- <button class="btn btn-sm btn-danger">Delete</button> --}}
                                         </li>
                                     @endforeach
                                 </ul>
@@ -114,7 +114,7 @@
                                     @foreach ($roles as $role)
                                         <li class="list-group-item">
                                             {{ $role->name }}
-                                            <button class="btn btn-sm btn-danger">Delete</button>
+                                            {{-- <button class="btn btn-sm btn-danger">Delete</button> --}}
                                         </li>
                                     @endforeach
                                 </ul>
@@ -138,7 +138,7 @@
                                     @foreach ($departments as $department)
                                         <li class="list-group-item">
                                             {{ $department->name }}
-                                            <button class="btn btn-sm btn-danger">Delete</button>
+                                            {{-- <button class="btn btn-sm btn-danger">Delete</button> --}}
                                         </li>
                                     @endforeach
                                 </ul>
@@ -162,7 +162,7 @@
                                     @foreach ($qualifications as $qualification)
                                         <li class="list-group-item">
                                             {{ $qualification->name }}
-                                            <button class="btn btn-sm btn-danger">Delete</button>
+                                            {{-- <button class="btn btn-sm btn-danger">Delete</button> --}}
                                         </li>
                                     @endforeach
                                 </ul>
@@ -185,9 +185,6 @@
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title" id="categoryModalLabel">Add Category</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
                     </div>
                     <div class="modal-body">
                         <!-- Category Name Input -->
@@ -221,9 +218,6 @@
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title" id="typeModalLabel">Add Type</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
                     </div>
                     <div class="modal-body">
                         <!-- Type Name Input -->
