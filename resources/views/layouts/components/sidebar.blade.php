@@ -1,44 +1,54 @@
 <div class="page-sidebar">
-              <a class="logo" href="{{ route('dashboard') }}">{{ __('Personal Finance') }}</a>
-              <ul class="list-unstyled accordion-menu">
-                <li class="{{ $page == 'Dashboard' ? 'active-page':'' }}">
-                  <a href="{{ route('dashboard') }}" class="active"><i data-feather="activity"></i>{{ __('Dashboard') }}</a>
-                  {{--  <ul class="">
+    <a class="logo" href="{{ route('dashboard') }}">
+        {{ Auth::user()->hasBusinessAccount()
+            ? Auth::user()->businesses->first()->business_name
+            : __('Personal Finance') }}
+    </a>
+
+
+    <ul class="list-unstyled accordion-menu">
+        <li class="{{ $page == 'Dashboard' ? 'active-page' : '' }}">
+            <a href="{{ route('dashboard') }}" class="active"><i data-feather="activity"></i>{{ __('Dashboard') }}</a>
+            {{--  <ul class="">
                     <li><a href="{{ route('dashboard') }}" class="active"><i class="far fa-circle"></i>{{ __('All') }}</a></li>
                     <li><a href="{{ route('dashboard') }}"><i class="far fa-circle"></i>{{ __('Expenses') }}</a></li>
                   </ul>  --}}
+        </li>
+        <li class="{{ $page == 'Transactions' ? 'active-page' : '' }}">
+            <a href="#"><i data-feather="grid"></i>{{ __('Transactions') }}<i
+                    class="fas fa-chevron-right dropdown-icon"></i></a>
+            <ul class="">
+                <li><a href="{{ route('transactions.index') }}"><i class="far fa-circle"></i>{{ __('All') }}</a>
                 </li>
-                <li class="{{ $page == 'Transactions' ? 'active-page':'' }}">
-                  <a href="#"><i data-feather="grid"></i>{{ __('Transactions') }}<i class="fas fa-chevron-right dropdown-icon"></i></a>
-                  <ul class="">
-                    <li><a href="{{ route('transactions.index') }}"><i class="far fa-circle"></i>{{ __('All') }}</a></li> 
-                    {{-- <li><a href="{{ route('transactions.summary') }}"><i class="far fa-circle"></i>{{ __('Summary') }}</a></li> --}}
-                    <li><a href="{{ route('transactions.report') }}"><i class="far fa-circle"></i>{{ __('Report') }}</a></li>
-                
-                  </ul>
+                {{-- <li><a href="{{ route('transactions.summary') }}"><i class="far fa-circle"></i>{{ __('Summary') }}</a></li> --}}
+                <li><a href="{{ route('transactions.report') }}"><i class="far fa-circle"></i>{{ __('Report') }}</a>
                 </li>
-                <li class="{{ $page == 'Staff' ? 'active-page':'' }}">
-                  {{-- <a href="#"><i data-feather="grid"></i>{{ __('Staff') }}<i class="fas fa-chevron-right dropdown-icon"></i></a> --}}
-                  <a href="#"><i data-feather="box"></i>{{ __('Staff') }}<i class="fas fa-chevron-right dropdown-icon"></i></a>
-                  <ul class="">
-                    <li><a href="{{ route('staff.index') }}"><i class="far fa-circle"></i>{{ __('All') }}</a></li> 
-                    {{-- <li><a href="{{ route('salary.advance') }}"><i class="far fa-circle"></i>{{ __('Salary Advance') }}</a></li> --}}
-                    <li><a href="{{ route('staff.loan') }}"><i class="far fa-circle"></i>{{ __('Setup Loans') }}</a></li>
-                
-                    <li><a href="{{ route('staff.loan.list') }}"><i class="far fa-circle"></i>{{ __('Loans') }}</a></li>
-                  </ul>
-                </li>
-                <li class="{{ $page == 'Apps' ? 'active-page':'' }}">
-                  {{--  <a href="{{ route('calender') }}""><i data-feather="aperture"></i>Calender</a>  --}}
-                  {{--  <ul class="">
+
+            </ul>
+        </li>
+        <li class="{{ $page == 'Staff' ? 'active-page' : '' }}">
+            {{-- <a href="#"><i data-feather="grid"></i>{{ __('Staff') }}<i class="fas fa-chevron-right dropdown-icon"></i></a> --}}
+            <a href="#"><i data-feather="box"></i>{{ __('Staff') }}<i
+                    class="fas fa-chevron-right dropdown-icon"></i></a>
+            <ul class="">
+                <li><a href="{{ route('staff.index') }}"><i class="far fa-circle"></i>{{ __('All') }}</a></li>
+                {{-- <li><a href="{{ route('salary.advance') }}"><i class="far fa-circle"></i>{{ __('Salary Advance') }}</a></li> --}}
+                <li><a href="{{ route('staff.loan') }}"><i class="far fa-circle"></i>{{ __('Setup Loans') }}</a></li>
+
+                <li><a href="{{ route('staff.loan.list') }}"><i class="far fa-circle"></i>{{ __('Loans') }}</a></li>
+            </ul>
+        </li>
+        <li class="{{ $page == 'Apps' ? 'active-page' : '' }}">
+            {{--  <a href="{{ route('calender') }}""><i data-feather="aperture"></i>Calender</a>  --}}
+            {{--  <ul class="">
                     {{-- <li><a href="email.html"><i class="far fa-circle"></i>Email</a></li>  --}}
-                    {{--  <li><a href="contact.html"><i class="far fa-circle"></i>Contact</a></li> --}}
-                    {{--  <li><a href="{{ route('calender') }}"><i class="far fa-circle"></i>{{ __('Calender') }}</a></li>  --}} 
-                    {{-- <li><a href="social.html"><i class="far fa-circle"></i>Social</a></li>
+            {{--  <li><a href="contact.html"><i class="far fa-circle"></i>Contact</a></li> --}}
+            {{--  <li><a href="{{ route('calender') }}"><i class="far fa-circle"></i>{{ __('Calender') }}</a></li>  --}}
+            {{-- <li><a href="social.html"><i class="far fa-circle"></i>Social</a></li>
                     <li><a href="file-manager.html"><i class="far fa-circle"></i>File Manager</a></li> --}}
-                  {{--  </ul>  --}}
-                </li>
-                {{-- <li>
+            {{--  </ul>  --}}
+        </li>
+        {{-- <li>
                   <a href="#"><i data-feather="code"></i>UI Kits<i class="fas fa-chevron-right dropdown-icon"></i></a>
                   <ul class="">
                     <li><a href="alerts.html"><i class="far fa-circle"></i>Alerts</a></li>
@@ -57,7 +67,7 @@
                     <li><a href="spinners.html"><i class="far fa-circle"></i>Spinners</a></li>
                     <li><a href="accordion.html"><i class="far fa-circle"></i>Accordion</a></li>
                   </ul>
-                </li> 
+                </li>
                 <li>
                   <a href="#"><i data-feather="box"></i>Plugins<i class="fas fa-chevron-right dropdown-icon"></i></a>
                   <ul class="">
@@ -89,17 +99,18 @@
                     <li><a href="form-select2.html"><i class="far fa-circle"></i>Select2</a></li>
                   </ul>
                 </li> --}}
-                <li class="{{ $page == 'Budget' ? 'active-page':'' }}">
-                  <a href="#"><i data-feather="aperture"></i>Budgets<i class="fas fa-chevron-right dropdown-icon"></i></a>
-                  <ul class="">
-                    <li><a href="{{ url('budget') }}"><i class="far fa-circle"></i>Create</a></li>
-                    <li><a href="{{ url('budgets/summary') }}"><i class="far fa-circle"></i>Summary</a></li>
-                  </ul>
-                </li>
-                {{--  <li>
+        <li class="{{ $page == 'Budget' ? 'active-page' : '' }}">
+            <a href="#"><i data-feather="aperture"></i>Budgets<i
+                    class="fas fa-chevron-right dropdown-icon"></i></a>
+            <ul class="">
+                <li><a href="{{ url('budget') }}"><i class="far fa-circle"></i>Create</a></li>
+                <li><a href="{{ url('budgets/summary') }}"><i class="far fa-circle"></i>Summary</a></li>
+            </ul>
+        </li>
+        {{--  <li>
                   <a href="{{ route('dashboard') }}"><i data-feather="pie-chart"></i>Charts</a>
                 </li>  --}}
-                
-              </ul>
-              <a href="#" id="sidebar-collapsed-toggle"><i data-feather="arrow-right"></i></a>
-          </div>
+
+    </ul>
+    <a href="#" id="sidebar-collapsed-toggle"><i data-feather="arrow-right"></i></a>
+</div>
