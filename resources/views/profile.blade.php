@@ -93,7 +93,7 @@
                 {{-- Business Details Section --}}
                 @if(Auth::user()->hasBusinessAccount())
                     <div class="card profile-card business-card">
-                        <div class="profile-card-header bg-success text-white">
+                        <div class="profile-card-header">
                             <i class="fas fa-briefcase"></i> Business Details
                         </div>
                         <div class="profile-card-body">
