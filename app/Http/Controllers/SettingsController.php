@@ -17,23 +17,23 @@ class SettingsController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $business = $user->businesses->first();
+        //$business = $user->businesses->first();
 
-        $data['categories'] = Categories::where(
-            'business_id',
-            $business->id
-        )->get();
+        $data['categories'] = Categories::where(function ($query) use ($user) {
+            $query->where('business_id', $user->business_id)
+                  ->orWhereNull('business_id');
+        })->get();
         $data['roles'] = Role::where(
             'business_id',
-            $business->id
+            $user->business_id
         )->get();
         $data['departments'] = Department::where(
             'business_id',
-            $business->id
+            $user->business_id
         )->get();
         $data['qualifications'] = Qualification::where(
             'business_id',
-            $business->id
+            $user->business_id
         )->get();
         $data['types'] = Type::whereIn(
             'category_id',
@@ -48,12 +48,12 @@ class SettingsController extends Controller
     public function storeCategory(Request $request)
     {
         $user = auth()->user();
-        $business = $user->businesses->first();
+       // $business = $user->businesses->first();
 
         $cat = new Categories;
         $cat->name = $request->name;
         $cat->description = $request->description;
-        $cat->business_id = $business->id;
+        $cat->business_id = $user->business_id;
         $cat->is_credit = $request->has('is_credit') ? true : false;
         $cat->save();
 
@@ -64,11 +64,11 @@ class SettingsController extends Controller
     {
         $request->validate(['name' => 'required|string|max:255']);
         $user = auth()->user();
-        $business = $user->businesses->first();
+       // $business = $user->businesses->first();
 
         $role = new Role;
         $role->name = $request->name;
-        $role->business_id = $business->id;
+        $role->business_id = $user->business_id;
         $role->save();
         return back()->with('success', 'Role added successfully');
     }
@@ -78,17 +78,15 @@ class SettingsController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'category_id' => 'required|exists:categories,id', // Validate that category exists
+            'category_id' => 'required|exists:categories,id',
         ]);
 
-        // Create the Type
         $user = auth()->user();
-        $business = $user->businesses->first();
-
         $type = new Type([
             'name' => $request->name,
             'description' => $request->description ? $request->description : 'null',
-            'category_id' => $request->category_id, // Assign the selected category
+            'category_id' => $request->category_id,
+            'business_id' => $user->business_id,
         ]);
         $type->save();
 
@@ -100,11 +98,11 @@ class SettingsController extends Controller
     {
         $request->validate(['name' => 'required|string|max:255']);
         $user = auth()->user();
-        $business = $user->businesses->first();
+       // $business = $user->businesses->first();
 
         $dept = new Department;
         $dept->name = $request->name;
-        $dept->business_id = $business->id;
+        $dept->business_id = $user->business_id;
         $dept->save();
         return back()->with('success', 'Department added successfully');
     }
@@ -113,11 +111,11 @@ class SettingsController extends Controller
     {
         $request->validate(['name' => 'required|string|max:255']);
         $user = auth()->user();
-        $business = $user->businesses->first();
+        //$business = $user->businesses->first();
 
         $qual = new Qualification();
         $qual->name = $request->name;
-        $qual->business_id = $business->id;
+        $qual->business_id = $user->business_id;
         $qual->save();
 
         return back()->with('success', 'Qualification added successfully');

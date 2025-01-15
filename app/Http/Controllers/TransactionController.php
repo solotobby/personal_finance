@@ -104,11 +104,11 @@ class TransactionController extends Controller
             'description' => 'nullable|string'
         ]);
         $user = auth()->user();
-        $business = $user->businesses->first();
+        //$business = $user->businesses->first();
         $data['date'] = \Carbon\Carbon::parse($request->date)->toDateTimeString();
         Transaction::create($data + [
             'user_id' => Auth::id(),
-            'business_id' => $business->id
+            'business_id' => $user->business_id
         ]);
         return back()->with('success', 'Transaction was registered successfully');
     }

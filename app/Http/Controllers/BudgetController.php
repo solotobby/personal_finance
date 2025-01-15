@@ -49,11 +49,11 @@ class BudgetController extends Controller
         ]);
 
         $user = auth()->user();
-        $business = $user->businesses->first();
+       // $business = $user->businesses->first();
         $data['date'] = \Carbon\Carbon::parse($request->date)->toDateTimeString();
         Budget::create($data + [
             'user_id' => $user->id,
-            'business_id' => $business->id
+            'business_id' => $user->business_id
         ]);
         return back()->with('success', 'Budget Created Successfully');
     }

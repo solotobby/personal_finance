@@ -35,6 +35,7 @@ class Staffs extends Model
         'qualification',
         'salary',
         'department',
+        'created_by',
     ];
 
     /**

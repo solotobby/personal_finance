@@ -14,7 +14,8 @@ class Type extends Model
     protected $fillable = [
         'name',
         'description',
-        'category_id'
+        'category_id',
+        'business_id'
     ];
 
     public function category(){

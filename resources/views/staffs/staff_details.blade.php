@@ -100,6 +100,17 @@
                                         </div>
                                     </div>
 
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h5>Created By:</h5>
+                                            <p>{{ $user->name }}</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h5>Staff Creation Date:</h5>
+                                            <p>{{ \Carbon\Carbon::parse($staff->created_at)->format('d M Y') }}</p>
+                                        </div>
+                                    </div>
+
                                     <hr>
                                     <!-- Generate Payslip Button -->
                                     <a href="{{ url('generate/payslip/'.$staff->staff_id) }}" class="btn btn-success">Generate Payslip</a>
