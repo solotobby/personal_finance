@@ -92,6 +92,7 @@ class HomeController extends Controller
         // $data['types'] = Type::pluck('name', 'id')->toArray();
         // $data['categories'] = Categories::pluck('name', 'id')->toArray();
 
+       // return $data;
         return view('dashboard', $data);
     }
 

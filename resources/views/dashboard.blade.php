@@ -211,74 +211,75 @@
         </div>
     </div>
     </div>
-<!-- Modal for No Business Account -->
-@if (!Auth::user()->has_business_account)
-    <div class="modal fade show" id="businessAccountModal" tabindex="-1" role="dialog"
-        aria-labelledby="businessAccountModalLabel" aria-hidden="true" style="display: block;">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title text-center w-100" id="businessAccountModalLabel">Create Business
-                        Account</h5>
-                </div>
-                <div class="modal-body">
-                    <p class="text-muted mb-4 text-center" style="max-width: 600px; margin: 0 auto;">
-                        Your account does not have a business account. Kindly fill the form below to complete
-                        your registration.
-                    </p>
-                    <!-- Error Alert -->
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul class="mb-0">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-                    <form id="businessForm" method="POST" action="{{ route('create.business.account') }}">
-                        @csrf
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <input id="business_name" type="text" class="form-control" placeholder="Business Name" name="business_name" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <input id="business_email" type="email" class="form-control" placeholder="Business Email" name="business_email" required>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <input id="business_phone" type="text" class="form-control" placeholder="Business Phone" name="business_phone" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <input id="business_description" type="text" class="form-control" placeholder="Business Description" name="business_description" required>
-                            </div>
-                        </div>
-                        <div class="d-grid gap-2 mt-4">
-                            <button type="submit" id="submitBusiness" class="btn btn-primary btn-sm" style="background-color: #001f3f; border-color: #001f3f;">Register</button>
-                        </div>
-                    </form>
-
-                     <!-- Logout Button -->
-                     <div class="text-center mt-3">
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <div class="d-grid gap-2 mt-4">
-                            <button type="submit" class="btn btn-danger">Logout</button>
-                        </div>
-                        </form>
+    <!-- Modal for No Business Account -->
+    @if (!Auth::user()->has_business_account)
+        <div class="modal fade show" id="businessAccountModal" tabindex="-1" role="dialog"
+            aria-labelledby="businessAccountModalLabel" aria-hidden="true" style="display: block;">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-center w-100" id="businessAccountModalLabel">Create Business
+                            Account</h5>
                     </div>
+                    <div class="modal-body">
+                        <p class="text-muted mb-4 text-center" style="max-width: 600px; margin: 0 auto;">
+                            Your account does not have a business account. Kindly fill the form below to complete
+                            your registration.
+                        </p>
+                        <!-- Error Alert -->
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul class="mb-0">
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        <form id="businessForm" method="POST" action="{{ route('create.business.account') }}">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <input id="business_name" type="text" class="form-control"
+                                        placeholder="Business Name" name="business_name" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <input id="business_email" type="email" class="form-control"
+                                        placeholder="Business Email" name="business_email" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <input id="business_phone" type="text" class="form-control"
+                                        placeholder="Business Phone" name="business_phone" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <input id="business_description" type="text" class="form-control"
+                                        placeholder="Business Description" name="business_description" required>
+                                </div>
+                            </div>
+                            <div class="d-grid gap-2 mt-4">
+                                <button type="submit" id="submitBusiness" class="btn btn-primary btn-sm"
+                                    style="background-color: #001f3f; border-color: #001f3f;">Register</button>
+                            </div>
+                        </form>
+
+                        <!-- Logout Button -->
+                        <div class="text-center mt-3">
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <div class="d-grid gap-2 mt-4">
+                                    <button type="submit" class="btn btn-danger">Logout</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="mb-3"></div>
                 </div>
-                <div class="mb-3"></div>
             </div>
         </div>
-    </div>
-@endif
+    @endif
 
-    @include('layouts.components.footer')
-    </div>
-    </div>
-    @include('layouts.components.sidebar-overlay')
     @include('transactions.insert_transaction_modal')
 
 @section('scripts')
@@ -291,22 +292,10 @@
     <script src="{{ asset('assets/plugins/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
     <script src="{{ asset('assets/js/pages/dashboard.js') }}"></script>
-    <script src="{{ asset('js/tabs.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/tabs.js') }}"></script>
 @endsection
 
 @include('layouts.components.footer')
 @include('layouts.components.sidebar-overlay')
-@endsection
-
-@section('scripts')
-<script>
-    var income_stat = @json($income_stat);
-    var expenses_stat = @json($expenses_stat);
-    var savings_stat = @json($savings_stat);
-    var month_categories = @json($dates);
-</script>
-<script src="{{ asset('assets/plugins/apexcharts/apexcharts.min.js') }}"></script>
-<script src="{{ asset('assets/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
-<script src="{{ asset('assets/js/pages/dashboard.js') }}"></script>
 @endsection
 
