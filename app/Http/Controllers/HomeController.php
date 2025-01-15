@@ -81,10 +81,10 @@ class HomeController extends Controller
         $data['expenses'] = Transaction::filterCategory(config('app.categories.expenses.id'), $month, $year)->sum('amount');
         $data['transactions'] = Transaction::myLatest(5)->get();
         $data['budgets'] = Budget::where('user_id', $user->id)->get();
-        $data['categories'] = Categories::where(
-            'business_id',
-            $user->business_id
-        )->get();
+        $data['categories'] = Categories::where(function ($query) use ($user) {
+            $query->where('business_id', $user->business_id)
+                  ->orWhereNull('business_id');
+        })->get();
         $data['types'] = Type::whereIn(
             'category_id',
             $data['categories']->pluck('id')

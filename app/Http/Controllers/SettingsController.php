@@ -81,10 +81,12 @@ class SettingsController extends Controller
             'category_id' => 'required|exists:categories,id',
         ]);
 
+        $user = auth()->user();
         $type = new Type([
             'name' => $request->name,
             'description' => $request->description ? $request->description : 'null',
             'category_id' => $request->category_id,
+            'business_id' => $user->business_id,
         ]);
         $type->save();
 
