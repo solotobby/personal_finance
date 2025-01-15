@@ -17,6 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'business_id',
         'name',
         'email',
         'password',
@@ -62,5 +63,5 @@ class User extends Authenticatable
         return $this->has_business_account;
     }
 
-    
+
 }

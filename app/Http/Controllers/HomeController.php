@@ -58,7 +58,7 @@ class HomeController extends Controller
     {
 
         $user = auth()->user();
-        $business = $user->businesses->first();
+        //$business = $user->businesses->first();
 
         $dates = $this->previousMonths(6);
         $firstDateIndex = $dates[0]['month_index'];
@@ -80,10 +80,10 @@ class HomeController extends Controller
         $data['savings'] = Transaction::filterCategory(config('app.categories.savings.id'), $month, $year)->sum('amount');
         $data['expenses'] = Transaction::filterCategory(config('app.categories.expenses.id'), $month, $year)->sum('amount');
         $data['transactions'] = Transaction::myLatest(5)->get();
-        $data['budgets'] = Budget::where('user_id', auth()->user()->id)->get();
+        $data['budgets'] = Budget::where('user_id', $user->id)->get();
         $data['categories'] = Categories::where(
             'business_id',
-            $business->id
+            $user->business_id
         )->get();
         $data['types'] = Type::whereIn(
             'category_id',

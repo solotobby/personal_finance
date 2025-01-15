@@ -17,14 +17,10 @@ class StaffController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $business = $user->businesses->first();
-
-        if (!$business) {
-            return redirect()->back()->with('error', 'No business found for this user');
-        }
+        //$business = $user->businesses->first();
 
         // Fetch staffs based on the business_id
-        $staffs = Staffs::where('business_id', $business->id)->get();
+        $staffs = Staffs::where('business_id', $user->business_id)->get();
 
         return view('staffs.index', ['staffs' => $staffs]);
     }
@@ -33,18 +29,18 @@ class StaffController extends Controller
     public function createStaff()
     {
         $user = auth()->user();
-        $business = $user->businesses->first();
+      //  $business = $user->businesses->first();
         $data['qualifications'] = Qualification::where(
             'business_id',
-            $business->id
+            $user->business_id
         )->get();
         $data['roles'] = Role::where(
             'business_id',
-            $business->id
+            $user->business_id
         )->get();
         $data['departments'] = Department::where(
             'business_id',
-            $business->id
+            $user->business_id
         )->get();
 
         return view('staffs.create_staff', $data);
@@ -73,11 +69,11 @@ class StaffController extends Controller
         ]);
 
         $user = Auth::user();
-        $business = $user->businesses->first();
+        //$business = $user->businesses->first();
 
         // Save the staff data to the database
         $staff = new Staffs();
-        $staff->business_id = $business->id;
+        $staff->business_id = $user->business_id;
         $staff->name = $validated['name'];
         $staff->sex = $validated['sex'];
         $staff->date_of_birth = $validated['date_of_birth'];
