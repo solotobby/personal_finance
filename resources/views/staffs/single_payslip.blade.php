@@ -55,7 +55,7 @@
         <h5>Staff ID: {{ $staff->staff_id }}</h5>
         <h5>Role: {{ $staff->role }}</h5>
         <h5>Department: {{ $staff->department }}</h5>
-        
+        <h5>Payment For: {{ \Carbon\Carbon::parse($payslip->date)->format('d M Y')}}</h5>
     </div>
 
     <div class="salary-details">
@@ -63,15 +63,15 @@
         <table>
             <tr>
                 <th>Basic Salary</th>
-                <td>NGN {{ number_format($staff->basic_salary, 2) }}</td>
+                <td>NGN {{ number_format($payslip->basic_salary, 2) }}</td>
             </tr>
             <tr>
                 <th>Bonus</th>
-                <td>NGN {{ number_format($staff->bonus, 2) }}</td>
+                <td>NGN {{ number_format($payslip->bonus, 2) }}</td>
             </tr>
             <tr>
                 <th>Total Salary</th>
-                <td>NGN {{ number_format($staff->salary, 2) }}</td>
+                <td>NGN {{ number_format($payslip->amount, 2) }}</td>
             </tr>
         </table>
     </div>
