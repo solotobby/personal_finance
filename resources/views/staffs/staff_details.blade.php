@@ -18,7 +18,20 @@
                 <div class="col">
                     <div class="card">
                         <div class="card-body">
-
+                            @if (session('success'))
+                            <div class="alert alert-success">
+                                <p>{{ session('success') }}</p>
+                            </div>
+                        @endif
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                            <!-- Staff Details -->
                            <div class="row">
                             <div class="col-lg-12">
@@ -119,6 +132,8 @@
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                         Make Payment
                                     </button>
+                                    <a href="{{ url('update/staff/detail/'.$staff->staff_id) }}" class="btn btn-success">Edit Staff</a>
+
                                 </div>
                             </div>
 

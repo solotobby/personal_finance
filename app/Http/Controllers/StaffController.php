@@ -19,13 +19,20 @@ class StaffController extends Controller
 {
     public function index()
     {
-        $user = Auth::user();
-        //$business = $user->businesses->first();
+        $user = auth()->user();
 
-        // Fetch staffs based on the business_id
+        // Fetch all staff for the business
         $staffs = Staffs::where('business_id', $user->business_id)->get();
 
-        return view('staffs.index', ['staffs' => $staffs]);
+        // Count total staff
+        $total_staff = $staffs->count();
+
+        // Calculate total salary paid out
+        $total_paid = Payslip::whereHas('staff', function ($query) use ($user) {
+            $query->where('business_id', $user->business_id);
+        })->sum('amount');
+
+        return view('staffs.index', compact('staffs', 'total_staff', 'total_paid'));
     }
 
 
@@ -123,9 +130,9 @@ class StaffController extends Controller
 
             // Find Staff
             $staff = Staffs::where('staff_id', $request->staff_id)->first();
-         //   return $request->amount;
+            //   return $request->amount;
             //  Save initial record in the database (status: Pending)
-             $payslip = Payslip::create([
+            $payslip = Payslip::create([
                 'date' => $request->date,
                 'amount' => $staff->salary,
                 'basic_salary' => $staff->basic_salary,
@@ -162,6 +169,58 @@ class StaffController extends Controller
             return redirect()->back()->with('error', 'An error occurred: ' . $e->getMessage());
         }
     }
+
+    public function updateStaff($staff_id)
+    {
+        $user = auth()->user();
+        //  $business = $user->businesses->first();
+        $data['qualifications'] = Qualification::where(
+            'business_id',
+            $user->business_id
+        )->get();
+        $data['roles'] = Role::where(
+            'business_id',
+            $user->business_id
+        )->get();
+        $data['departments'] = Department::where(
+            'business_id',
+            $user->business_id
+        )->get();
+
+        $data['staff'] = Staffs::where('staff_id', $staff_id)->firstOrFail();
+        return view('staffs.update_staff', $data);
+    }
+
+    public function updateStaffDetail(Request $request, $id)
+    {
+        // Validate incoming request
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'sex' => 'required|in:male,female',
+            'date_of_birth' => 'required|date',
+            'email' => 'required|email',
+            'phone' => 'required|string|max:15',
+            'address' => 'required|string|max:255',
+            'qualification' => 'required|string',
+            'account_number' => 'nullable|string|max:20',
+            'account_name' => 'nullable|string|max:255',
+            'bank_name' => 'nullable|string|max:255',
+            'basic_salary' => 'nullable|numeric',
+            'bonus' => 'nullable|numeric',
+            'role' => 'required|string',
+            'employment_date' => 'required|date',
+            'department' => 'required|string',
+        ]);
+
+        try {
+            $staff = Staffs::findOrFail($id);
+            $staff->update($request->all());
+            return redirect()->back()->with('success', 'Staff information updated successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Something went wrong! Please try again.');
+        }
+    }
+
     public function showSingleStaff($staff_id)
     {
         $user = Auth::user();

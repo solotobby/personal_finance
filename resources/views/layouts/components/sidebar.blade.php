@@ -1,8 +1,14 @@
 <div class="page-sidebar">
     <a class="logo" href="{{ route('dashboard') }}">
-        {{ Auth::user()->hasBusinessAccount()
+        {{-- {{ Auth::user()->hasBusinessAccount()
             ? Auth::user()->businesses->first()->business_name
-            : __('Personal Finance') }}
+            : __('Personal Finance') }} --}}
+
+        @if (auth()->user()->business)
+            <p>{{ auth()->user()->business->business_name }}</p>
+        @else
+            <p>Personal Finance</p>
+        @endif
     </a>
 
 

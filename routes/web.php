@@ -81,9 +81,11 @@ Route::middleware(['admin.created', 'auth'])->group(function () {
     Route::get('create/staff', [\App\Http\Controllers\StaffController::class, 'createStaff']);
     Route::post('add/staff', [\App\Http\Controllers\StaffController::class, 'AddStaff']);
     Route::get('staff/{staff_id}', [\App\Http\Controllers\StaffController::class, 'showSingleStaff'])->name('staff.show');
-    Route::post('make-payment', [App\Http\Controllers\StaffController::class, 'makePayment']);
+    Route::get('update/staff/detail/{staff_id}', [\App\Http\Controllers\StaffController::class, 'updateStaff'])->name('staff.edit');
+    Route::put('/update/staff/{id}', [\App\Http\Controllers\StaffController::class, 'updateStaffDetail'])->name('staff.update');
 
-   // PaySlip
+    // PaySlip
+    Route::post('make-payment', [App\Http\Controllers\StaffController::class, 'makePayment']);
     Route::get('generate/payslip/{staff_id}', [\App\Http\Controllers\PaySlipController::class, 'generatePayslip'])->name('generate.payslip');
     Route::get('payslip/single/download/{payslip_id}', [\App\Http\Controllers\PaySlipController::class, 'downloadSinglePayslip'])->name('payslip.single.download');
 
