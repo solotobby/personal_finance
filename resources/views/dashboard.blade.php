@@ -212,7 +212,7 @@
     </div>
     </div>
     <!-- Modal for No Business Account -->
-    @if (!auth()->user()->business)
+    @if (!auth()->user()->has_business_account)
         <div class="modal fade show" id="businessAccountModal" tabindex="-1" role="dialog"
             aria-labelledby="businessAccountModalLabel" aria-hidden="true" style="display: block;">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">

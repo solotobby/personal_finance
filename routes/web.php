@@ -60,6 +60,7 @@ Route::middleware(['admin.created', 'auth'])->group(function () {
     Route::post('/create-business-account', [App\Http\Controllers\BusinessController::class, 'create'])->name('create.business.account');
     Route::get('/create-business-account', [App\Http\Controllers\Auth\LoginController::class, 'showCreateBusinessAccountPage'])->name('create-business-account-page');
     // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/dash', [App\Http\Controllers\HomeController::class, 'dash'])->name('dash');
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
     Route::get('/categories', [App\Http\Controllers\CategoriesController::class, 'index']);
     Route::get('/calender', [App\Http\Controllers\CalenderController::class, 'index'])->name('calender');
