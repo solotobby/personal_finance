@@ -110,7 +110,7 @@ class TransactionController extends Controller
             'user_id' => Auth::id(),
             'business_id' => $user->business_id
         ]);
-        return back()->with('success', 'Transaction was registered successfully');
+        return back()->with('success', 'Transaction saved successfully');
     }
 
     /**

@@ -11,14 +11,14 @@
         @include('layouts.components.sidebar', ['page' => 'Transaction'])
 
         <div class="page-content">
-            @include('layouts.components.page-header', ['title' => 'Add Transaction'])
+            @include('layouts.components.page-header', ['title' => 'Create Transaction'])
 
             <div class="main-wrapper">
                 <div class="row">
                     <div class="col-lg-8 mx-auto">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Create Transaction</h5>
+                                {{-- <h5 class="card-title">Create Transaction</h5> --}}
 
                                 @if (session('success'))
                                     <div class="alert alert-success">

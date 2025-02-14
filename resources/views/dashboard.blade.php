@@ -92,7 +92,7 @@
                         <div class="card card-bg actions-widget text-center">
                             <div class="card-body">
                                 <div class="actions-widget-item">
-                                    <button onclick="location.href='{{ url('add/transaction') }}'" type="button"
+                                    <button onclick="location.href='{{ url('create/transaction') }}'" type="button"
                                         class="btn btn-circle text-info"><i class="fas fa-user-plus"></i></button>
                                     <span class="actions-widget-item-title">{{ __('Add Transaction') }}</span>
                                 </div>

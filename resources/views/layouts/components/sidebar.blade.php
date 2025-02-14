@@ -26,7 +26,7 @@
             <ul class="">
                 <li><a href="{{ route('transactions.index') }}"><i class="far fa-circle"></i>{{ __('All') }}</a>
                 </li>
-                {{-- <li><a href="{{ route('transactions.summary') }}"><i class="far fa-circle"></i>{{ __('Summary') }}</a></li> --}}
+                <li><a href="{{ url('create/transaction') }}   "><i class="far fa-circle"></i>{{ __('Create') }}</a></li>
                 <li><a href="{{ route('transactions.report') }}"><i class="far fa-circle"></i>{{ __('Report') }}</a>
                 </li>
 

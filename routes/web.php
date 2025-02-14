@@ -68,7 +68,7 @@ Route::middleware(['admin.created', 'auth'])->group(function () {
     Route::get('transactions/summary', [App\Http\Controllers\TransactionController::class, 'summary'])->name('transactions.summary');
     Route::get('transactions/report', [App\Http\Controllers\TransactionController::class, 'report'])->name('transactions.report');
     Route::resource('transactions', App\Http\Controllers\TransactionController::class);
-    Route::get('add/transaction', [App\Http\Controllers\TransactionController::class, 'addTransaction']);
+    Route::get('create/transaction', [App\Http\Controllers\TransactionController::class, 'addTransaction']);
     Route::get('/get-types/{category_id}', [App\Http\Controllers\TransactionController::class, 'getTypesByCategory']);
 
     //Budget Mechanism
