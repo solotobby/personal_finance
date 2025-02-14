@@ -102,6 +102,9 @@ class StaffController extends Controller
     }
 
 
+    public function MakePayment(Request $request){
+        
+    }
     public function showSingleStaff($staff_id)
     {
         $user = Auth::user();

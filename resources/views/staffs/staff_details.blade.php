@@ -115,10 +115,46 @@
                                     <!-- Generate Payslip Button -->
                                     <a href="{{ url('generate/payslip/'.$staff->staff_id) }}" class="btn btn-success">Generate Payslip</a>
 
-                                    <a href="{{ url('staffs') }}" class="btn btn-primary">Back to Staff List</a>
+                                    <a button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-primary">Make Payment</a>
+
                                 </div>
                             </div>
 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-bg">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ __('Recent Transactions') }}</h5>
+                            <table class="table crypto-table table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">{{ __('Month') }}</th>
+                                        <th scope="col">{{ __('Payment Made By') }}</th>
+                                        <th scope="col">{{ __('Amount') }}</th>
+                                        <th scope="col">{{ __('Date') }}</th>
+                                        <th scope="col">{{ __('Download') }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{-- <?php $i = 1; ?>
+                                    @foreach ($transactions as $t)
+                                        <tr
+                                            class="{{ $t->category == 'Income' ? 'text-success' : ($t->category == 'Expenses' ? 'text-danger' : ($t->category == 'Savings' ? 'text-info' : '')) }}">
+                                            <th scope="row">{{ $i++ }}</th>
+                                            <td>{{ \Carbon\Carbon::parse($t->date)->format('d, M Y @ h:i  a') }}</td>
+                                            <td>{{ $t->name }}<span>{{ $t->from_budget ? '*' : '' }}</span></td>
+                                            <td>{{ html_entity_decode(config('app.currency.symbol')) }}
+                                                {{ number_format($t->amount) }}</td>
+                                            <td>{{ $t->category->name }}</td>
+                                        </tr>
+                                    @endforeach --}}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -128,4 +164,5 @@
     </div>
 </div>
 
+@include('staffs.make_payment_modal')
 @endsection
