@@ -58,7 +58,6 @@ class HomeController extends Controller
     {
 
         $user = auth()->user();
-        //$business = $user->businesses->first();
 
         $dates = $this->previousMonths(6);
         $firstDateIndex = $dates[0]['month_index'];
@@ -76,22 +75,29 @@ class HomeController extends Controller
         $data['income_stat'] = $this->buildChatData(config('app.categories.income.id'), $dates);
         $data['savings_stat'] = $this->buildChatData(config('app.categories.savings.id'), $dates);
         $data['expenses_stat'] = $this->buildChatData(config('app.categories.expenses.id'), $dates);
-        $data['income'] = Transaction::filterCategory(config('app.categories.income.id'), $month, $year)->sum('amount');
-        $data['savings'] = Transaction::filterCategory(config('app.categories.savings.id'), $month, $year)->sum('amount');
-        $data['expenses'] = Transaction::filterCategory(config('app.categories.expenses.id'), $month, $year)->sum('amount');
+        $data['income'] = (float)Transaction::filterCategory(config('app.categories.income.id'), $month, $year)->sum('amount');
+        $data['savings'] = (float)Transaction::filterCategory(config('app.categories.savings.id'), $month, $year)->sum('amount');
+        $data['expenses'] = (float)Transaction::filterCategory(config('app.categories.expenses.id'), $month, $year)->sum('amount');
         $data['transactions'] = Transaction::myLatest(5)->get();
         $data['budgets'] = Budget::where('user_id', $user->id)->get();
+
+        // Convert categories to an associative array
         $data['categories'] = Categories::where(function ($query) use ($user) {
+            $query->where('business_id', $user->business_id)
+            ->orWhereNull('business_id');
+        })->pluck('name', 'id')->toArray();
+
+        // Convert types to an associative array
+        $data['types'] = Type::pluck('name', 'id')->toArray();
+
+        $data['category'] = Categories::where(function ($query) use ($user) {
             $query->where('business_id', $user->business_id)
                   ->orWhereNull('business_id');
         })->get();
-        $data['types'] = Type::whereIn(
+        $data['type'] = Type::whereIn(
             'category_id',
-            $data['categories']->pluck('id')
+            $data['category']->pluck('id')
         )->get();
-        // $data['types'] = Type::pluck('name', 'id')->toArray();
-        // $data['categories'] = Categories::pluck('name', 'id')->toArray();
-
        // return $data;
         return view('dashboard', $data);
     }

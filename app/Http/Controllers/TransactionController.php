@@ -119,11 +119,34 @@ class TransactionController extends Controller
      * @param  \App\Models\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function show(Transaction $transaction)
+    public function show()
     {
-        //
+        $user = auth()->user();
+        $data['categories'] = Categories::where(function ($query) use ($user) {
+            $query->where('business_id', $user->business_id)
+                  ->orWhereNull('business_id');
+        })->get();
+        $data['types'] = Type::whereIn(
+            'category_id',
+            $data['category']->pluck('id')
+        )->get();
+
+        return view('transaction/create', $data);
     }
 
+    public function addTransaction(){
+        $user = auth()->user();
+        $data['categories'] = Categories::where(function ($query) use ($user) {
+            $query->where('business_id', $user->business_id)
+                  ->orWhereNull('business_id');
+        })->get();
+        $data['types'] = Type::whereIn(
+            'category_id',
+            $data['categories']->pluck('id')
+        )->get();
+
+        return view('transactions/create_transaction', $data);
+    }
     /**
      * Show the form for editing the specified resource.
      *

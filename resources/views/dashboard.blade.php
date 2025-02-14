@@ -92,7 +92,7 @@
                         <div class="card card-bg actions-widget text-center">
                             <div class="card-body">
                                 <div class="actions-widget-item">
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                    <button onclick="location.href='{{ url('add/transaction') }}'" type="button"
                                         class="btn btn-circle text-info"><i class="fas fa-user-plus"></i></button>
                                     <span class="actions-widget-item-title">{{ __('Add Transaction') }}</span>
                                 </div>
@@ -280,7 +280,7 @@
         </div>
     @endif
 
-    @include('transactions.insert_transaction_modal')
+    {{-- @include('transactions.insert_transaction_modal') --}}
 
 @section('scripts')
     <script>
