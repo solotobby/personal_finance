@@ -92,7 +92,7 @@
                         <div class="card card-bg actions-widget text-center">
                             <div class="card-body">
                                 <div class="actions-widget-item">
-                                    <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                    <button onclick="location.href='{{ url('create/transaction') }}'" type="button"
                                         class="btn btn-circle text-info"><i class="fas fa-user-plus"></i></button>
                                     <span class="actions-widget-item-title">{{ __('Add Transaction') }}</span>
                                 </div>
@@ -212,7 +212,7 @@
     </div>
     </div>
     <!-- Modal for No Business Account -->
-    @if (!Auth::user()->has_business_account)
+    @if (!auth()->user()->has_business_account)
         <div class="modal fade show" id="businessAccountModal" tabindex="-1" role="dialog"
             aria-labelledby="businessAccountModalLabel" aria-hidden="true" style="display: block;">
             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -280,7 +280,7 @@
         </div>
     @endif
 
-    @include('transactions.insert_transaction_modal')
+    {{-- @include('transactions.insert_transaction_modal') --}}
 
 @section('scripts')
     <script>

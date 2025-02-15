@@ -60,6 +60,7 @@ Route::middleware(['admin.created', 'auth'])->group(function () {
     Route::post('/create-business-account', [App\Http\Controllers\BusinessController::class, 'create'])->name('create.business.account');
     Route::get('/create-business-account', [App\Http\Controllers\Auth\LoginController::class, 'showCreateBusinessAccountPage'])->name('create-business-account-page');
     // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/dash', [App\Http\Controllers\HomeController::class, 'dash'])->name('dash');
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
     Route::get('/categories', [App\Http\Controllers\CategoriesController::class, 'index']);
     Route::get('/calender', [App\Http\Controllers\CalenderController::class, 'index'])->name('calender');
@@ -67,6 +68,7 @@ Route::middleware(['admin.created', 'auth'])->group(function () {
     Route::get('transactions/summary', [App\Http\Controllers\TransactionController::class, 'summary'])->name('transactions.summary');
     Route::get('transactions/report', [App\Http\Controllers\TransactionController::class, 'report'])->name('transactions.report');
     Route::resource('transactions', App\Http\Controllers\TransactionController::class);
+    Route::get('create/transaction', [App\Http\Controllers\TransactionController::class, 'addTransaction']);
     Route::get('/get-types/{category_id}', [App\Http\Controllers\TransactionController::class, 'getTypesByCategory']);
 
     //Budget Mechanism
@@ -81,9 +83,13 @@ Route::middleware(['admin.created', 'auth'])->group(function () {
     Route::get('create/staff', [\App\Http\Controllers\StaffController::class, 'createStaff']);
     Route::post('add/staff', [\App\Http\Controllers\StaffController::class, 'AddStaff']);
     Route::get('staff/{staff_id}', [\App\Http\Controllers\StaffController::class, 'showSingleStaff'])->name('staff.show');
+    Route::get('update/staff/detail/{staff_id}', [\App\Http\Controllers\StaffController::class, 'updateStaff'])->name('staff.edit');
+    Route::put('/update/staff/{id}', [\App\Http\Controllers\StaffController::class, 'updateStaffDetail'])->name('staff.update');
 
-   // PaySlip
+    // PaySlip
+    Route::post('make-payment', [App\Http\Controllers\StaffController::class, 'makePayment']);
     Route::get('generate/payslip/{staff_id}', [\App\Http\Controllers\PaySlipController::class, 'generatePayslip'])->name('generate.payslip');
+    Route::get('payslip/single/download/{payslip_id}', [\App\Http\Controllers\PaySlipController::class, 'downloadSinglePayslip'])->name('payslip.single.download');
 
 
     Route::get('salary/advance', [\App\Http\Controllers\SalaryAdvanceController::class, 'salaryAdvance'])->name('salary.advance');

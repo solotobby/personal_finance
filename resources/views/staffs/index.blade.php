@@ -13,6 +13,27 @@
         @include('layouts.components.page-header', ['title' => 'Staff List'])
         <div class="main-wrapper">
 
+            <!-- Business Stats Section -->
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="card bg-primary text-white">
+                        <div class="card-body">
+                            <h5>Total Staff</h5>
+                            <h2>{{ $total_staff }}</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card bg-success text-white">
+                        <div class="card-body">
+                            <h5>Total Salary Paid Out</h5>
+                            <h2>NGN {{ number_format($total_paid, 2) }}</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col">
                     <div class="card">
@@ -41,7 +62,7 @@
                                             <tr style="cursor: pointer;" onclick="window.location='{{ url('staff/'.$cate->staff_id) }}'">
                                                 <td>{{$cate->staff_id}}</td>
                                                 <td>{{$cate->role}}</td>
-                                                <td>{{$cate->account_name}}</td>
+                                                <td>{{$cate->name}}</td>
                                                 <td>NGN {{number_format($cate->salary,2)}}</td>
                                                 <td>{{$cate->created_at}}</td>
                                             </tr>

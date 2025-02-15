@@ -1,8 +1,14 @@
 <div class="page-sidebar">
     <a class="logo" href="{{ route('dashboard') }}">
-        {{ Auth::user()->hasBusinessAccount()
+        {{ Auth::user()->businesses
             ? Auth::user()->businesses->first()->business_name
             : __('Personal Finance') }}
+
+        {{-- @if (auth()->user()->businesses)
+            <p>{{ auth()->user()->businesses()->first()->business_name }}</p>
+        @else
+            <p>Personal Finance</p>
+        @endif --}}
     </a>
 
 
@@ -20,7 +26,7 @@
             <ul class="">
                 <li><a href="{{ route('transactions.index') }}"><i class="far fa-circle"></i>{{ __('All') }}</a>
                 </li>
-                {{-- <li><a href="{{ route('transactions.summary') }}"><i class="far fa-circle"></i>{{ __('Summary') }}</a></li> --}}
+                <li><a href="{{ url('create/transaction') }}   "><i class="far fa-circle"></i>{{ __('Create') }}</a></li>
                 <li><a href="{{ route('transactions.report') }}"><i class="far fa-circle"></i>{{ __('Report') }}</a>
                 </li>
 
