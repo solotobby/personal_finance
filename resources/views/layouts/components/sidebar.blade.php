@@ -44,6 +44,18 @@
                 <li><a href="{{ route('staff.loan.list') }}"><i class="far fa-circle"></i>{{ __('Loans') }}</a></li>
             </ul>
         </li>
+        <li class="{{ $page == 'Tasks' ? 'active-page' : '' }}">
+            <a href="#"><i data-feather="grid"></i>{{ __('Tasks') }}<i
+                    class="fas fa-chevron-right dropdown-icon"></i></a>
+            <ul class="">
+                <li><a href="{{ url('task') }}"><i class="far fa-circle"></i>{{ __('All') }}</a>
+                </li>
+                <li><a href="{{ url('task/create') }}   "><i class="far fa-circle"></i>{{ __('Create') }}</a></li>
+                {{-- <li><a href="{{ route('transactions.report') }}"><i class="far fa-circle"></i>{{ __('Report') }}</a> --}}
+                </li>
+
+            </ul>
+        </li>
         <li class="{{ $page == 'Apps' ? 'active-page' : '' }}">
             {{--  <a href="{{ route('calender') }}""><i data-feather="aperture"></i>Calender</a>  --}}
             {{--  <ul class="">
