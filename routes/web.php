@@ -54,6 +54,8 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth:staffs'])->group(function () {
     Route::get('/staff/dashboard', [StaffDashboardController::class, 'index'])->name('staff.dashboard');
     Route::get('/download/payslip/{payslip_id}', [StaffDashboardController::class, 'downloadPayslip'])->name('payslip.download');
+    Route::get('/staff-profile', [StaffDashboardController::class, 'staffProfile'])->name('staff-profile');
+    Route::post('/staff/reset-password', [StaffDashboardController::class, 'resetPassword'])->name('staff.reset-password');
 
 });
 

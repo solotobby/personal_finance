@@ -11,9 +11,51 @@
         @include('layouts.components.staff-sidebar', ['page' => 'Staff Dashboard'])
 
         <div class="page-content">
-            @include('layouts.components.page-header', ['title' => 'Staff Dashboard'])
+            @include('layouts.components.staff-page-header', ['title' => 'Staff Dashboard'])
 
             <div class="main-wrapper">
+               <!-- Password Reset Modal -->
+@if ($isFirstLogin)
+<div class="modal fade" id="passwordResetModal" tabindex="-1" aria-labelledby="passwordResetModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="passwordResetModalLabel">Reset Your Password</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>It looks like this is your first login. Please reset your password for security reasons.</p>
+                <form action="{{ route('staff.reset-password') }}" method="POST">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="new_password" class="form-label">New Password</label>
+                        <input type="password" class="form-control" name="new_password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirm_password" class="form-label">Confirm Password</label>
+                        <input type="password" class="form-control" name="new_password_confirmation" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Reset Password</button>
+
+                    <!-- Logout Button with Corrected Syntax -->
+                    <a href="#" class="btn btn-danger ms-2" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i data-feather="log-out"></i> {{ __('Logout') }}
+                    </a>
+
+                    <!-- Hidden Logout Form -->
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+
+
                 <div class="row">
                     <div class="col-lg-6">
                         <!-- Stats Cards -->
@@ -65,7 +107,8 @@
                                 <h5 class="card-title">{{ auth()->user()->name ?? 'N/A' }}</h5>
                                 <p class="card-text">{{ auth()->user()->email ?? 'N/A' }}</p>
                                 <p class="card-text"><strong>Staff ID:</strong> {{ auth()->user()->staff_id ?? 'N/A' }}</p>
-                                <p class="card-text"><strong>Business Name:</strong> {{ auth()->user()->businessName?? 'N/A' }}</p>
+                                <p class="card-text"><strong>Business Name:</strong>
+                                    {{ auth()->user()->businessName ?? 'N/A' }}</p>
                             </div>
                         </div>
                     </div>
@@ -97,14 +140,17 @@
                                                 <td>{{ \Carbon\Carbon::parse($payslip->date)->format('F Y') }}</td>
                                                 <td>{{ $payslip->payer_name }}</td>
                                                 <td>NGN {{ number_format($payslip->amount, 2) }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($payslip->created_at)->format('d M Y, h:i A') }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($payslip->created_at)->format('d M Y, h:i A') }}
+                                                </td>
                                                 <td>
-                                                    <span class="badge bg-{{ $payslip->status == 'Paid' ? 'success' : ($payslip->status == 'Pending' ? 'warning' : 'danger') }}">
+                                                    <span
+                                                        class="badge bg-{{ $payslip->status == 'Paid' ? 'success' : ($payslip->status == 'Pending' ? 'warning' : 'danger') }}">
                                                         {{ ucfirst($payslip->status) }}
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ url('download/payslip/' . $payslip->id) }}" class="btn btn-sm btn-info">
+                                                    <a href="{{ url('download/payslip/' . $payslip->id) }}"
+                                                        class="btn btn-sm btn-info">
                                                         Download PDF
                                                     </a>
                                                 </td>
@@ -138,15 +184,23 @@
                     </div>
                 </div>
 
+
+
             </div> <!-- End main-wrapper -->
         </div> <!-- End page-content -->
     </div> <!-- End page-container -->
 
-@section('scripts')
-    <script src="{{ asset('assets/plugins/apexcharts/apexcharts.min.js') }}"></script>
-@endsection
 
-@include('layouts.components.footer')
-@include('layouts.components.sidebar-overlay')
+    @section('scripts')
+    <script>
+        $(document).ready(function() {
+            $("#passwordResetModal").modal("show"); // Auto-show the modal if first login
+        });
+    </script>
+        <script src="{{ asset('assets/plugins/apexcharts/apexcharts.min.js') }}"></script>
+    @endsection
+
+    @include('layouts.components.footer')
+    @include('layouts.components.sidebar-overlay')
 
 @endsection

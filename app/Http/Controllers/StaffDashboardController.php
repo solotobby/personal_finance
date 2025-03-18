@@ -6,6 +6,7 @@ use App\Models\Payslip;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class StaffDashboardController extends Controller
 {
@@ -31,8 +32,8 @@ class StaffDashboardController extends Controller
             'staff' => $staff,
             'total_paid' => $total_paid,
             'payslips' => $payslips,
+            'isFirstLogin' => $staff->first_login
         ]);
-
     }
 
     public function downloadPayslip($payslip_id)
@@ -71,4 +72,29 @@ class StaffDashboardController extends Controller
         return response()->download($pdf_file_path, $month . ' Payslip for ' . $staff->name . '.pdf');
     }
 
+
+    public function staffProfile()
+    {
+        $staff = auth()->guard('staffs')->user();
+
+        $business = $staff->business;
+        return view('staff.staff-profile', compact('staff',     'business'));
+    }
+
+    public function resetPassword(Request $request)
+    {
+        // Validate the request
+        $request->validate([
+            'new_password' => 'required|string|confirmed',
+        ]);
+
+        $staff = auth()->guard('staffs')->user();
+//return $staff;
+        $staff->password = Hash::make($request->new_password);
+        $staff->first_login = false;
+        $staff->save();
+
+        // Redirect back with success message
+        return redirect()->back()->with('success', 'Password reset successfully.');
+    }
 }
