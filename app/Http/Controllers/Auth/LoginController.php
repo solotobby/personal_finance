@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -50,26 +51,67 @@ class LoginController extends Controller
         return view('auth.create_business_account');
     }
 
+    // public function loginUser(Request $request)
+    // {
+    //     // Validate login credentials
+    //     $request->validate([
+    //         'email' => ['required', 'string', 'max:255'], // Accepts email or staff_id
+    //         'password' => ['required', 'string'],
+    //     ]);
+
+    //     $credentials = [
+    //         filter_var($request->email, FILTER_VALIDATE_EMAIL) ? 'email' : 'staff_id' => $request->email,
+    //         'password' => $request->password,
+    //     ];
+
+    //     // Attempt to log the user in
+    //     if (Auth::attempt($credentials, $request->remember)) {
+    //         $user = Auth::user();
+
+    //         if ($user instanceof \App\Models\Staffs) {
+    //             return redirect()->route('staff.dashboard');
+    //         }
+
+    //         return redirect()->route('dashboard');
+    //     }
+
+    //     // If authentication fails, return with an error
+    //     return redirect()->back()->with('error', 'The provided credentials are incorrect.');
+    // }
+
     public function loginUser(Request $request)
-    {
-        // Validate login credentials
-        $request->validate([
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'string'],
-        ]);
+{
+    $credentials = $request->validate([
+        'login_identifier' => 'required|string',
+        'password' => 'required|string',
+    ]);
 
-        // Attempt to log the user in
-        if (Auth::attempt([
-            'email' => $request->email,
-            'password' => $request->password,
-        ], $request->remember)) {
-            // Redirect to the dashboard after successful login
-            return redirect()->route('dashboard');
-        }
-
-        // If authentication fails, return with an error
-        return redirect()->back()->with('error', 'The provided credentials are incorrect.');
+    // Determine the authentication field and guard
+    if (filter_var($credentials['login_identifier'], FILTER_VALIDATE_EMAIL)) {
+        $fieldType = 'email';
+        $guard = 'web'; // Authenticate via users table
+    } else {
+        $fieldType = 'staff_id';
+        $guard = 'staffs'; // Authenticate via staffs table
     }
+
+    // Attempt authentication
+    if (Auth::guard($guard)->attempt(
+        [$fieldType => $credentials['login_identifier'], 'password' => $credentials['password']],
+        $request->filled('remember')
+    )) {
+        // Redirect based on authentication type
+        return $guard === 'staffs'
+            ? redirect()->route('staff.dashboard')
+            : redirect()->route('dashboard');
+    }
+
+    // If authentication fails, throw an error
+    throw ValidationException::withMessages([
+        'login_identifier' => [trans('auth.failed')],
+    ]);
+}
+
 
 
 

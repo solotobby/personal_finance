@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StaffDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +51,12 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
+Route::middleware(['auth:staffs'])->group(function () {
+    Route::get('/staff/dashboard', [StaffDashboardController::class, 'index'])->name('staff.dashboard');
+    Route::get('/download/payslip/{payslip_id}', [StaffDashboardController::class, 'downloadPayslip'])->name('payslip.download');
+
+});
+
 /*
 |--------------------------------------------------------------------------
 | Regular user
@@ -61,6 +69,7 @@ Route::middleware(['admin.created', 'auth'])->group(function () {
     Route::get('/create-business-account', [App\Http\Controllers\Auth\LoginController::class, 'showCreateBusinessAccountPage'])->name('create-business-account-page');
     // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/dash', [App\Http\Controllers\HomeController::class, 'dash'])->name('dash');
+   // Route::get('/staff/dashboard', [App\Http\Controllers\StaffController::class, 'dashboard'])->name('staff.dashboard');
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
     Route::get('/categories', [App\Http\Controllers\CategoriesController::class, 'index']);
     Route::get('/calender', [App\Http\Controllers\CalenderController::class, 'index'])->name('calender');
