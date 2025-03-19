@@ -14,43 +14,41 @@
                             <p>Please Sign-in to your account.</p>
                         </div>
 
-                        <form method="POST" action="{{ url('login/user') }}">
-                            @csrf
-                           <div class="mb-3">
-                                <div class="form-floating">
-                                    <input id="floatingInput" type="email" placeholder="name@example.com" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                                    <label for="floatingInput">{{ __('E-Mail Address') }}</label>
+                       <form method="POST" action="{{ url('login/user') }}">
+    @csrf
+    <div class="mb-3">
+        <div class="form-floating">
+            <input id="floatingInput" type="text" placeholder="E-Mail Address or Staff ID" class="form-control @error('login_identifier') is-invalid @enderror" name="login_identifier" value="{{ old('login_identifier') }}" required autocomplete="username" autofocus>
+            <label for="floatingInput">{{ __('E-Mail Address / Staff ID') }}</label>
 
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <div class="form-floating">
-                                    <input id="floatingPassword" type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-                                    <label for="floatingPassword">{{ __('Password') }}</label>
+            @error('login_identifier')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+    </div>
+    <div class="mb-3">
+        <div class="form-floating">
+            <input id="floatingPassword" type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+            <label for="floatingPassword">{{ __('Password') }}</label>
 
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="mb-3 form-check">
-                                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                <label class="form-check-label" for="remember">{{ __('Remember Me') }}</label>
-                            </div>
-                            <div class="d-grid">
-                            <button type="submit" class="btn btn-info m-b-xs">Sign In</button>
-                            {{-- <a class="btn btn-success" href="{{ url('auth/google') }}">SignIn With
-                            <img src="https://img.icons8.com/color/20/000000/google-logo.png"/>
-                            </a> --}}
-                        </div>
-                            </form>
+            @error('password')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
+    </div>
+    <div class="mb-3 form-check">
+        <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+        <label class="form-check-label" for="remember">{{ __('Remember Me') }}</label>
+    </div>
+    <div class="d-grid">
+        <button type="submit" class="btn btn-info m-b-xs">Sign In</button>
+    </div>
+</form>
+
                                 <div class="authent-reg">
                                 <p>Not registered? <a href="{{ route('register') }}">Create an account</a></p>
                             </div>

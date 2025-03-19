@@ -54,7 +54,7 @@
                     <a class="nav-link profile-dropdown d-flex align-items-center" href="#" id="profileDropDown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <span class="me-2">{{ auth()->user()->name }}</span>
                         @if (auth()->user()->avarta_url)
-                            <img src="{{ auth()->user()->avarta_url }}" class="rounded-circle" alt="">
+                            <img src="{{ auth()->user()->avarta_url }}" class="rounded-circle"  alt="">
                         @else
                             <img src="../../assets/images/avatars/profile-image.png" class="rounded-circle" alt="">
                         @endif
@@ -80,7 +80,7 @@
 
 <script>
     document.getElementById('mark-all-read').addEventListener('click', function() {
-        fetch('{{ route("markAsRead") }}', {
+        fetch('{{ route("notifications.markAsRead") }}', {
             method: 'POST',
             headers: {
                 'X-CSRF-TOKEN': '{{ csrf_token() }}',
@@ -88,7 +88,7 @@
             }
         }).then(response => response.json())
         .then(() => {
-            document.getElementById('notification-list').innerHTML = '<div class="dropdown-item text-center">No new notifications</div>';
+            document.getElementById('notification-list').innerHTML = '<li class="dropdown-item text-center">No new notifications</li>';
             let countBadge = document.getElementById('notification-count');
             countBadge.textContent = '0';
             countBadge.style.display = 'none';

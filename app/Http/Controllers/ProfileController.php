@@ -10,4 +10,10 @@ class ProfileController extends Controller
     {
         return view('profile');
     }
+
+    public function markAsRead()
+    {
+        Auth::user()->unreadNotifications->markAsRead();
+        return response()->json(['success' => true]);
+    }
 }

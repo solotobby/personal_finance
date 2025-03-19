@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Staffs extends Model
+class Staffs extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -36,6 +38,18 @@ class Staffs extends Model
         'salary',
         'department',
         'created_by',
+        'password',
+        'first_login',
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -47,6 +61,7 @@ class Staffs extends Model
         'employment_date' => 'date',
         'date_of_birth' => 'date',
         'salary' => 'decimal:2',
+        'first_login' => 'boolean',
     ];
 
     /**
@@ -54,14 +69,28 @@ class Staffs extends Model
      */
     public function business()
     {
-        return $this->belongsTo(Business::class);
+        return $this->belongsTo(Business::class, 'business_id', 'id');
     }
 
+
+    public function getBusinessNameAttribute()
+    {
+        return $this->business()->exists() ? $this->business()->first()->business_name : 'Personal Finance';
+    }
     protected static function booted()
     {
         static::creating(function ($staff) {
+            $business = $staff->getBusinessNameAttribute();
 
-            $staff->staff_id = 'STF' . str_pad(rand(10000, 99999), 5, '0', STR_PAD_LEFT);
+            if ($business) {
+                $businessName = strtoupper($business);
+                $prefix = substr($businessName, 0, 2) . substr($businessName, -1);
+            } else {
+                $prefix = 'PF';
+            }
+
+            $staff->staff_id = $prefix .'-STF-'. str_pad(rand(10000, 99999), 5, '0', STR_PAD_LEFT);
+            $staff->first_login = true;
         });
     }
 }

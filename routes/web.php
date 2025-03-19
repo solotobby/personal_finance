@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StaffDashboardController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +51,17 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
+Route::middleware(['auth:staffs'])->group(function () {
+    Route::get('/staff/dashboard', [StaffDashboardController::class, 'index'])->name('staff.dashboard');
+    Route::get('/download/payslip/{payslip_id}', [StaffDashboardController::class, 'downloadPayslip'])->name('payslip.download');
+    Route::get('/staff-profile', [StaffDashboardController::class, 'staffProfile'])->name('staff-profile');
+    Route::post('/staff/reset-password', [StaffDashboardController::class, 'resetPassword'])->name('staff.reset-password');
+    Route::get('/staff/task', [StaffDashboardController::class, 'viewTask'])->name('staff.tasks');
+    Route::put('/staff/task/update/{id}', [StaffDashboardController::class, 'update'])->name('staff.tasks.update');
+    Route::post('/notifications/mark-read', [StaffDashboardController::class, 'markAsRead'])->name('notifications.markAsRead');
+
+});
+
 /*
 |--------------------------------------------------------------------------
 | Regular user
@@ -61,6 +74,7 @@ Route::middleware(['admin.created', 'auth'])->group(function () {
     Route::get('/create-business-account', [App\Http\Controllers\Auth\LoginController::class, 'showCreateBusinessAccountPage'])->name('create-business-account-page');
     // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/dash', [App\Http\Controllers\HomeController::class, 'dash'])->name('dash');
+    // Route::get('/staff/dashboard', [App\Http\Controllers\StaffController::class, 'dashboard'])->name('staff.dashboard');
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'dashboard'])->name('dashboard');
     Route::get('/categories', [App\Http\Controllers\CategoriesController::class, 'index']);
     Route::get('/calender', [App\Http\Controllers\CalenderController::class, 'index'])->name('calender');
@@ -102,13 +116,25 @@ Route::middleware(['admin.created', 'auth'])->group(function () {
 
     //Profile
     Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
+    Route::post('business/notifications/mark-read', [\App\Http\Controllers\ProfileController::class, 'markAsRead'])->name('markAsRead');
+
 
     //settings
     Route::get('settings', [\App\Http\Controllers\SettingsController::class, 'index'])->name('settings');
-  //  Route::get('settings/view', [\App\Http\Controllers\SettingsController::class, 'viewPage'])->name('settings.index');
+    //  Route::get('settings/view', [\App\Http\Controllers\SettingsController::class, 'viewPage'])->name('settings.index');
     Route::post('settings/category', [\App\Http\Controllers\SettingsController::class, 'storeCategory'])->name('settings.storeCategory');
     Route::post('/settings/storeType', [\App\Http\Controllers\SettingsController::class, 'storeType'])->name('settings.storeType');
     Route::post('settings/role', [\App\Http\Controllers\SettingsController::class, 'storeRole'])->name('settings.storeRole');
     Route::post('settings/department', [\App\Http\Controllers\SettingsController::class, 'storeDepartment'])->name('settings.storeDepartment');
     Route::post('settings/qualification', [\App\Http\Controllers\SettingsController::class, 'storeQualification'])->name('settings.storeQualification');
+
+    //Task
+    Route::get('task', [\App\Http\Controllers\TaskController::class, 'index'])->name('tasks');
+    Route::get('task/create', [\App\Http\Controllers\TaskController::class, 'create'])->name('tasks.create');
+    Route::post('task/store', [\App\Http\Controllers\TaskController::class, 'store'])->name('tasks.store');
+    Route::get('/tasks/{task}', [\App\Http\Controllers\TaskController::class, 'show'])->name('tasks.show');
+    Route::put('task/update/{id}', [\App\Http\Controllers\TaskController::class, 'update'])->name('tasks.update');
+    Route::put('task/priority/{id}', [\App\Http\Controllers\TaskController::class, 'priority'])->name('tasks.priority');
+    Route::put('task/close/{id}', [\App\Http\Controllers\TaskController::class, 'close'])->name('tasks.close');
+    Route::get('task/edit/{id}', [\App\Http\Controllers\TaskController::class, 'edit'])->name('tasks.edit');
 });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\StaffAccountCreated;
 use Illuminate\Support\Facades\Http;
 use App\Models\Department;
 use App\Models\Qualification;
@@ -12,27 +13,34 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 
 class StaffController extends Controller
 {
+    public function dashboard()
+    {
+        return view('staff.dashboard');
+    }
     public function index()
     {
         $user = auth()->user();
 
         // Fetch all staff for the business
-        $staffs = Staffs::where('business_id', $user->business_id)->get();
+        $staffs = Staffs::where('business_id', $user->business_id)->orderByDesc('created_at')->get();
 
         // Count total staff
         $total_staff = $staffs->count();
+        $total_monthly = $staffs->sum('salary');
 
         // Calculate total salary paid out
         $total_paid = Payslip::whereHas('staff', function ($query) use ($user) {
             $query->where('business_id', $user->business_id);
         })->sum('amount');
 
-        return view('staffs.index', compact('staffs', 'total_staff', 'total_paid'));
+        return view('staffs.index', compact('staffs', 'total_staff', 'total_paid', 'total_monthly'));
     }
 
 
@@ -81,6 +89,7 @@ class StaffController extends Controller
         $user = Auth::user();
         //$business = $user->businesses->first();
 
+        $password = $this->password();
         // Save the staff data to the database
         $staff = new Staffs();
         $staff->business_id = $user->business_id;
@@ -101,15 +110,22 @@ class StaffController extends Controller
         $staff->employment_date = $validated['employment_date'];
         $staff->salary = $validated['basic_salary'] + $validated['bonus'];
         $staff->department = $validated['department'];
+        $staff->password =  Hash::make($password);
+        $staff->first_login = true;
 
 
         if ($staff->save()) {
+            Mail::to($staff->email)->send(new StaffAccountCreated($staff, $password));
             return redirect()->route('staff.index');
         } else {
             return redirect()->back()->with('error', 'Unable to create new staff');
         }
     }
 
+    function password()
+    {
+        return Str::random(10);
+    }
 
     public function MakePayment(Request $request)
     {
@@ -158,6 +174,7 @@ class StaffController extends Controller
                 $payslip->update([
                     'status' => 'Paid',
                 ]);
+                
                 return redirect()->back()->with('success', 'Payment successful and Payslip updated.');
             } else {
                 $payslip->update([

@@ -3,12 +3,6 @@
         {{ Auth::user()->businesses
             ? Auth::user()->businesses->first()->business_name
             : __('Personal Finance') }}
-
-        {{-- @if (auth()->user()->businesses)
-            <p>{{ auth()->user()->businesses()->first()->business_name }}</p>
-        @else
-            <p>Personal Finance</p>
-        @endif --}}
     </a>
 
 
@@ -44,6 +38,16 @@
                 <li><a href="{{ route('staff.loan.list') }}"><i class="far fa-circle"></i>{{ __('Loans') }}</a></li>
             </ul>
         </li>
+        <li class="{{ $page == 'Tasks' ? 'active-page' : '' }}">
+            <a href="#"><i data-feather="trello"></i>{{ __('Tasks') }}<i
+                    class="fas fa-chevron-right dropdown-icon"></i></a>
+            <ul class="">
+                <li><a href="{{ url('task') }}"><i class="far fa-circle"></i>{{ __('All') }}</a>
+                </li>
+                <li><a href="{{ url('task/create') }}   "><i class="far fa-circle"></i>{{ __('Create') }}</a></li>
+
+            </ul>
+        </li>
         <li class="{{ $page == 'Apps' ? 'active-page' : '' }}">
             {{--  <a href="{{ route('calender') }}""><i data-feather="aperture"></i>Calender</a>  --}}
             {{--  <ul class="">
@@ -53,6 +57,14 @@
             {{-- <li><a href="social.html"><i class="far fa-circle"></i>Social</a></li>
                     <li><a href="file-manager.html"><i class="far fa-circle"></i>File Manager</a></li> --}}
             {{--  </ul>  --}}
+        </li>
+        <li class="{{ $page == 'Budget' ? 'active-page' : '' }}">
+            <a href="#"><i data-feather="aperture"></i>Budgets<i
+                    class="fas fa-chevron-right dropdown-icon"></i></a>
+            <ul class="">
+                <li><a href="{{ url('budget') }}"><i class="far fa-circle"></i>Create</a></li>
+                <li><a href="{{ url('budgets/summary') }}"><i class="far fa-circle"></i>Summary</a></li>
+            </ul>
         </li>
         {{-- <li>
                   <a href="#"><i data-feather="code"></i>UI Kits<i class="fas fa-chevron-right dropdown-icon"></i></a>
@@ -105,14 +117,6 @@
                     <li><a href="form-select2.html"><i class="far fa-circle"></i>Select2</a></li>
                   </ul>
                 </li> --}}
-        <li class="{{ $page == 'Budget' ? 'active-page' : '' }}">
-            <a href="#"><i data-feather="aperture"></i>Budgets<i
-                    class="fas fa-chevron-right dropdown-icon"></i></a>
-            <ul class="">
-                <li><a href="{{ url('budget') }}"><i class="far fa-circle"></i>Create</a></li>
-                <li><a href="{{ url('budgets/summary') }}"><i class="far fa-circle"></i>Summary</a></li>
-            </ul>
-        </li>
         {{--  <li>
                   <a href="{{ route('dashboard') }}"><i data-feather="pie-chart"></i>Charts</a>
                 </li>  --}}
