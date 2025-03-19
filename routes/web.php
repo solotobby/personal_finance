@@ -58,6 +58,7 @@ Route::middleware(['auth:staffs'])->group(function () {
     Route::post('/staff/reset-password', [StaffDashboardController::class, 'resetPassword'])->name('staff.reset-password');
     Route::get('/staff/task', [StaffDashboardController::class, 'viewTask'])->name('staff.tasks');
     Route::put('/staff/task/update/{id}', [StaffDashboardController::class, 'update'])->name('staff.tasks.update');
+    Route::post('/notifications/mark-read', [StaffDashboardController::class, 'markAsRead'])->name('notifications.markAsRead');
 
 });
 
@@ -115,6 +116,8 @@ Route::middleware(['admin.created', 'auth'])->group(function () {
 
     //Profile
     Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
+    Route::post('business/notifications/mark-read', [\App\Http\Controllers\ProfileController::class, 'markAsRead'])->name('markAsRead');
+
 
     //settings
     Route::get('settings', [\App\Http\Controllers\SettingsController::class, 'index'])->name('settings');

@@ -1,124 +1,72 @@
 <div class="page-header">
-    <nav
-    class="navbar navbar-expand-lg d-flex justify-content-between">
-        <div class="header-title flex-fill">
+    <nav class="navbar navbar-expand-lg d-flex justify-content-between">
+        <div class="header-title flex-fill d-flex align-items-center">
             <a href="#" id="sidebar-toggle"><i data-feather="arrow-left"></i></a>
-            <h5>{{ $title }}</h5>
+            <h5 class="ms-2">{{ $title }}</h5>
         </div>
-        {{-- <div class="header-search">
-        <form>
-            <input class="form-control" type="text" placeholder="Type something.." aria-label="Search">
-            <a href="#" class="close-search"><i data-feather="x"></i></a>
-        </form>
-        </div> --}}
+
         <div class="flex-fill" id="headerNav">
-            <ul class="navbar-nav">
-                {{-- <li class="nav-item d-md-block d-lg-none">
-            <a class="nav-link" href="#" id="toggle-search"><i data-feather="search"></i></a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link activity-trigger" href="#" id="activity-sidebar-toggle"><i data-feather="grid"></i></a>
-            </li>
-            <li class="nav-item dropdown">
-            <a class="nav-link notifications-dropdown" href="#" id="notificationsDropDown" role="button" data-bs-toggle="dropdown" aria-expanded="false">3<div class="spinner-grow text-danger" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div></a>
-            <div class="dropdown-menu dropdown-menu-end notif-drop-menu" aria-labelledby="notificationsDropDown">
-                <h6 class="dropdown-header">Notifications</h6>
-                <a href="#">
-                <div class="header-notif">
-                    <div class="notif-image">
-                    <span class="notification-badge bg-info text-white">
-                        <i class="fas fa-bullhorn"></i>
-                    </span>
-                    </div>
-                    <div class="notif-text">
-                    <p class="bold-notif-text">faucibus dolor in commodo lectus mattis</p>
-                    <small>19:00</small>
-                    </div>
-                </div>
-                </a>
-                <a href="#">
-                <div class="header-notif">
-                    <div class="notif-image">
-                    <span class="notification-badge bg-primary text-white">
-                        <i class="fas fa-bolt"></i>
-                    </span>
-                    </div>
-                    <div class="notif-text">
-                    <p class="bold-notif-text">faucibus dolor in commodo lectus mattis</p>
-                    <small>18:00</small>
-                    </div>
-                </div>
-                </a>
-                <a href="#">
-                <div class="header-notif">
-                    <div class="notif-image">
-                    <span class="notification-badge bg-success text-white">
-                        <i class="fas fa-at"></i>
-                    </span>
-                    </div>
-                    <div class="notif-text">
-                    <p>faucibus dolor in commodo lectus mattis</p>
-                    <small>yesterday</small>
-                    </div>
-                </div>
-                </a>
-                <a href="#">
-                <div class="header-notif">
-                    <div class="notif-image">
-                    <span class="notification-badge">
-                        <img src="../../assets/images/avatars/profile-image.png" alt="">
-                    </span>
-                    </div>
-                    <div class="notif-text">
-                    <p>faucibus dolor in commodo lectus mattis</p>
-                    <small>yesterday</small>
-                    </div>
-                </div>
-                </a>
-                <a href="#">
-                <div class="header-notif">
-                    <div class="notif-image">
-                    <span class="notification-badge">
-                        <img src="../../assets/images/avatars/profile-image.png" alt="">
-                    </span>
-                    </div>
-                    <div class="notif-text">
-                    <p>faucibus dolor in commodo lectus mattis</p>
-                    <small>yesterday</small>
-                    </div>
-                </div>
-                </a>
-            </div>
-            </li> --}}
+            <ul class="navbar-nav d-flex align-items-center">
+                <!-- Notification Dropdown -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link profile-dropdown" href="#" id="profileDropDown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        {{ auth()->user()->name }} &nbsp;
+                    <a class="nav-link notifications-dropdown d-flex align-items-center" href="#" id="notificationsDropDown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge bg-danger ms-1" id="notification-count"
+                              style="{{ auth()->user()->unreadNotifications->count() > 0 ? '' : 'display: none;' }}">
+                            {{ auth()->user()->unreadNotifications->count() }}
+                        </span>
+                        <div class="spinner-grow text-danger ms-2 d-none" role="status" id="notif-loading">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-end notif-drop-menu" aria-labelledby="notificationsDropDown">
+                        <h6 class="dropdown-header">Notifications</h6>
+
+                        <div id="notification-list">
+                            @forelse(auth()->user()->notifications as $notification)
+                                <a href="#">
+                                    <div class="header-notif d-flex">
+                                        <div class="notif-image">
+                                            <span class="notification-badge bg-info text-white">
+                                                <i class="fas fa-bullhorn"></i>
+                                            </span>
+                                        </div>
+                                        <div class="notif-text">
+                                            <p class="bold-notif-text mb-1">{{ $notification->data['message'] }}</p>
+                                            <small class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
+                                        </div>
+                                    </div>
+                                </a>
+                            @empty
+                                <div class="dropdown-item text-center">No new notifications</div>
+                            @endforelse
+                        </div>
+
+                        <div class="dropdown-footer text-center">
+                            <button class="btn btn-sm btn-secondary w-100" id="mark-all-read">Mark All as Read</button>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Profile Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link profile-dropdown d-flex align-items-center" href="#" id="profileDropDown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="me-2">{{ auth()->user()->name }}</span>
                         @if (auth()->user()->avarta_url)
-                            <img src="{{ auth()->user()->avarta_url }}" alt="">
+                            <img src="{{ auth()->user()->avarta_url }}" class="rounded-circle"  alt="">
                         @else
-                            <img src="../../assets/images/avatars/profile-image.png" alt="">
+                            <img src="../../assets/images/avatars/profile-image.png" class="rounded-circle" alt="">
                         @endif
                     </a>
                     <div class="dropdown-menu dropdown-menu-end profile-drop-menu" aria-labelledby="profileDropDown">
-                        {{--  <a class="dropdown-item" href="#"><i data-feather="inbox"></i>Messages</a>
-                    {{-- <a class="dropdown-item" href="#"><i data-feather="edit"></i>Activities<span class="badge rounded-pill bg-success">12</span></a> --}}
-                        {{-- <a class="dropdown-item" href="#"><i data-feather="check-circle"></i>Tasks</a> --}}
-                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('staff-profile') }}">
                             <i data-feather="user"></i> Profile
                         </a>
-                        {{-- <a class="dropdown-item" href="{{ route('settings') }}">
-                            <i data-feather="settings"></i> Settings
-                        </a> --}}
-
-                        {{-- <a class="dropdown-item" href="#"><i data-feather="settings"></i>Settings</a> --}}
-                        {{-- <a class="dropdown-item" href="#"><i data-feather="unlock"></i>Lock</a> --}}
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            <i data-feather="log-out"></i>{{ __('Logout') }}
+                            <i data-feather="log-out"></i> Logout
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
@@ -129,3 +77,21 @@
         </div>
     </nav>
 </div>
+
+<script>
+    document.getElementById('mark-all-read').addEventListener('click', function() {
+        fetch('{{ route("notifications.markAsRead") }}', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Content-Type': 'application/json'
+            }
+        }).then(response => response.json())
+        .then(() => {
+            document.getElementById('notification-list').innerHTML = '<li class="dropdown-item text-center">No new notifications</li>';
+            let countBadge = document.getElementById('notification-count');
+            countBadge.textContent = '0';
+            countBadge.style.display = 'none';
+        });
+    });
+</script>

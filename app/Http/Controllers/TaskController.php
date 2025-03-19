@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\TaskAssigned;
 use App\Models\Task;
 use App\Models\Staffs;
+use App\Notifications\TaskNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -71,6 +72,7 @@ class TaskController extends Controller
             'created_by' => auth()->id(),
         ]);
 
+        $task->staff->notify(new TaskNotification($task, 'assigned'));
         Mail::to($task->staff->email)->send(new TaskAssigned($task));
         return redirect()->route('tasks')->with('success', 'Task updated successfully.');
     }
@@ -97,6 +99,8 @@ class TaskController extends Controller
             $task->update(['status' => $request->status]);
         }
 
+       // $staff = Staffs::where('id', $task->staff_id)->first();
+        $task->staff->notify(new TaskNotification($task, 'status_updated'));
         return redirect()->route('tasks')->with('success', 'Task updated successfully.');
     }
 
@@ -111,9 +115,9 @@ class TaskController extends Controller
         if (!$task) {
             return redirect()->route('tasks.index')->with('error', 'Task not found.');
         }
-//return $request->priority;
-        $task->update(['priority' => $request->priority]);
 
+        $task->update(['priority' => $request->priority]);
+        $task->staff->notify(new TaskNotification($task, 'priority_updated'));
         return redirect()->route('tasks')->with('success', 'Task updated successfully.');
     }
     public function close(Request $request, $id)

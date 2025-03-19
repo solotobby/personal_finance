@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Payslip;
 use App\Models\Task;
+use App\Notifications\TaskNotification;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -137,7 +138,12 @@ class StaffDashboardController extends Controller
         } else {
             $task->update(['status' => $request->status]);
         }
-
+        $task->user->notify(new TaskNotification($task, 'status_updated'));
         return redirect()->route('staff.tasks')->with('success', 'Task updated successfully.');
+    }
+    public function markAsRead()
+    {
+        auth()->guard('staffs')->user()->unreadNotifications->markAsRead();
+        return response()->json(['success' => true]);
     }
 }

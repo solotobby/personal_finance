@@ -35,7 +35,7 @@
                         <div class="col-md-4">
                             <div class="card bg-warning text-dark">
                                 <div class="card-body">
-                                    <h5>Pending Tasks</h5>
+                                    <h5>Pending & In Progress Tasks</h5>
                                     <h2>{{ $pending_tasks }}</h2>
                                 </div>
                             </div>

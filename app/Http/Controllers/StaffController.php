@@ -174,6 +174,7 @@ class StaffController extends Controller
                 $payslip->update([
                     'status' => 'Paid',
                 ]);
+                
                 return redirect()->back()->with('success', 'Payment successful and Payslip updated.');
             } else {
                 $payslip->update([
