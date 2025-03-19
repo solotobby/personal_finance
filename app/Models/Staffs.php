@@ -69,7 +69,7 @@ class Staffs extends Authenticatable
      */
     public function business()
     {
-        return $this->belongsTo(Business::class);
+        return $this->belongsTo(Business::class, 'business_id', 'id');
     }
 
 
@@ -80,16 +80,16 @@ class Staffs extends Authenticatable
     protected static function booted()
     {
         static::creating(function ($staff) {
-            $business = $staff->business()->first();
+            $business = $staff->getBusinessNameAttribute();
 
-            if ($business && $business->name) {
-                $businessName = strtoupper($business->name);
+            if ($business) {
+                $businessName = strtoupper($business);
                 $prefix = substr($businessName, 0, 2) . substr($businessName, -1);
             } else {
                 $prefix = 'PF';
             }
 
-            $staff->staff_id = $prefix .'/STF/'. str_pad(rand(10000, 99999), 5, '0', STR_PAD_LEFT);
+            $staff->staff_id = $prefix .'-STF-'. str_pad(rand(10000, 99999), 5, '0', STR_PAD_LEFT);
             $staff->first_login = true;
         });
     }

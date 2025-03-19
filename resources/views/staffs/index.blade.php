@@ -28,7 +28,7 @@
                         <div class="card bg-primary text-dark">
                             <div class="card-body">
                                 <h5>Total Monthly Salary</h5>
-                                <h2>NGN {{ number_format($total_paid, 2) }}</h2>
+                                <h2>NGN {{ number_format($total_monthly, 2) }}</h2>
                             </div>
                         </div>
                     </div>

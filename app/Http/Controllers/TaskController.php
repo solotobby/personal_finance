@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\TaskAssigned;
 use App\Models\Task;
-use App\Models\Staff;
 use App\Models\Staffs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -16,6 +16,7 @@ class TaskController extends Controller
 
         $tasks = Task::where('business_id', $businessId)
             ->with(['staff', 'user'])
+            ->orderByDesc('created_at')
             ->get();
 
         $total_tasks = $tasks->count();
@@ -70,7 +71,8 @@ class TaskController extends Controller
             'created_by' => auth()->id(),
         ]);
 
-        //$staff =Staffs::where('staff_id', $request->staff_id)->first();
+      // return $task->staff->email;
+       // $staff =Staffs::where('staff_id', $request->staff_id)->first();
 
         Mail::to($task->staff->email)->send(new TaskAssigned($task));
         return redirect()->route('tasks')->with('success', 'Task updated successfully.');
