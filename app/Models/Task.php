@@ -36,4 +36,15 @@ class Task extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($task) {
+            if (empty($task->task_id)) {
+                $task->task_id = 'Tk' . mt_rand(100000, 999999);
+            }
+        });
+    }
 }

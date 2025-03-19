@@ -107,6 +107,7 @@ class StaffController extends Controller
 
 
         if ($staff->save()) {
+            Mail::to($staff->email)->send(new StaffAccountCreated($staff));
             return redirect()->route('staff.index');
         } else {
             return redirect()->back()->with('error', 'Unable to create new staff');

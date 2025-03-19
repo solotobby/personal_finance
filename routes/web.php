@@ -124,7 +124,11 @@ Route::middleware(['admin.created', 'auth'])->group(function () {
 
     //Task
     Route::get('task', [\App\Http\Controllers\TaskController::class, 'index'])->name('tasks');
-    Route::post('task', [\App\Http\Controllers\TaskController::class, 'create'])->name('tasks.create');
-    Route::post('task/create', [\App\Http\Controllers\TaskController::class, 'store'])->name('tasks.store');
-    Route::post('task/update', [\App\Http\Controllers\TaskController::class, 'update'])->name('tasks.update');
+    Route::get('task/create', [\App\Http\Controllers\TaskController::class, 'create'])->name('tasks.create');
+    Route::post('task/store', [\App\Http\Controllers\TaskController::class, 'store'])->name('tasks.store');
+    Route::get('/tasks/{task}', [\App\Http\Controllers\TaskController::class, 'show'])->name('tasks.show');
+    Route::put('task/update/{id}', [\App\Http\Controllers\TaskController::class, 'update'])->name('tasks.update');
+    Route::put('task/priority/{id}', [\App\Http\Controllers\TaskController::class, 'priority'])->name('tasks.priority');
+    Route::put('task/close/{id}', [\App\Http\Controllers\TaskController::class, 'close'])->name('tasks.close');
+    Route::get('task/edit/{id}', [\App\Http\Controllers\TaskController::class, 'edit'])->name('tasks.edit');
 });
