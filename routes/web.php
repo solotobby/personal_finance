@@ -56,6 +56,9 @@ Route::middleware(['auth:staffs'])->group(function () {
     Route::get('/download/payslip/{payslip_id}', [StaffDashboardController::class, 'downloadPayslip'])->name('payslip.download');
     Route::get('/staff-profile', [StaffDashboardController::class, 'staffProfile'])->name('staff-profile');
     Route::post('/staff/reset-password', [StaffDashboardController::class, 'resetPassword'])->name('staff.reset-password');
+    Route::get('/staff/task', [StaffDashboardController::class, 'viewTask'])->name('staff.tasks');
+    Route::put('/staff/task/update/{id}', [StaffDashboardController::class, 'update'])->name('staff.tasks.update');
+
 });
 
 /*

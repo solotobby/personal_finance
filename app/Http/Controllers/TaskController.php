@@ -21,7 +21,7 @@ class TaskController extends Controller
 
         $total_tasks = $tasks->count();
         $completed_tasks = $tasks->where('status', 'completed')->count();
-        $pending_tasks = $tasks->where('status', 'pending')->count();
+        $pending_tasks = $tasks->whereIn('status', ['pending', 'in_progress'])->count();
 
         // return $completed_tasks;
         return view('tasks.index', compact('tasks', 'total_tasks', 'completed_tasks', 'pending_tasks'));
@@ -70,9 +70,6 @@ class TaskController extends Controller
             'due_date' => $request->due_date,
             'created_by' => auth()->id(),
         ]);
-
-      // return $task->staff->email;
-       // $staff =Staffs::where('staff_id', $request->staff_id)->first();
 
         Mail::to($task->staff->email)->send(new TaskAssigned($task));
         return redirect()->route('tasks')->with('success', 'Task updated successfully.');

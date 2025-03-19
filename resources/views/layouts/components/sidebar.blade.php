@@ -39,7 +39,7 @@
             </ul>
         </li>
         <li class="{{ $page == 'Tasks' ? 'active-page' : '' }}">
-            <a href="#"><i data-feather="grid"></i>{{ __('Tasks') }}<i
+            <a href="#"><i data-feather="trello"></i>{{ __('Tasks') }}<i
                     class="fas fa-chevron-right dropdown-icon"></i></a>
             <ul class="">
                 <li><a href="{{ url('task') }}"><i class="far fa-circle"></i>{{ __('All') }}</a>

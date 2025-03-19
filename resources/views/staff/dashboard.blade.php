@@ -14,46 +14,50 @@
             @include('layouts.components.staff-page-header', ['title' => 'Staff Dashboard'])
 
             <div class="main-wrapper">
-               <!-- Password Reset Modal -->
-@if ($isFirstLogin)
-<div class="modal fade" id="passwordResetModal" tabindex="-1" aria-labelledby="passwordResetModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="passwordResetModalLabel">Reset Your Password</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>It looks like this is your first login. Please reset your password for security reasons.</p>
-                <form action="{{ route('staff.reset-password') }}" method="POST">
-                    @csrf
-                    <div class="mb-3">
-                        <label for="new_password" class="form-label">New Password</label>
-                        <input type="password" class="form-control" name="new_password" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="confirm_password" class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control" name="new_password_confirmation" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Reset Password</button>
+                <!-- Password Reset Modal -->
+                @if ($isFirstLogin)
+                    <div class="modal fade" id="passwordResetModal" tabindex="-1" aria-labelledby="passwordResetModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="passwordResetModalLabel">Reset Your Password</h5>
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>It looks like this is your first login. Please reset your password for security
+                                        reasons.</p>
+                                    <form action="{{ route('staff.reset-password') }}" method="POST">
+                                        @csrf
+                                        <div class="mb-3">
+                                            <label for="new_password" class="form-label">New Password</label>
+                                            <input type="password" class="form-control" name="new_password" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="confirm_password" class="form-label">Confirm Password</label>
+                                            <input type="password" class="form-control" name="new_password_confirmation"
+                                                required>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Reset Password</button>
 
-                    <!-- Logout Button with Corrected Syntax -->
-                    <a href="#" class="btn btn-danger ms-2" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <i data-feather="log-out"></i> {{ __('Logout') }}
-                    </a>
+                                        <!-- Logout Button with Corrected Syntax -->
+                                        <a href="#" class="btn btn-danger ms-2"
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            <i data-feather="log-out"></i> {{ __('Logout') }}
+                                        </a>
 
-                    <!-- Hidden Logout Form -->
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-@endif
+                                        <!-- Hidden Logout Form -->
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            @csrf
+                                        </form>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
 
 
                 <div class="row">
@@ -104,7 +108,7 @@
                             <div class="card-body text-center">
                                 {{-- <img src="{{ asset('assets/images/user-avatar.png') }}" alt="Profile Picture"
                                     class="rounded-circle mb-3" width="100"> --}}
-                                <h5 class="card-title">{{ auth()->user()->name ?? 'N/A' }}</h5>
+                                <h5 class="card-title">Hello {{ auth()->user()->name ?? 'N/A' }}</h5>
                                 <p class="card-text">{{ auth()->user()->email ?? 'N/A' }}</p>
                                 <p class="card-text"><strong>Staff ID:</strong> {{ auth()->user()->staff_id ?? 'N/A' }}</p>
                                 <p class="card-text"><strong>Business Name:</strong>
@@ -192,11 +196,11 @@
 
 
     @section('scripts')
-    <script>
-        $(document).ready(function() {
-            $("#passwordResetModal").modal("show"); // Auto-show the modal if first login
-        });
-    </script>
+        <script>
+            $(document).ready(function() {
+                $("#passwordResetModal").modal("show"); // Auto-show the modal if first login
+            });
+        </script>
         <script src="{{ asset('assets/plugins/apexcharts/apexcharts.min.js') }}"></script>
     @endsection
 

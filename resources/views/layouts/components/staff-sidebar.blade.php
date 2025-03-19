@@ -11,8 +11,8 @@
         </li>
 
         <li class="{{ $page == 'Task' ? 'active-page' : '' }}">
-            <a href="{{ route('staff.dashboard') }}" class="active">
-                <i data-feather="activity"></i> {{ __('Task') }}
+            <a href="{{ route('staff.tasks') }}" class="active">
+                <i data-feather="trello"></i> {{ __('Task') }}
             </a>
         </li>
 

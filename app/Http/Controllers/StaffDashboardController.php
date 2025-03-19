@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Payslip;
+use App\Models\Task;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -89,12 +90,54 @@ class StaffDashboardController extends Controller
         ]);
 
         $staff = auth()->guard('staffs')->user();
-//return $staff;
+
         $staff->password = Hash::make($request->new_password);
         $staff->first_login = false;
         $staff->save();
 
         // Redirect back with success message
         return redirect()->back()->with('success', 'Password reset successfully.');
+    }
+
+    public function viewTask()
+    {
+        $staff = auth()->guard('staffs')->user();
+
+        $tasks = Task::where('staff_id', $staff->id)
+            ->with(['user'])
+            ->orderByDesc('created_at')
+            ->get();
+
+        $total_tasks = $tasks->count();
+        $completed_tasks = $tasks->where('status', 'completed')->count();
+        $pending_tasks = $tasks->whereIn('status', ['pending', 'in_progress'])->count();
+
+        // return $completed_tasks;
+        return view('staff.task', compact('tasks', 'total_tasks', 'completed_tasks', 'pending_tasks'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|in:pending,in_progress,completed'
+        ]);
+
+        $staff = auth()->guard('staffs')->user();
+        $task = Task::where('task_id', $id)->where('staff_id', $staff->id)->first();
+
+        if (!$task) {
+            return redirect()->route('tasks.index')->with('error', 'Task not found.');
+        }
+
+        if ($request->status === 'completed') {
+            $task->update([
+                'status' => $request->status,
+                'completion_date' => now()
+            ]);
+        } else {
+            $task->update(['status' => $request->status]);
+        }
+
+        return redirect()->route('staff.tasks')->with('success', 'Task updated successfully.');
     }
 }
